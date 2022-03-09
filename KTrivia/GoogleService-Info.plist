@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>735243947847-t6jir2lo6pnk1pjhghehmmi4v9c45gva.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.735243947847-t6jir2lo6pnk1pjhghehmmi4v9c45gva</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDSU95hSTCbRa7jQkoEMI_VLBZoyu6vT4w</string>
+	<key>GCM_SENDER_ID</key>
+	<string>735243947847</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.alexis.KTrivia</string>
+	<key>PROJECT_ID</key>
+	<string>ktrivia-2d450</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ktrivia-2d450.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:735243947847:ios:c53caf88daf3c555230662</string>
+</dict>
+</plist>
