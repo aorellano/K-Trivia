@@ -7,36 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		891D08E094D9968A91F91F8C /* Pods_KTrivia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C61B2C4EB5FC610A22830D /* Pods_KTrivia.framework */; };
 		D0A8839427D8176200A18714 /* KTriviaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A8839327D8176200A18714 /* KTriviaApp.swift */; };
 		D0A8839627D8176200A18714 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A8839527D8176200A18714 /* ContentView.swift */; };
 		D0A8839827D8176300A18714 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0A8839727D8176300A18714 /* Assets.xcassets */; };
 		D0A8839B27D8176300A18714 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0A8839A27D8176300A18714 /* Preview Assets.xcassets */; };
 		D0A883A227D8179400A18714 /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A883A127D8179400A18714 /* CategoryListView.swift */; };
-		D0A883A627D817C700A18714 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A883A527D817C700A18714 /* CategoryViewModel.swift */; };
-		D0A883A827D8231400A18714 /* AppDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A883A727D8231400A18714 /* AppDataService.swift */; };
+		D0A883A627D817C700A18714 /* CategoryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A883A527D817C700A18714 /* CategoryListViewModel.swift */; };
+		D0A883A827D8231400A18714 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A883A727D8231400A18714 /* FirebaseManager.swift */; };
 		D0A883AB27D8283000A18714 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A883AA27D8283000A18714 /* ApiService.swift */; };
 		D0A883AD27D8304E00A18714 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0A883AC27D8304E00A18714 /* GoogleService-Info.plist */; };
 		D0A883B027D8318200A18714 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D0A883AF27D8318200A18714 /* FirebaseAnalytics */; };
 		D0A883B227D8318200A18714 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D0A883B127D8318200A18714 /* FirebaseAuth */; };
 		D0A883B427D8318200A18714 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D0A883B327D8318200A18714 /* FirebaseFirestore */; };
 		D0A883B627D8318200A18714 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D0A883B527D8318200A18714 /* FirebaseMessaging */; };
+		D0A883B827D886F400A18714 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A883B727D886F400A18714 /* Question.swift */; };
+		D0DE9D9627D97DBA006D8279 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = D0DE9D9527D97DBA006D8279 /* FirebaseFirestoreSwift-Beta */; };
+		D0DE9D9827D9D01D006D8279 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DE9D9727D9D01D006D8279 /* Array+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		068E7C5F59F8A23DB692D50A /* Pods-KTrivia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KTrivia.debug.xcconfig"; path = "Target Support Files/Pods-KTrivia/Pods-KTrivia.debug.xcconfig"; sourceTree = "<group>"; };
-		81C61B2C4EB5FC610A22830D /* Pods_KTrivia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KTrivia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BB7083FFAA24831AB8599108 /* Pods-KTrivia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KTrivia.release.xcconfig"; path = "Target Support Files/Pods-KTrivia/Pods-KTrivia.release.xcconfig"; sourceTree = "<group>"; };
 		D0A8839027D8176200A18714 /* KTrivia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KTrivia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0A8839327D8176200A18714 /* KTriviaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTriviaApp.swift; sourceTree = "<group>"; };
 		D0A8839527D8176200A18714 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D0A8839727D8176300A18714 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0A8839A27D8176300A18714 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D0A883A127D8179400A18714 /* CategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListView.swift; sourceTree = "<group>"; };
-		D0A883A527D817C700A18714 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
-		D0A883A727D8231400A18714 /* AppDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDataService.swift; sourceTree = "<group>"; };
+		D0A883A527D817C700A18714 /* CategoryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListViewModel.swift; sourceTree = "<group>"; };
+		D0A883A727D8231400A18714 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		D0A883AA27D8283000A18714 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		D0A883AC27D8304E00A18714 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D0A883B727D886F400A18714 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		D0DE9D9727D9D01D006D8279 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,9 +47,9 @@
 			files = (
 				D0A883B627D8318200A18714 /* FirebaseMessaging in Frameworks */,
 				D0A883B027D8318200A18714 /* FirebaseAnalytics in Frameworks */,
+				D0DE9D9627D97DBA006D8279 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				D0A883B227D8318200A18714 /* FirebaseAuth in Frameworks */,
 				D0A883B427D8318200A18714 /* FirebaseFirestore in Frameworks */,
-				891D08E094D9968A91F91F8C /* Pods_KTrivia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,19 +59,8 @@
 		4E34624FC905EB775B3C8827 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				068E7C5F59F8A23DB692D50A /* Pods-KTrivia.debug.xcconfig */,
-				BB7083FFAA24831AB8599108 /* Pods-KTrivia.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		85CC946BB7ED8D56F98B351B /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				81C61B2C4EB5FC610A22830D /* Pods_KTrivia.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		D0A8838727D8176200A18714 = {
@@ -79,7 +69,7 @@
 				D0A8839227D8176200A18714 /* KTrivia */,
 				D0A8839127D8176200A18714 /* Products */,
 				4E34624FC905EB775B3C8827 /* Pods */,
-				85CC946BB7ED8D56F98B351B /* Frameworks */,
+				D0DE9D9427D97DBA006D8279 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,7 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				D0A883AC27D8304E00A18714 /* GoogleService-Info.plist */,
-				D0A883A727D8231400A18714 /* AppDataService.swift */,
+				D0A883A727D8231400A18714 /* FirebaseManager.swift */,
 				D0A883A927D8237800A18714 /* Model */,
 				D0A883A427D817B400A18714 /* ViewModel */,
 				D0A883A327D8179700A18714 /* View */,
@@ -104,6 +94,7 @@
 				D0A8839727D8176300A18714 /* Assets.xcassets */,
 				D0A8839927D8176300A18714 /* Preview Content */,
 				D0A883AA27D8283000A18714 /* ApiService.swift */,
+				D0DE9D9727D9D01D006D8279 /* Array+Extensions.swift */,
 			);
 			path = KTrivia;
 			sourceTree = "<group>";
@@ -127,7 +118,7 @@
 		D0A883A427D817B400A18714 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				D0A883A527D817C700A18714 /* CategoryViewModel.swift */,
+				D0A883A527D817C700A18714 /* CategoryListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -135,8 +126,16 @@
 		D0A883A927D8237800A18714 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D0A883B727D886F400A18714 /* Question.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D0DE9D9427D97DBA006D8279 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,11 +145,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0A8839E27D8176300A18714 /* Build configuration list for PBXNativeTarget "KTrivia" */;
 			buildPhases = (
-				2EB9C804E900E662E3150DFB /* [CP] Check Pods Manifest.lock */,
 				D0A8838C27D8176200A18714 /* Sources */,
 				D0A8838D27D8176200A18714 /* Frameworks */,
 				D0A8838E27D8176200A18714 /* Resources */,
-				34F590DE47C79EAADABFC11A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -162,6 +159,7 @@
 				D0A883B127D8318200A18714 /* FirebaseAuth */,
 				D0A883B327D8318200A18714 /* FirebaseFirestore */,
 				D0A883B527D8318200A18714 /* FirebaseMessaging */,
+				D0DE9D9527D97DBA006D8279 /* FirebaseFirestoreSwift-Beta */,
 			);
 			productName = KTrivia;
 			productReference = D0A8839027D8176200A18714 /* KTrivia.app */;
@@ -216,58 +214,18 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		2EB9C804E900E662E3150DFB /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-KTrivia-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		34F590DE47C79EAADABFC11A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KTrivia/Pods-KTrivia-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-KTrivia/Pods-KTrivia-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KTrivia/Pods-KTrivia-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		D0A8838C27D8176200A18714 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0A883A627D817C700A18714 /* CategoryViewModel.swift in Sources */,
+				D0A883A627D817C700A18714 /* CategoryListViewModel.swift in Sources */,
 				D0A883A227D8179400A18714 /* CategoryListView.swift in Sources */,
 				D0A883AB27D8283000A18714 /* ApiService.swift in Sources */,
-				D0A883A827D8231400A18714 /* AppDataService.swift in Sources */,
+				D0DE9D9827D9D01D006D8279 /* Array+Extensions.swift in Sources */,
+				D0A883A827D8231400A18714 /* FirebaseManager.swift in Sources */,
 				D0A8839627D8176200A18714 /* ContentView.swift in Sources */,
+				D0A883B827D886F400A18714 /* Question.swift in Sources */,
 				D0A8839427D8176200A18714 /* KTriviaApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -311,10 +269,10 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
+				ENABLE_TESTABILITY = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -374,7 +332,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -393,7 +351,6 @@
 		};
 		D0A8839F27D8176300A18714 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 068E7C5F59F8A23DB692D50A /* Pods-KTrivia.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -423,7 +380,6 @@
 		};
 		D0A883A027D8176300A18714 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BB7083FFAA24831AB8599108 /* Pods-KTrivia.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -505,6 +461,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D0A883AE27D8318200A18714 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseMessaging;
+		};
+		D0DE9D9527D97DBA006D8279 /* FirebaseFirestoreSwift-Beta */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0A883AE27D8318200A18714 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreSwift-Beta";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
