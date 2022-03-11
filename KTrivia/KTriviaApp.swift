@@ -15,12 +15,8 @@ struct KTriviaApp: App {
     }
     var body: some Scene {
         WindowGroup {
-     
-                
-                CategoryListView()
-                
-
-            
+            CategoryView()
+    
         }
     }
 }
