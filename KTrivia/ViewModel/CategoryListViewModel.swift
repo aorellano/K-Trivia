@@ -7,33 +7,18 @@
 
 import FirebaseFirestore
 
-final class CategoryListViewModel: ObservableObject {
+class CategoryListViewModel: ObservableObject {
     @Published var groups = [String]()
+    var dataService: DataService
     
-    init() {
-        fetchGroups()
+    
+    init(dataService: DataService = FirebaseService()) {
+        self.dataService = dataService
     }
     
-    private func fetchGroups() {
-        FirebaseManager.shared.fireStore.collection("questions").addSnapshotListener { (querySnapshot, error) in
-            let documents = self.getDocuments(with: querySnapshot)
-            self.fetchQuestions(with: documents)
+    func getGroups() {
+        dataService.getGroups { [weak self] groups in
+            self?.groups = groups
         }
-    }
-    
-    func getDocuments(with querySnapshot: QuerySnapshot?) -> [DocumentSnapshot] {
-        if let documents = querySnapshot?.documents {
-            return documents
-        } else {
-            return []
-        }
-    }
-    
-    func fetchQuestions(with documents: [DocumentSnapshot]) {
-        self.groups = documents.map { (queryDocumentSnapshot) -> String in
-            let data = queryDocumentSnapshot.data()
-            let category = data?["category"] as? String ?? ""
-            return category
-        }.removeDuplicates() 
     }
 }

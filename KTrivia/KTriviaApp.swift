@@ -10,9 +10,17 @@ import Firebase
 
 @main
 struct KTriviaApp: App {
+    init() {
+        FirebaseApp.configure()
+    }
     var body: some Scene {
         WindowGroup {
-            CategoryListView(viewModel: CategoryListViewModel())
+     
+                
+                CategoryListView()
+                
+
+            
         }
     }
 }
