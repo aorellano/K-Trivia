@@ -9,11 +9,11 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 
-protocol DataService {
+protocol CategoryDataService {
     func getGroups(completion: @escaping ([String]) -> Void)
 }
 
-class FirebaseService: DataService {
+class FirebaseService: CategoryDataService {
     private let db = Firestore.firestore()
     @Published var groups = [String]()
     

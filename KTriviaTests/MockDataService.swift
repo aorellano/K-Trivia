@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+@testable import KTrivia
+
+final class MockDataService: CategoryDataService {
+    var groups: [String] = [""]
+    func getGroups(completion: @escaping ([String]) -> Void) {
+        completion(
+            groups
+        )
+    }
+}

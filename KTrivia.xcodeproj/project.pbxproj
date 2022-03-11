@@ -87,9 +87,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D014D8C627DBEDEB00642A7E /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Data Model";
+			sourceTree = "<group>";
+		};
 		D02473F527DABD8F00D663A4 /* KTriviaTests */ = {
 			isa = PBXGroup;
 			children = (
+				D014D8C627DBEDEB00642A7E /* Data Model */,
 				D02473FF27DAC0F300D663A4 /* KTriviaTests.swift */,
 				D02473FE27DAC0F300D663A4 /* KTriviaTests-Bridging-Header.h */,
 				D014D8C227DBDD1800642A7E /* MockDataService.swift */,

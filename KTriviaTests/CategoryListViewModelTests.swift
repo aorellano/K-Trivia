@@ -6,11 +6,32 @@
 //
 
 import XCTest
+@testable import KTrivia
 
 class CategoryListViewModelTests: XCTestCase {
+    var sut: CategoryListViewModel!
+    var mockDataService: MockDataService!
     
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        try super.setUpWithError()
+        mockDataService = MockDataService()
+        sut = CategoryListViewModel(dataService: mockDataService)
+    }
+    
+    func test_groups_start_empty() {
+        XCTAssert(sut.groups.isEmpty)
+    }
+    
+    func test_getGroups_successfully_returns_one_group() {
+        mockDataService.groups = ["Twice"]
+        sut.getGroups()
+        XCTAssertEqual(sut.groups.count, 1)
+    }
+    
+    func test_getGroups_successfully_returns_two_groups() {
+        mockDataService.groups = ["Twice", "BTS"]
+        sut.getGroups()
+        XCTAssertEqual(sut.groups.count, 2)
     }
 
     override func tearDownWithError() throws {

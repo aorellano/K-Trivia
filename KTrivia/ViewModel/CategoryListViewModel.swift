@@ -9,10 +9,10 @@ import FirebaseFirestore
 
 class CategoryListViewModel: ObservableObject {
     @Published var groups = [String]()
-    var dataService: DataService
+    var dataService: CategoryDataService
     
     
-    init(dataService: DataService = FirebaseService()) {
+    init(dataService: CategoryDataService = FirebaseService()) {
         self.dataService = dataService
     }
     
