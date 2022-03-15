@@ -9,7 +9,7 @@ import Foundation
 
 @testable import KTrivia
 
-final class MockDataService: CategoryDataService {
+final class MockDataService: DataService {
     var groups: [String] = [""]
     func getGroups(completion: @escaping ([String]) -> Void) {
         completion(

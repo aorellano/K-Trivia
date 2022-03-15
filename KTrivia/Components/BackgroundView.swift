@@ -10,7 +10,7 @@ import SwiftUI
 struct BackgroundView: View {
     var body: some View {
             GeometryReader { geo in
-                Image("background3")
+                Image("background2")
                     .resizable()
                     .aspectRatio(contentMode: ContentMode.fill)
                     .ignoresSafeArea()

@@ -20,6 +20,7 @@ struct CategoryView: View {
                 .padding(.top, 50)
             }
             .navigationBarHidden(true)
+
         }
     }
 }

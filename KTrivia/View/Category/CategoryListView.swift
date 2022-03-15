@@ -10,7 +10,8 @@ import SwiftUI
 struct CategoryListView: View {
     @StateObject var viewModel: CategoryListViewModel
     @State private var isTapped = false
-    @State var selection: Int? = nil
+    @State var selectedGroup: String? = nil
+    @State var navigationViewIsActive: Bool = false
     
     init(viewModel: CategoryListViewModel = .init()) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -19,13 +20,22 @@ struct CategoryListView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
+                VStack {
+                    if selectedGroup != nil {
+                        NavigationLink(destination:
+                                        TriviaView(groupName: selectedGroup ?? "", viewModel: TriviaViewModel(groupName: selectedGroup ?? ""), navigationViewActive: $navigationViewIsActive), isActive: $navigationViewIsActive) { EmptyView() }
+                        .isDetailLink(false)
+                    }
+                }.hidden()
+                    
                 ForEach(viewModel.groups, id: \.self) { group in
-                    NavigationLink(destination: TriviaView(groupName: group), tag: 1, selection: $selection) {
                         Button(action: {
                             let impactMed = UIImpactFeedbackGenerator(style: .light)
                             impactMed.impactOccurred()
-                            print(group)
-                            self.selection = 1
+                            print("group: \(group)")
+                            
+                            self.selectedGroup = group
+                            self.navigationViewIsActive = true
                         }) {
                             HStack {
                                 Spacer()
@@ -40,15 +50,18 @@ struct CategoryListView: View {
                         .shadow(radius: 5, x: 2, y: 2)
                         .padding(.leading, 20)
                         .padding(.trailing, 20)
-                    }
+                    
                 }
             }
+            
         }.onAppear {
             viewModel.getGroups()
             UITableView.appearance().backgroundColor = .clear
             UITableView.appearance().showsVerticalScrollIndicator = false
         }
+        
     }
+    
 }
 
 struct CategoryListView_Previews: PreviewProvider {

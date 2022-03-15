@@ -9,16 +9,17 @@ import FirebaseFirestore
 
 class CategoryListViewModel: ObservableObject {
     @Published var groups = [String]()
-    var dataService: CategoryDataService
+    var dataService: DataService
     
     
-    init(dataService: CategoryDataService = FirebaseService()) {
+    init(dataService: DataService = FirebaseService()) {
         self.dataService = dataService
     }
     
     func getGroups() {
         dataService.getGroups { [weak self] groups in
             self?.groups = groups
+            print(groups)
         }
     }
 }
