@@ -11,7 +11,7 @@ struct TriviaView: View {
     @StateObject var viewModel: TriviaViewModel
     @State var group: String
     @State var timeRemaining = 30
-    @Binding var navigationViewActive: Bool
+    //@Binding var navigationViewActive: Bool
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var answers = [
@@ -21,16 +21,13 @@ struct TriviaView: View {
         Answer(text: "Answer4", isCorrect: false)
     ]
     
-    init(groupName: String, viewModel: TriviaViewModel, navigationViewActive: Binding<Bool>) {
+    init(groupName: String, viewModel: TriviaViewModel) {
         self.group = groupName
         _viewModel = StateObject(wrappedValue: viewModel)
-        self._navigationViewActive = navigationViewActive
     }
-    
     
     var body: some View {
         ZStack {
-            
                 BackgroundView()
                 VStack(spacing: 40) {
                     HStack {
@@ -43,9 +40,7 @@ struct TriviaView: View {
 //                            .foregroundColor(.black)
 //                            .font(.system(size: 18))
 //                            .fontWeight(.bold)
-                        
                     }
-
                     .padding(.top, 20)
                     ProgressBar(progress: viewModel.progress)
 //
@@ -56,13 +51,9 @@ struct TriviaView: View {
                             .font(.system(size: 22))
                             .fontWeight(.bold)
                         Spacer()
-                    
-                
-
                         ForEach(viewModel.answers, id: \.id) { answer in
-                            AnswerRow(answer: answer, viewModel: viewModel, navigationViewIsActive: $navigationViewActive)
+                            AnswerRow(answer: answer, viewModel: viewModel)
                                         .environmentObject(viewModel)
-
                         }
                     }
                     Spacer()
@@ -70,16 +61,11 @@ struct TriviaView: View {
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .navigationBarHidden(true)
-
-  
-                
-
         }.onReceive(timer) { time in
             if self.timeRemaining > 0 {
                 self.timeRemaining -= 1
             }
         }
-
     }
 }
 
@@ -90,6 +76,6 @@ struct TriviaView_Previews: PreviewProvider {
         viewModel.questions = [
             Trivia(category: "Twice", type: "Multiple", question: "Who is  Twice?", correctAnswer: "That Bitch", incorrectAnswers: [""])
         ]
-        return TriviaView(groupName: group, viewModel: viewModel, navigationViewActive: .constant(true))
+        return TriviaView(groupName: group, viewModel: viewModel)
     }
 }

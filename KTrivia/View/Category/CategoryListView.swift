@@ -23,10 +23,11 @@ struct CategoryListView: View {
                 VStack {
                     if selectedGroup != nil {
                         NavigationLink(destination:
-                                        TriviaView(groupName: selectedGroup ?? "", viewModel: TriviaViewModel(groupName: selectedGroup ?? ""), navigationViewActive: $navigationViewIsActive), isActive: $navigationViewIsActive) { EmptyView() }
-                        .isDetailLink(false)
-                    }
-                }.hidden()
+                                        TriviaView(groupName: selectedGroup ?? "", viewModel: TriviaViewModel(groupName: selectedGroup ?? "")), isActive: $navigationViewIsActive) {
+                            EmptyView()
+                       
+                    }.hidden()
+                }
                     
                 ForEach(viewModel.groups, id: \.self) { group in
                         Button(action: {
@@ -85,3 +86,5 @@ struct DeferView<Content: View>: View {
     }
 }
 
+
+}

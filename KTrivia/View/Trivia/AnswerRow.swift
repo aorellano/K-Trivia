@@ -11,29 +11,28 @@ struct AnswerRow: View {
     @StateObject var viewModel: TriviaViewModel
     @State private var backgroundColor = Color.white
     @State private var isSelected = false
+    @State private private var showingSheet = false
     var answer: Answer
-    @Binding var navigationViewIsActive: Bool
+   
     
-    init(answer: Answer, viewModel: TriviaViewModel, navigationViewIsActive: Binding<Bool>) {
+    init(answer: Answer, viewModel: TriviaViewModel) {
         self.answer = answer
         _viewModel = StateObject(wrappedValue: viewModel)
-        self._navigationViewIsActive = navigationViewIsActive
     }
-    
     
     
     var body: some View {
         ZStack {
             
-            NavigationLink(destination: ResultsView(viewModel: viewModel, rootIsActive: $navigationViewIsActive), isActive: $navigationViewIsActive)
-             {
+//            NavigationLink(destination: ResultsView(viewModel: viewModel), isActive: $navigationViewIsActive)
+//             {
                  
                 HStack(spacing: 20) {
                     Text(answer.text)
                         .fontWeight(.semibold)
                         .foregroundColor(.black)
                 }
-             }.isDetailLink(false)
+//             }.isDetailLink(false)
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
             .foregroundColor(Color.black)
@@ -45,11 +44,10 @@ struct AnswerRow: View {
             .onTapGesture {
                 if viewModel.reachedEnd {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        navigationViewIsActive = true
-                        
+                        //navigationViewIsActive = true
                     }
                     
-                   navigationViewIsActive = false
+                   //navigationViewIsActive = false
                     
                 }
                 if !viewModel.answerSelected {
@@ -87,7 +85,7 @@ struct AnswerRow: View {
 
 struct AnswerRow_Previews: PreviewProvider {
     static var previews: some View {
-        AnswerRow(answer: Answer(text: "hi", isCorrect: true), viewModel: TriviaViewModel(groupName: "GROUP"), navigationViewIsActive: .constant(true))
+        AnswerRow(answer: Answer(text: "hi", isCorrect: true), viewModel: TriviaViewModel(groupName: "GROUP"))
             //.environmentObject(TriviaManager(for: "Bts"))
     }
 }
