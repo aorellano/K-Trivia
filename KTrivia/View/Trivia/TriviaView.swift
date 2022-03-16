@@ -9,10 +9,9 @@ import SwiftUI
 
 struct TriviaView: View {
     @StateObject var viewModel: TriviaViewModel
+    @State private var shouldNavigate = false
     @State var group: String
-    @State var timeRemaining = 30
-    //@Binding var navigationViewActive: Bool
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
     
     var answers = [
         Answer(text: "Answer1", isCorrect: true),
@@ -33,7 +32,7 @@ struct TriviaView: View {
                     HStack {
                         Title(text: group, size: 20)
                         Spacer()
-                        Title(text: "\(timeRemaining)", size: 20)
+                        Title(text: "\(viewModel.timeRemaining)", size: 20)
                         
 //                        Spacer()
 //                        Text("\(viewModel.index + 1)/5")
@@ -61,9 +60,19 @@ struct TriviaView: View {
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .navigationBarHidden(true)
-        }.onReceive(timer) { time in
-            if self.timeRemaining > 0 {
-                self.timeRemaining -= 1
+                .background(
+                    NavigationLink(destination: ResultsView(viewModel: viewModel),
+                                      isActive: $shouldNavigate) { EmptyView() }
+                )
+        } .onReceive(viewModel.timer) { time in
+            if viewModel.timeRemaining > 0 {
+                viewModel.timeRemaining -= 1
+                
+            }
+            
+            if viewModel.timeRemaining == 0 {
+                viewModel.endGame()
+                self.shouldNavigate = true
             }
         }
     }

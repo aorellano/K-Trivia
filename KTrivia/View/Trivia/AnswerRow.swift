@@ -11,7 +11,10 @@ struct AnswerRow: View {
     @StateObject var viewModel: TriviaViewModel
     @State private var backgroundColor = Color.white
     @State private var isSelected = false
-    @State private private var showingSheet = false
+    @State private var isActive: Bool = false
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+    @Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
+
     var answer: Answer
    
     
@@ -23,16 +26,15 @@ struct AnswerRow: View {
     
     var body: some View {
         ZStack {
-            
-//            NavigationLink(destination: ResultsView(viewModel: viewModel), isActive: $navigationViewIsActive)
-//             {
-                 
-                HStack(spacing: 20) {
-                    Text(answer.text)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.black)
-                }
-//             }.isDetailLink(false)
+            NavigationLink(destination: ResultsView(viewModel: viewModel), isActive: $isActive)
+             {
+                 EmptyView()
+             }.isDetailLink(false)
+            HStack(spacing: 20) {
+                Text(answer.text)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.black)
+            }
             .padding()
             .frame(maxWidth: .infinity, alignment: .leading)
             .foregroundColor(Color.black)
@@ -44,11 +46,8 @@ struct AnswerRow: View {
             .onTapGesture {
                 if viewModel.reachedEnd {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        //navigationViewIsActive = true
+                        isActive = true
                     }
-                    
-                   //navigationViewIsActive = false
-                    
                 }
                 if !viewModel.answerSelected {
                     isSelected = true
@@ -65,18 +64,11 @@ struct AnswerRow: View {
                     impactMed.impactOccurred()
                 }
                 isSelected = true
-               
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     isSelected = false
                 }
-                    
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                
-                        
-                    print("This is the index\(viewModel.index)")
                     viewModel.goToNextQuestion()
-                    
-                    
                 }
             }
         }
