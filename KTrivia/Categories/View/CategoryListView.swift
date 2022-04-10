@@ -12,6 +12,7 @@ struct CategoryListView: View {
     @State private var isTapped = false
     @State var selectedGroup: String? = nil
     @State var isActive: Bool = false
+    @EnvironmentObject var sessionService: SessionServiceImpl
     
     init(viewModel: CategoryListViewModel = .init()) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -21,8 +22,10 @@ struct CategoryListView: View {
         NavigationView {
             ZStack {
                 BackgroundView()
-                VStack(spacing: 20) {
-                    Title(text: "Choose Group", size: 30)
+                VStack {
+                    CategoryHeaderView()
+                        .environmentObject(sessionService)
+                        .padding(.top, -50)
                     ScrollView {
                         VStack(spacing: 20) {
                             if selectedGroup != nil {
@@ -62,11 +65,14 @@ struct CategoryListView: View {
                     .padding(.top, 40)
             }.padding(.top, 50)
         }
+            
             .navigationBarHidden(true)
     }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .environment(\.rootPresentationMode, self.$isActive)
+            .environment(\.rootPresentationMode, self.$isActive)
+            .navigationViewStyle(StackNavigationViewStyle())
+        
     }
+    
 }
 
 struct CategoryListView_Previews: PreviewProvider {

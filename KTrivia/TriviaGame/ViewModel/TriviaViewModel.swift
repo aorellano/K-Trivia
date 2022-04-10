@@ -8,10 +8,9 @@
 import FirebaseFirestore
 import SwiftUI
 
-class TriviaViewModel: ObservableObject {
+class TriviaViewModel: ObservableObject, TriviaService {
     var questions = [Trivia]()
     var dataService: DataService
-    var triviaManager: TriviaService
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @Published private(set) var length = 0
     @Published private(set) var index = 0
@@ -24,9 +23,8 @@ class TriviaViewModel: ObservableObject {
     @Published var timeRemaining = 30
     @State var isActive = true
 
-    init(groupName: String, dataService: FirebaseService = FirebaseService(), triviaManager: ClassicGameManager = ClassicGameManager()) {
+    init(groupName: String, dataService: FirebaseService = FirebaseService()) {
         self.dataService = dataService
-        self.triviaManager = triviaManager
         getQuestions(for: groupName)
     }
     

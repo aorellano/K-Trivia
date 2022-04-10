@@ -7,16 +7,24 @@
 
 import SwiftUI
 import Firebase
+import gRPC_Core
 
 @main
 struct KTriviaApp: App {
+    @StateObject var sessionService = SessionServiceImpl()
+    
     init() {
         FirebaseApp.configure()
     }
     var body: some Scene {
         WindowGroup {
-            CategoryListView()
-    
+            switch sessionService.state {
+            case .loggedIn:
+                CategoryListView()
+                    .environmentObject(sessionService)
+            case .loggedOut:
+                LoginView()
+            }
         }
     }
 }
