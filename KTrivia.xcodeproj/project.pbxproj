@@ -47,6 +47,8 @@
 		D0A883B227D8318200A18714 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = D0A883B127D8318200A18714 /* FirebaseAuth */; };
 		D0A883B427D8318200A18714 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = D0A883B327D8318200A18714 /* FirebaseFirestore */; };
 		D0A883B827D886F400A18714 /* Trivia.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A883B727D886F400A18714 /* Trivia.swift */; };
+		D0BEF62328051527000125C7 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BEF62228051527000125C7 /* Game.swift */; };
+		D0BEF62528051899000125C7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BEF62428051899000125C7 /* User.swift */; };
 		D0DE9D9627D97DBA006D8279 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = D0DE9D9527D97DBA006D8279 /* FirebaseFirestoreSwift-Beta */; };
 		D0DE9D9827D9D01D006D8279 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DE9D9727D9D01D006D8279 /* Array+Extensions.swift */; };
 /* End PBXBuildFile section */
@@ -102,6 +104,8 @@
 		D0A883A727D8231400A18714 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		D0A883AC27D8304E00A18714 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D0A883B727D886F400A18714 /* Trivia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trivia.swift; sourceTree = "<group>"; };
+		D0BEF62228051527000125C7 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		D0BEF62428051899000125C7 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D0DE9D9727D9D01D006D8279 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -248,6 +252,8 @@
 			children = (
 				D0A883B727D886F400A18714 /* Trivia.swift */,
 				D014D8D927DD2AA500642A7E /* Answer.swift */,
+				D0BEF62228051527000125C7 /* Game.swift */,
+				D0BEF62428051899000125C7 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -511,10 +517,12 @@
 				D03D6A9327E2C3DF0076C2A2 /* RegistrationService.swift in Sources */,
 				D0DE9D9827D9D01D006D8279 /* Array+Extensions.swift in Sources */,
 				D03D6A7A27E27E1B0076C2A2 /* LoginView.swift in Sources */,
+				D0BEF62528051899000125C7 /* User.swift in Sources */,
 				D0A883A827D8231400A18714 /* DataService.swift in Sources */,
 				D03D6A9C2800EC510076C2A2 /* CategoryHeaderView.swift in Sources */,
 				D03D6A9627E3F4D80076C2A2 /* RegistrationViewModel.swift in Sources */,
 				D024740E27DAE42400D663A4 /* TriviaView.swift in Sources */,
+				D0BEF62328051527000125C7 /* Game.swift in Sources */,
 				D0A883B827D886F400A18714 /* Trivia.swift in Sources */,
 				D03D6A9A27E40DDC0076C2A2 /* SessionService.swift in Sources */,
 				D024740C27DADC7000D663A4 /* Title.swift in Sources */,

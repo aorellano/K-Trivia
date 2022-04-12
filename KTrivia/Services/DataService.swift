@@ -41,8 +41,7 @@ class FirebaseService: DataService {
     
     func getQuestions(for group: String, completion: @escaping ([Trivia]) -> Void) {
         
-        db
-            .collection("questions").whereField("category", isEqualTo: group)
+        db.collection("questions").whereField("category", isEqualTo: group)
             .addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 return

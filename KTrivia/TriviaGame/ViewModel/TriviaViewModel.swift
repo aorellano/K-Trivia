@@ -22,6 +22,8 @@ class TriviaViewModel: ObservableObject, TriviaService {
     @Published private(set) var score = 0
     @Published var timeRemaining = 30
     @State var isActive = true
+    @Published var game = Game(id: UUID().uuidString, player1Id: String: "player1", player2Id: "player2", winnerPlayerId: "")
+    @Published var currentUser: User!
 
     init(groupName: String, dataService: FirebaseService = FirebaseService()) {
         self.dataService = dataService
