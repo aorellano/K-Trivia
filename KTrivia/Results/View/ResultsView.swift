@@ -32,6 +32,9 @@ struct ResultsView: View {
                 .background(.white)
                 .cornerRadius(40)
                 
+                Button (action: { self.rootPresentationMode.wrappedValue.dismiss() } )
+                            { Text("Sign Out") }
+                
             }
             
         }

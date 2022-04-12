@@ -20,7 +20,9 @@ class FirebaseService: DataService {
     @Published var questions = [Trivia]()
     
     func getGroups(completion: @escaping ([String]) -> Void) {
-        db.collection("questions").addSnapshotListener { (querySnapshot, error) in
+        db
+            .collection("questions")
+            .addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 return
             }
@@ -39,7 +41,8 @@ class FirebaseService: DataService {
     
     func getQuestions(for group: String, completion: @escaping ([Trivia]) -> Void) {
         
-        db.collection("questions").whereField("category", isEqualTo: group).addSnapshotListener { (querySnapshot, error) in
+        db.collection("questions").whereField("category", isEqualTo: group)
+            .addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 return
             }
