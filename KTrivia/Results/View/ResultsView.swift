@@ -42,12 +42,3 @@ struct ResultsView: View {
     }
 }
 
-struct ResultView_Previews: PreviewProvider {
-    static var previews: some View {
-        let group = "Blackpink"
-        let viewModel = TriviaViewModel(groupName: group)
-        
-        
-        return ResultsView(viewModel: viewModel)
-    }
-}

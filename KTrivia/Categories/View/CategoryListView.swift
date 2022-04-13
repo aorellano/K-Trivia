@@ -29,7 +29,7 @@ struct CategoryListView: View {
                     ScrollView {
                         VStack(spacing: 20) {
                             if selectedGroup != nil {
-                                NavigationLink(destination: TriviaView(groupName: selectedGroup ?? "", viewModel: TriviaViewModel(groupName: selectedGroup ?? "")), isActive: $isActive) {
+                                NavigationLink(destination: TriviaView(groupName: selectedGroup ?? "", viewModel: TriviaViewModel(groupName: selectedGroup ?? "", session: sessionService)), isActive: $isActive) {
                                         EmptyView()
                                    
                                 }.isDetailLink(false)
