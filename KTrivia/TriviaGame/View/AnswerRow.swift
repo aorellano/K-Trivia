@@ -75,9 +75,4 @@ struct AnswerRow: View {
     }
 }
 
-struct AnswerRow_Previews: PreviewProvider {
-    static var previews: some View {
-        AnswerRow(answer: Answer(text: "hi", isCorrect: true), viewModel: TriviaViewModel(groupName: "GROUP"))
-            //.environmentObject(TriviaManager(for: "Bts"))
-    }
-}
+

@@ -78,13 +78,4 @@ struct TriviaView: View {
     }
 }
 
-struct TriviaView_Previews: PreviewProvider {
-    static var previews: some View {
-        let group = "Twice"
-        let viewModel = TriviaViewModel(groupName: group)
-        viewModel.questions = [
-            Trivia(category: "Twice", type: "Multiple", question: "Who is  Twice?", correctAnswer: "That Bitch", incorrectAnswers: [""])
-        ]
-        return TriviaView(groupName: group, viewModel: viewModel)
-    }
-}
+

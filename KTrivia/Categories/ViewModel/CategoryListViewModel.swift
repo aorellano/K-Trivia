@@ -20,6 +20,7 @@ class CategoryListViewModel: ObservableObject {
         dataService.getGroups { [weak self] groups in
             self?.groups = groups
             print(groups)
+            print("hello")
         }
     }
 }

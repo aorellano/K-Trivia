@@ -7,10 +7,14 @@
 
 import FirebaseFirestore
 import SwiftUI
+import Combine
 
 class TriviaViewModel: ObservableObject, TriviaService {
+    //@AppStorage("user") private var userData: Data?
+    
     var questions = [Trivia]()
     var dataService: DataService
+    var sessionService: SessionService
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @Published private(set) var length = 0
     @Published private(set) var index = 0
@@ -22,12 +26,25 @@ class TriviaViewModel: ObservableObject, TriviaService {
     @Published private(set) var score = 0
     @Published var timeRemaining = 30
     @State var isActive = true
-    @Published var game = Game(id: UUID().uuidString, player1Id: String: "player1", player2Id: "player2", winnerPlayerId: "")
-    @Published var currentUser: User!
+    @Published var currentUser: String?
+    @Published var game: Game?
 
-    init(groupName: String, dataService: FirebaseService = FirebaseService()) {
+    init(groupName: String, session: SessionService, dataService: FirebaseService = FirebaseService()) {
         self.dataService = dataService
-        getQuestions(for: groupName)
+        self.sessionService = session
+        self.getQuestions(for: groupName)
+        self.retrieveUser()
+        self.getTheGame()
+//
+//        if currentUser == nil {
+//            saveUser()
+//        }
+    }
+    
+    func getTheGame() {
+        dataService.startGame(with: currentUser!) {[weak self] game in
+            self?.game = game
+        }
     }
     
     func getQuestions(for group: String) {
@@ -74,6 +91,24 @@ class TriviaViewModel: ObservableObject, TriviaService {
     
     func endGame() {
         reachedEnd = true
+    }
+    
+    //MARK - User object
+    
+//    func saveUser() {
+//        currentUser = User()
+//        do {
+//            print("encoding user object")
+//            let data = try JSONEncoder().encode(currentUser)
+//            userData = data
+//        } catch {
+//            print("couldnt save user object")
+//        }
+//    }
+    
+    func retrieveUser() {
+        currentUser = sessionService.userDetails?.id ?? ""
+        print(currentUser)
     }
 }
 
