@@ -140,8 +140,16 @@ class FirebaseService: DataService {
                 "player1Score": score,
                 "player2Score": self.game.player2Score,
                 "winnerPlayerId": self.game.winnerPlayerId
+                
             ])
+            
+
+
         }
+        
+
+        
+        
     }
     
     func updatePlayer2Score(_ score: String) {
@@ -154,14 +162,17 @@ class FirebaseService: DataService {
                 "player2Score": score,
                 "winnerPlayerId": self.game.winnerPlayerId
             ])
+            
+
+
         }
     }
+
     
     func updateGame(_ game: Game) {
         print("... updating game")
         do {
             try db.collection("game").document(game.id).setData(from: game)
-            print(game.player1Score)
         } catch {
             print("Error creating online game \(error.localizedDescription)")
         }
@@ -169,12 +180,8 @@ class FirebaseService: DataService {
     
     func listenForGameChanges() {
         db.collection("game").document(self.game.id).addSnapshotListener { [self] documentSnapshot, error in
-            print("listening for changes")
-            print("player 1 score \(game.player1Score)")
-            print("player 2 score \(game.player2Score)")
-            if game.player1Score != "" && game.player2Score != "" {
-                print("show results")
-            }
+            print("changes recieved from firebase")
+
             if error != nil {
                 print("Error listening to changes \(error?.localizedDescription)")
             }
@@ -184,6 +191,9 @@ class FirebaseService: DataService {
             }
         }
     }
+    
+
+    
     
 
     

@@ -19,8 +19,6 @@ class CategoryListViewModel: ObservableObject {
     func getGroups() {
         dataService.getGroups { [weak self] groups in
             self?.groups = groups
-            print(groups)
-            print("hello")
         }
     }
 }

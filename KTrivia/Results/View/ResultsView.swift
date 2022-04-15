@@ -20,21 +20,58 @@ struct ResultsView: View {
         ZStack {
             BackgroundView()
             VStack(spacing: 100) {
-                Title(text: "Your total score is...", size: 30)
-                Title(text: viewModel.score.description, size: 60)
-                Title(text: viewModel.results ?? "", size: 30)
+                HStack(alignment: .center, spacing: 20) {
+                    VStack {
+                        Image(systemName: "person.circle")
+                            //.clipShape(Circle())
+                            .font(.system(size: 100))
+        //                    .overlay {
+        //                        Circle().stroke(.black, lineWidth: 4)
+        //                    }
+                            .shadow(radius: 7)
+                        
+                        Text(viewModel.username ?? "")
+                    }
+                    Title(text: "VS", size: 30)
+                    VStack {
+                        Image(systemName: "person.circle")
+                                                //.clipShape(Circle())
+                            .font(.system(size: 100))
+                            //                    .overlay {
+                            //                        Circle().stroke(.black, lineWidth: 4)
+                            //                    }
+                            .shadow(radius: 7)
                 
-                Button (action: { self.rootPresentationMode.wrappedValue.dismiss() } )
-                            { Text("Play again") }
+                        Text(viewModel.opponentUsername ?? "")
+                    }
+                    
+                }
+                VStack(alignment: .center) {
+                    Title(text: "Final Scores", size: 30)
+                    HStack {
+                        Title(text: viewModel.yourScore ?? "", size: 60)
+                        Title(text: "-", size: 60)
+                        Title(text: viewModel.opponentScore ?? "", size: 60)
+                    }
+                    Title(text: viewModel.results ?? "", size: 60)
+                    
+                }
+                
+                VStack {
+                    Button (action: { self.rootPresentationMode.wrappedValue.dismiss() } )
+                                { Text("Play again") }
+                                .frame(height: 80)
+                                .shadow(radius: 5, x: 2, y: 2)
+                                .frame(width: 200)
+                                .background(.white)
+                                .cornerRadius(40)
+                    Button (action: { self.rootPresentationMode.wrappedValue.dismiss() } )
+                                { Text("Sign Out") }
+                }
 
-                .frame(height: 80)
-                .shadow(radius: 5, x: 2, y: 2)
-                .frame(width: 200)
-                .background(.white)
-                .cornerRadius(40)
                 
-                Button (action: { self.rootPresentationMode.wrappedValue.dismiss() } )
-                            { Text("Sign Out") }
+                
+                
                 
             }
             

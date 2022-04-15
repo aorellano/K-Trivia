@@ -80,6 +80,10 @@ struct TriviaView: View {
         .onAppear {
             viewModel.getTheGame()
         }
+        
+        .onDisappear {
+            viewModel.endGame()
+        }
     }
 }
 

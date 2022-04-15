@@ -27,24 +27,29 @@ class TriviaViewModel: ObservableObject, TriviaService {
     @Published var timeRemaining = 30
     @State var isActive = true
     @Published var currentUser: String?
-    @Published var game: Game?
+    @Published var game: Game? {
+        didSet {
+            checkIfGameIsOver()
+        }
+    }
     @Published var results: String?
-
+    @Published var username: String?
+    @Published var opponentUsername = "Opponent"
+    @Published var yourScore: String?
+    @Published var opponentScore: String?
+    @Published var isPlayerOne: Bool?
+    
     init(groupName: String, session: SessionService, dataService: FirebaseService = FirebaseService()) {
         self.dataService = dataService
         self.sessionService = session
         self.getQuestions(for: groupName)
         self.retrieveUser()
-//
-//        if currentUser == nil {
-//            saveUser()
-//        }
+
     }
     
     func getTheGame() {
         dataService.startGame(with: currentUser!) {[weak self] game in
             self?.game = game
-            print(self?.currentUser)
         }
     }
     
@@ -91,71 +96,46 @@ class TriviaViewModel: ObservableObject, TriviaService {
     }
     
     func endGame() {
-        
+        print("endgame")
             if game?.player1Id == currentUser {
-                //game?.player1Score = String(score)
                 dataService.updatePlayer1Score(String(score))
-               
-    //            if game?.player1Score != "" && game?.player2Score !=  "" {
-    //                if Int(game!.player1Score)! > Int(game!.player2Score)! {
-    //                    print("You Won!")
-    //                    results = "You Won!"
-    //                    game?.winnerPlayerId = game!.player1Id
-    //                } else if Int(game!.player1Score)! < Int(game!.player2Score)! {
-    //                    results = "You Lost!"
-    //                    game?.winnerPlayerId = game!.player2Id
-    //                } else {
-    //                    results = "Tie!"
-    //                    ("Tie!")
-    //                }
-    //            }
-                if game?.player2Score != "" {
-                    results = "You Won!"
-                }
+                isPlayerOne = true
+
             } else {
-                //game?.player2Score = String(score)
                 dataService.updatePlayer2Score(String(score))
-    //            if game?.player1Score != "" && game?.player2Score !=  "" {
-    //                if Int(game!.player1Score)! > Int(game!.player2Score)! {
-    //                    results = "You Lost!"
-    //                    game?.winnerPlayerId = game!.player1Id
-    //                } else if Int(game!.player1Score)! < Int(game!.player2Score)! {
-    //                    results = "You Won!"
-    //                    print("You Won!")
-    //                    game?.winnerPlayerId = game!.player2Id
-    //                } else {
-    //                    results = "Tie!"
-    //                    ("Tie!")
-    //                }
-    //            }
-                if game?.player1Score != "" {
-                    results = "You Won!"
-                }
+                isPlayerOne = false
             }
         
-
-            
-
-
-       
+        checkIfGameIsOver()
         reachedEnd = true
     }
     
-    //MARK - User object
-    
-//    func saveUser() {
-//        currentUser = User()
-//        do {
-//            print("encoding user object")
-//            let data = try JSONEncoder().encode(currentUser)
-//            userData = data
-//        } catch {
-//            print("couldnt save user object")
-//        }
-//    }
-    
+    func checkIfGameIsOver() {
+        guard game != nil else { return }
+        print("checking game")
+        if isPlayerOne ?? true {
+            yourScore = dataService.game?.player1Score
+            opponentScore = dataService.game?.player2Score
+        } else {
+            yourScore = dataService.game?.player2Score
+            opponentScore = dataService.game?.player1Score
+        }
+        
+        if dataService.game?.player1Score != "" && dataService.game?.player2Score != "" {
+            if isPlayerOne! && dataService.game.player1Score > dataService.game.player2Score {
+                results = "YOU WON! :)"
+            } else if dataService.game.player1Score == dataService.game.player2Score {
+                results = "TIE!"
+            } else {
+                results = "YOU LOST! :("
+            }
+        }
+    }
+            
+
     func retrieveUser() {
         currentUser = sessionService.userDetails?.id ?? ""
+        username = sessionService.userDetails?.username
         print("User id: \(currentUser)")
     }
 }
