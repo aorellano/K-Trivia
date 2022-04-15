@@ -22,6 +22,7 @@ struct ResultsView: View {
             VStack(spacing: 100) {
                 Title(text: "Your total score is...", size: 30)
                 Title(text: viewModel.score.description, size: 60)
+                Title(text: viewModel.results ?? "", size: 30)
                 
                 Button (action: { self.rootPresentationMode.wrappedValue.dismiss() } )
                             { Text("Play again") }
