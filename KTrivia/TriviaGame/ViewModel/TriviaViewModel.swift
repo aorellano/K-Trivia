@@ -28,13 +28,13 @@ class TriviaViewModel: ObservableObject, TriviaService {
     @State var isActive = true
     @Published var currentUser: String?
     @Published var game: Game?
+    @Published var results: String?
 
     init(groupName: String, session: SessionService, dataService: FirebaseService = FirebaseService()) {
         self.dataService = dataService
         self.sessionService = session
         self.getQuestions(for: groupName)
         self.retrieveUser()
-        self.getTheGame()
 //
 //        if currentUser == nil {
 //            saveUser()
@@ -44,6 +44,7 @@ class TriviaViewModel: ObservableObject, TriviaService {
     func getTheGame() {
         dataService.startGame(with: currentUser!) {[weak self] game in
             self?.game = game
+            print(self?.currentUser)
         }
     }
     
@@ -90,6 +91,53 @@ class TriviaViewModel: ObservableObject, TriviaService {
     }
     
     func endGame() {
+        
+            if game?.player1Id == currentUser {
+                //game?.player1Score = String(score)
+                dataService.updatePlayer1Score(String(score))
+               
+    //            if game?.player1Score != "" && game?.player2Score !=  "" {
+    //                if Int(game!.player1Score)! > Int(game!.player2Score)! {
+    //                    print("You Won!")
+    //                    results = "You Won!"
+    //                    game?.winnerPlayerId = game!.player1Id
+    //                } else if Int(game!.player1Score)! < Int(game!.player2Score)! {
+    //                    results = "You Lost!"
+    //                    game?.winnerPlayerId = game!.player2Id
+    //                } else {
+    //                    results = "Tie!"
+    //                    ("Tie!")
+    //                }
+    //            }
+                if game?.player2Score != "" {
+                    results = "You Won!"
+                }
+            } else {
+                //game?.player2Score = String(score)
+                dataService.updatePlayer2Score(String(score))
+    //            if game?.player1Score != "" && game?.player2Score !=  "" {
+    //                if Int(game!.player1Score)! > Int(game!.player2Score)! {
+    //                    results = "You Lost!"
+    //                    game?.winnerPlayerId = game!.player1Id
+    //                } else if Int(game!.player1Score)! < Int(game!.player2Score)! {
+    //                    results = "You Won!"
+    //                    print("You Won!")
+    //                    game?.winnerPlayerId = game!.player2Id
+    //                } else {
+    //                    results = "Tie!"
+    //                    ("Tie!")
+    //                }
+    //            }
+                if game?.player1Score != "" {
+                    results = "You Won!"
+                }
+            }
+        
+
+            
+
+
+       
         reachedEnd = true
     }
     
@@ -108,7 +156,7 @@ class TriviaViewModel: ObservableObject, TriviaService {
     
     func retrieveUser() {
         currentUser = sessionService.userDetails?.id ?? ""
-        print(currentUser)
+        print("User id: \(currentUser)")
     }
 }
 

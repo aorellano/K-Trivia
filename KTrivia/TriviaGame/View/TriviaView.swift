@@ -73,7 +73,12 @@ struct TriviaView: View {
             if viewModel.timeRemaining == 0 {
                 viewModel.endGame()
                 self.shouldNavigate = true
+                viewModel.timer.upstream.connect().cancel()
             }
+        }
+        
+        .onAppear {
+            viewModel.getTheGame()
         }
     }
 }

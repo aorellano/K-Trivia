@@ -18,6 +18,8 @@ protocol DataService {
     func listenForGameChanges()
     func createNewGame(with UserId: String)
     func quitTheGame()
+    func updatePlayer1Score(_ score: String)
+    func updatePlayer2Score(_ score: String)
     var game: Game! { get set }
 }
 
@@ -83,32 +85,31 @@ class FirebaseService: DataService {
         do {
             try db.collection("game").document(self.game.id).setData([
                 "id": self.game.id,
-                "player1Id": self.game.player2Id,
+                "player1Id": self.game.player1Id,
                 "player2Id": self.game.player2Id,
+                "player1Score": self.game.player1Score,
+                "player2Score": self.game.player2Score,
                 "winnerPlayerId": self.game.winnerPlayerId
             ])
-        } catch {
-            print("Error creating online game \(error.localizedDescription)")
         }
     }
     
     func startGame(with userId: String, completion: @escaping ((Game) -> Void)) {
-        //check if there is a game to join, if no, we create new game. If yes, we will join and start listening for any changes in the game.
-        
+        //check if there is a game to join, if no, we create new game.
+        //If yes, we will join and start listening for any changes in the game.
         db.collection("game")
             .whereField("player2Id", isEqualTo: "")
-            .whereField("player2Id", isNotEqualTo: userId)
+            .whereField("player1Id", isNotEqualTo: userId)
             .getDocuments { querySnapshot, error in
                 if error != nil {
-                    print("Error starting game", error?.localizedDescription)
                     //create new game
+                    print("Error starting game", error?.localizedDescription)
                     self.createNewGame(with: userId)
                     return
                 }
 
                 if let gameData = querySnapshot?.documents.first {
-                    let data = gameData.data()
-                    self.game = data["game"] as? Game ?? nil
+                    self.game = try? gameData.data(as: Game.self)
                     self.game.player2Id = userId
                     self.updateGame(self.game)
                     self.listenForGameChanges()
@@ -121,25 +122,70 @@ class FirebaseService: DataService {
                     )
             }
         }
-                
-    
-    
-    
-    func updateGame(_ game: Game) {
-        
-    }
-    
-    func listenForGameChanges() {
-        
-    }
     
     func createNewGame(with userId: String) {
         //create new game object
         print("creating game for \(userId)")
-        self.game = Game(id: UUID().uuidString, player1Id: userId, player2Id: "", winnerPlayerId: "")
+        self.game = Game(id: UUID().uuidString, player1Id: userId, player2Id: "", player1Score: "", player2Score: "", winnerPlayerId: "")
         self.createOnlineGame()
         self.listenForGameChanges()
     }
+    
+    func updatePlayer1Score(_ score: String) {
+        do {
+            try db.collection("game").document(self.game.id).setData([
+                "id": self.game.id,
+                "player1Id": self.game.player1Id,
+                "player2Id": self.game.player2Id,
+                "player1Score": score,
+                "player2Score": self.game.player2Score,
+                "winnerPlayerId": self.game.winnerPlayerId
+            ])
+        }
+    }
+    
+    func updatePlayer2Score(_ score: String) {
+        do {
+            try db.collection("game").document(self.game.id).setData([
+                "id": self.game.id,
+                "player1Id": self.game.player1Id,
+                "player2Id": self.game.player2Id,
+                "player1Score": self.game.player1Score,
+                "player2Score": score,
+                "winnerPlayerId": self.game.winnerPlayerId
+            ])
+        }
+    }
+    
+    func updateGame(_ game: Game) {
+        print("... updating game")
+        do {
+            try db.collection("game").document(game.id).setData(from: game)
+            print(game.player1Score)
+        } catch {
+            print("Error creating online game \(error.localizedDescription)")
+        }
+    }
+    
+    func listenForGameChanges() {
+        db.collection("game").document(self.game.id).addSnapshotListener { [self] documentSnapshot, error in
+            print("listening for changes")
+            print("player 1 score \(game.player1Score)")
+            print("player 2 score \(game.player2Score)")
+            if game.player1Score != "" && game.player2Score != "" {
+                print("show results")
+            }
+            if error != nil {
+                print("Error listening to changes \(error?.localizedDescription)")
+            }
+            
+            if let snapshot = documentSnapshot {
+                self.game = try? snapshot.data(as: Game.self)
+            }
+        }
+    }
+    
+
     
     func quitTheGame() {
         //

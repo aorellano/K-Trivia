@@ -11,5 +11,7 @@ struct Game: Codable {
     let id: String
     var player1Id: String
     var player2Id: String
+    var player1Score: String
+    var player2Score: String
     var winnerPlayerId: String
 }
