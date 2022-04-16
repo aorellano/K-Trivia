@@ -29,14 +29,14 @@ struct LoginView: View {
                     
                     VStack(spacing: 16) {
                         
-                        ButtonView(title: "Login", background: .purple) {
+                        ButtonView(title: "Login", background: Color.secondaryColor) {
                             vm.login()
                             print("hi")
                         }
                         
                         ButtonView(title: "Register",
                                    background: .white,
-                                   foreground: .purple,
+                                   foreground: Color.secondaryColor,
                                    border: .white) {
                             showRegistration.toggle()
                         }
@@ -47,6 +47,7 @@ struct LoginView: View {
                 }
                 
                 .padding(.horizontal, 15)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationTitle("Login")
             .background(Color(red: 132/255, green: 52/255, blue: 245/255))
             }
