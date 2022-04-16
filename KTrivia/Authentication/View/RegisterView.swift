@@ -14,7 +14,7 @@ struct RegisterView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                BackgroundView()
+   
                 VStack(spacing: 32) {
                     VStack(spacing: 16) {
                         InputTextFieldView(text: $vm.userDetails.username,
@@ -41,6 +41,7 @@ struct RegisterView: View {
             
             .navigationTitle("Register")
             .applyClose()
+            .background(Color(red: 132/255, green: 52/255, blue: 245/255))
         }
     }
 }

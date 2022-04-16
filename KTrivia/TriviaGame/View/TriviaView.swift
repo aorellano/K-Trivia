@@ -27,7 +27,7 @@ struct TriviaView: View {
     
     var body: some View {
         ZStack {
-                BackgroundView()
+                
                 VStack(spacing: 40) {
                     HStack {
                         Title(text: group, size: 20)
@@ -46,7 +46,7 @@ struct TriviaView: View {
 //
                     VStack(alignment: .leading, spacing: 20) {
                         Text(viewModel.question?.question ?? "")
-                            .foregroundColor(.black)
+                            .foregroundColor(.white)
                             .font(.system(size: 22))
                             .fontWeight(.bold)
                         Spacer()
@@ -84,6 +84,8 @@ struct TriviaView: View {
         .onDisappear {
             viewModel.endGame()
         }
+        
+        .background(Color(red: 132/255, green: 52/255, blue: 245/255))
     }
 }
 

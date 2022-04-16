@@ -16,8 +16,7 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                BackgroundView()
-            
+    
                 
                 VStack(spacing: 16) {
                     VStack(spacing: 16) {
@@ -49,6 +48,7 @@ struct LoginView: View {
                 
                 .padding(.horizontal, 15)
             .navigationTitle("Login")
+            .background(Color(red: 132/255, green: 52/255, blue: 245/255))
             }
             
         }
