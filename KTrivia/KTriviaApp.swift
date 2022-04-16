@@ -8,6 +8,7 @@
 import SwiftUI
 import Firebase
 import gRPC_Core
+import SceneKit
 
 @main
 struct KTriviaApp: App {
@@ -25,6 +26,7 @@ struct KTriviaApp: App {
             case .loggedOut:
                 LoginView()
             }
+
         }
     }
 }

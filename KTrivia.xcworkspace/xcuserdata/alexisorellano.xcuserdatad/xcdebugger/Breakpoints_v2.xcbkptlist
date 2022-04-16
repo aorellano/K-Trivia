@@ -452,5 +452,69 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BD1BD8A9-B216-42F1-86F7-94A8F68DAE5A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KTrivia/LoadingScreen.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "BD1BD8A9-B216-42F1-86F7-94A8F68DAE5A - 83b6961ea1022bdb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.opacity(Swift.Double) -&gt; some&gt;&gt;.0 in KTrivia.LoadingScreen.body.getter : some"
+                  moduleName = "KTrivia"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexisorellano/Projects/KTrivia/KTrivia/LoadingScreen.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "440">
+               </Location>
+               <Location
+                  uuid = "BD1BD8A9-B216-42F1-86F7-94A8F68DAE5A - 5160283daa880dad"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "implicit closure #2 () -&gt; () in implicit closure #1 (KTrivia.LoadingScreen) -&gt; () -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.opacity(Swift.Double) -&gt; some&gt;&gt;.0 in KTrivia.LoadingScreen.body.getter : some"
+                  moduleName = "KTrivia"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/alexisorellano/Projects/KTrivia/KTrivia/LoadingScreen.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "60">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A6EC8604-6FE5-4CED-B8FE-C8AF82852A70"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KTrivia/LoadingScreen.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "animateSplash()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

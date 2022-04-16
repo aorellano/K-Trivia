@@ -17,6 +17,8 @@ struct LoginView: View {
         NavigationView {
             ZStack {
                 BackgroundView()
+            
+                
                 VStack(spacing: 16) {
                     VStack(spacing: 16) {
                         InputTextFieldView(text: $vm.credentials.email, placeholder: "Email", keyboardType: .emailAddress, sfSymbol: "envelope")
@@ -48,6 +50,7 @@ struct LoginView: View {
                 .padding(.horizontal, 15)
             .navigationTitle("Login")
             }
+            
         }
     }
 }
