@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct CategoryHeaderView: View {
     @State private var isActive: Bool = false
@@ -21,14 +22,18 @@ struct CategoryHeaderView: View {
                      {
                          EmptyView()
                      }.isDetailLink(false)
-                    Image(systemName: "person.circle")
+                    WebImage(url: URL(string: sessionService.userDetails?.profilePic ?? ""))
                     //.clipShape(Circle())
-                    .font(.system(size: 40))
-                    .foregroundColor(.white)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 50, height: 50)
+                    .clipped()
+                    .cornerRadius(55)
+                
 //                    .overlay {
-//                        Circle().stroke(.black, lineWidth: 4)
+//                        Circle().stroke(.white, lineWidth: 1.5)
 //                    }
-                    .shadow(radius: 7)
+                    //.shadow(radius: 7)
                     .padding(.trailing, 15)
                     .onTapGesture {
                         isActive = true

@@ -10,4 +10,5 @@ import Foundation
 struct SessionUserDetails {
     let id: String
     let username: String
+    let profilePic: String
 }

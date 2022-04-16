@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import UIKit
 
 enum RegistrationState {
     case successful
@@ -19,6 +20,7 @@ protocol RegistrationViewModel {
     var service: RegistrationService { get }
     var state: RegistrationState { get }
     var userDetails: RegistrationDetails { get }
+    var profilePicture: UIImage? { get set }
     init(service: RegistrationService)
 }
 
@@ -30,6 +32,8 @@ final class RegistrationViewModelImpl: ObservableObject, RegistrationViewModel {
     
     var state: RegistrationState = .na
     
+    var profilePicture = UIImage(contentsOfFile: "")
+    
     @Published var userDetails: RegistrationDetails = RegistrationDetails.new
     
     init(service: RegistrationService) {
@@ -38,7 +42,7 @@ final class RegistrationViewModelImpl: ObservableObject, RegistrationViewModel {
     
     func register() {
         service
-            .register(with: userDetails)
+            .register(with: userDetails, and: profilePicture!)
             .sink { [weak self] res in
                 switch res {
                 case .failure(let error):
