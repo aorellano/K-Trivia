@@ -21,9 +21,10 @@ struct CategoryHeaderView: View {
                      {
                          EmptyView()
                      }.isDetailLink(false)
-                Image(systemName: "person.circle")
+                    Image(systemName: "person.circle")
                     //.clipShape(Circle())
                     .font(.system(size: 30))
+                    .foregroundColor(.white)
 //                    .overlay {
 //                        Circle().stroke(.black, lineWidth: 4)
 //                    }

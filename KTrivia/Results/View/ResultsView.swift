@@ -17,47 +17,34 @@ struct ResultsView: View {
     }
     
     var body: some View {
-        ZStack {
-            BackgroundView()
-            VStack(spacing: 100) {
-                HStack(alignment: .center, spacing: 20) {
-                    VStack {
-                        Image(systemName: "person.circle")
-                            //.clipShape(Circle())
-                            .font(.system(size: 100))
-        //                    .overlay {
-        //                        Circle().stroke(.black, lineWidth: 4)
-        //                    }
-                            .shadow(radius: 7)
-                        
-                        Text(viewModel.username ?? "")
-                    }
-                    Title(text: "VS", size: 30)
-                    VStack {
-                        Image(systemName: "person.circle")
-                                                //.clipShape(Circle())
-                            .font(.system(size: 100))
-                            //                    .overlay {
-                            //                        Circle().stroke(.black, lineWidth: 4)
-                            //                    }
-                            .shadow(radius: 7)
-                
-                        Text(viewModel.opponentUsername ?? "")
-                    }
-                    
-                }
-                VStack(alignment: .center) {
-                    Title(text: "Final Scores", size: 30)
-                    HStack {
-                        Title(text: viewModel.yourScore ?? "", size: 60)
-                        Title(text: "-", size: 60)
-                        Title(text: viewModel.opponentScore ?? "", size: 60)
-                    }
-                    Title(text: viewModel.results ?? "", size: 60)
-                    
-                }
-                
+        VStack(spacing: 100){
+            HStack(alignment: .center, spacing: 20) {
                 VStack {
+                    Image(systemName: "person.circle")
+                        .font(.system(size: 100))
+                        .shadow(radius: 7)
+                    Text(viewModel.username ?? "")
+                }
+                Title(text: "VS", size: 30)
+                VStack {
+                    Image(systemName: "person.circle")
+                                                //.clipShape(Circle())
+                        .font(.system(size: 100))
+                        .shadow(radius: 7)
+
+                    Text(viewModel.opponentUsername ?? "")
+                }
+            }
+            VStack{
+                Title(text: "Final Scores", size: 30)
+                HStack {
+                    Title(text: viewModel.yourScore ?? "", size: 60)
+                    Title(text: "-", size: 60)
+                    Title(text: viewModel.opponentScore ?? "", size: 60)
+                }
+                    Title(text: viewModel.results ?? "", size: 60)
+
+
                     Button (action: { self.rootPresentationMode.wrappedValue.dismiss() } )
                                 { Text("Play again") }
                                 .frame(height: 80)
@@ -67,16 +54,14 @@ struct ResultsView: View {
                                 .cornerRadius(40)
                     Button (action: { self.rootPresentationMode.wrappedValue.dismiss() } )
                                 { Text("Sign Out") }
-                }
-
-                
-                
-                
-                
             }
             
         }
         .navigationBarHidden(true)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .modifier(BackgroundColorStyle())
+        .ignoresSafeArea()
+            
     }
 }
 

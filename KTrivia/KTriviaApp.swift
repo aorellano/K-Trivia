@@ -26,7 +26,7 @@ struct KTriviaApp: App {
             case .loggedOut:
                 LoginView()
             }
-
+                
         }
     }
 }

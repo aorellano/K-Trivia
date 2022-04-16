@@ -21,11 +21,11 @@ struct CategoryListView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                BackgroundView()
                 VStack {
                     CategoryHeaderView()
                         .environmentObject(sessionService)
                         .padding(.top, -50)
+                        .padding(.bottom, 20)
                     ScrollView {
                         VStack(spacing: 20) {
                             if selectedGroup != nil {
@@ -67,9 +67,13 @@ struct CategoryListView: View {
         }
             
             .navigationBarHidden(true)
+            .background(Color(red: 132/255, green: 52/255, blue: 245/255))
+            
     }
             .environment(\.rootPresentationMode, self.$isActive)
             .navigationViewStyle(StackNavigationViewStyle())
+        
+            
         
     }
     

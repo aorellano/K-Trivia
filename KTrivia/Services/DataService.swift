@@ -44,7 +44,7 @@ class FirebaseService: DataService {
             let data = queryDocumentSnapshot.data()
             let category = data["category"] as? String ?? ""
             return category
-            }.removeDuplicates().filter({$0 != ""})
+             }.removeDuplicates().filter({$0 != ""})
             
             completion(
                 self.groups
