@@ -40,7 +40,7 @@ struct AnswerRow: View {
             .foregroundColor(Color.black)
             .background(backgroundColor)
             .cornerRadius(10)
-            .shadow(color: .gray, radius: 5, x: 0.5, y: 0.5)
+            .shadow(radius: 4, x: 0.5, y: 0.5)
             .scaleEffect(isSelected ? 0.96 : 1)
             .animation(.spring(response: 0.9, dampingFraction: 0.8), value: 0.6)
             .onTapGesture {
@@ -59,7 +59,7 @@ struct AnswerRow: View {
                     let impactMed = UIImpactFeedbackGenerator(style: .light)
                     impactMed.impactOccurred()
                 } else {
-                    backgroundColor = .red
+                    backgroundColor = Color(red: 255/255, green: 36/255, blue: 0/255)
                     let impactMed = UIImpactFeedbackGenerator(style: .heavy)
                     impactMed.impactOccurred()
                 }

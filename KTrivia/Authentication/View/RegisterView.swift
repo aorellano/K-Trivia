@@ -32,7 +32,7 @@ struct RegisterView: View {
                         
                     
                     }
-                    ButtonView(title: "Sign Up", background: .purple) {
+                    ButtonView(title: "Sign Up", background: Color.secondaryColor) {
                         vm.register()
                     }
                 }
@@ -40,7 +40,8 @@ struct RegisterView: View {
             }
             
             .navigationTitle("Register")
-            .applyClose()
+            .applyClose().foregroundColor(.white)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(red: 132/255, green: 52/255, blue: 245/255))
         }
     }

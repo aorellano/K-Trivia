@@ -51,6 +51,7 @@
 		D0BEF62528051899000125C7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BEF62428051899000125C7 /* User.swift */; };
 		D0BEF62828064C88000125C7 /* FirebaseReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BEF62728064C88000125C7 /* FirebaseReference.swift */; };
 		D0C6222B280A8E1800976CAF /* Body+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C6222A280A8E1800976CAF /* Body+Extension.swift */; };
+		D0C6222D280B451D00976CAF /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C6222C280B451D00976CAF /* Color+Extension.swift */; };
 		D0DE9D9627D97DBA006D8279 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = D0DE9D9527D97DBA006D8279 /* FirebaseFirestoreSwift-Beta */; };
 		D0DE9D9827D9D01D006D8279 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DE9D9727D9D01D006D8279 /* Array+Extensions.swift */; };
 /* End PBXBuildFile section */
@@ -110,6 +111,7 @@
 		D0BEF62428051899000125C7 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D0BEF62728064C88000125C7 /* FirebaseReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseReference.swift; sourceTree = "<group>"; };
 		D0C6222A280A8E1800976CAF /* Body+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Body+Extension.swift"; sourceTree = "<group>"; };
+		D0C6222C280B451D00976CAF /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		D0DE9D9727D9D01D006D8279 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -188,6 +190,7 @@
 			children = (
 				D0DE9D9727D9D01D006D8279 /* Array+Extensions.swift */,
 				D0C6222A280A8E1800976CAF /* Body+Extension.swift */,
+				D0C6222C280B451D00976CAF /* Color+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				D014D8CC27DC0D5B00642A7E /* TriviaViewModel.swift in Sources */,
 				D03D6A8627E2827C0076C2A2 /* InputPasswordView.swift in Sources */,
 				D0A883A227D8179400A18714 /* CategoryListView.swift in Sources */,
+				D0C6222D280B451D00976CAF /* Color+Extension.swift in Sources */,
 				D03D6AA52801EB3E0076C2A2 /* LoginViewModel.swift in Sources */,
 				D03D6A9327E2C3DF0076C2A2 /* RegistrationService.swift in Sources */,
 				D0DE9D9827D9D01D006D8279 /* Array+Extensions.swift in Sources */,

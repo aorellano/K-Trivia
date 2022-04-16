@@ -57,13 +57,14 @@ struct TriviaView: View {
                     }
                     Spacer()
                 }
-                .padding()
+                .padding([.leading, .trailing], 20)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .navigationBarHidden(true)
                 .background(
                     NavigationLink(destination: ResultsView(viewModel: viewModel),
                                       isActive: $shouldNavigate) { EmptyView() }
                 )
+                
         } .onReceive(viewModel.timer) { time in
             if viewModel.timeRemaining > 0 {
                 viewModel.timeRemaining -= 1
