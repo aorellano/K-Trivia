@@ -41,11 +41,10 @@ class FirebaseService: DataService {
             }
             
             self.groups = documents.map { (queryDocumentSnapshot) -> String in
-                let data = queryDocumentSnapshot.data()
-                let category = data["category"] as? String ?? ""
-                print(category)
-                return category
-            }.removeDuplicates()
+            let data = queryDocumentSnapshot.data()
+            let category = data["category"] as? String ?? ""
+            return category
+            }.removeDuplicates().filter({$0 != ""})
             
             completion(
                 self.groups
