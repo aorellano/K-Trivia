@@ -38,6 +38,7 @@
 		D03D6AA12801E9260076C2A2 /* LoginCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03D6AA02801E9260076C2A2 /* LoginCredentials.swift */; };
 		D03D6AA32801E9770076C2A2 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03D6AA22801E9770076C2A2 /* LoginService.swift */; };
 		D03D6AA52801EB3E0076C2A2 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03D6AA42801EB3E0076C2A2 /* LoginViewModel.swift */; };
+		D0A3C1C1280A63680067A4D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0A3C1C0280A63680067A4D0 /* LaunchScreen.storyboard */; };
 		D0A8839827D8176300A18714 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0A8839727D8176300A18714 /* Assets.xcassets */; };
 		D0A8839B27D8176300A18714 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0A8839A27D8176300A18714 /* Preview Assets.xcassets */; };
 		D0A883A227D8179400A18714 /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A883A127D8179400A18714 /* CategoryListView.swift */; };
@@ -96,6 +97,7 @@
 		D03D6AA02801E9260076C2A2 /* LoginCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCredentials.swift; sourceTree = "<group>"; };
 		D03D6AA22801E9770076C2A2 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		D03D6AA42801EB3E0076C2A2 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		D0A3C1C0280A63680067A4D0 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D0A8839027D8176200A18714 /* KTrivia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KTrivia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0A8839327D8176200A18714 /* KTriviaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTriviaApp.swift; sourceTree = "<group>"; };
 		D0A8839727D8176300A18714 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 		D0A8839227D8176200A18714 /* KTrivia */ = {
 			isa = PBXGroup;
 			children = (
+				D0A3C1C0280A63680067A4D0 /* LaunchScreen.storyboard */,
 				D0BEF62628064C7B000125C7 /* Helpers */,
 				D03D6A9D2801E4320076C2A2 /* Settings */,
 				D03D6A7C27E27EB60076C2A2 /* TriviaGame */,
@@ -482,6 +485,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0A8839B27D8176300A18714 /* Preview Assets.xcassets in Resources */,
+				D0A3C1C1280A63680067A4D0 /* LaunchScreen.storyboard in Resources */,
 				D0A8839827D8176300A18714 /* Assets.xcassets in Resources */,
 				D0A883AD27D8304E00A18714 /* GoogleService-Info.plist in Resources */,
 			);
@@ -742,6 +746,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -771,6 +776,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
