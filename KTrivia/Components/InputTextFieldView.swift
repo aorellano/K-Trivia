@@ -19,6 +19,7 @@ struct InputTextFieldView: View {
             .frame(maxWidth: .infinity, minHeight: 44)
             .padding(.leading, sfSymbol == nil ? textFieldLeading / 2 : textFieldLeading)
             .keyboardType(keyboardType)
+            .foregroundColor(.black)
             .background(
                 ZStack(alignment: .leading) {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)

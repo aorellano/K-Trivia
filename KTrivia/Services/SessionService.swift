@@ -67,8 +67,13 @@ private extension SessionServiceImpl {
                 guard let username = data["username"] as? String else {
                     return
                 }
+                
+                guard let profilePic = data["profilePicUrl"] as? String else {
+                    return
+                }
+                
                 DispatchQueue.main.async {
-                    self.userDetails = SessionUserDetails(id: uid, username: username)
+                    self.userDetails = SessionUserDetails(id: uid, username: username, profilePic: profilePic)
                 }
             }
     }

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import SDWebImageSwiftUI
 struct ResultsView: View {
     @StateObject var viewModel: TriviaViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
@@ -20,15 +20,18 @@ struct ResultsView: View {
         VStack(spacing: 100){
             HStack(alignment: .center, spacing: 20) {
                 VStack {
-                    Image(systemName: "person.circle")
-                        .font(.system(size: 100))
-                        .shadow(radius: 7)
+                    WebImage(url: URL(string: viewModel.sessionService.userDetails?.profilePic ?? ""))
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 100, height: 100)
+                        .clipped()
+                        .cornerRadius(100)
                     Text(viewModel.username ?? "")
                 }
                 Title(text: "VS", size: 30)
                 VStack {
+                    
                     Image(systemName: "person.circle")
-                                                //.clipShape(Circle())
                         .font(.system(size: 100))
                         .shadow(radius: 7)
 

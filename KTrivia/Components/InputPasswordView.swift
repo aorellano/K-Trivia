@@ -20,7 +20,7 @@ struct InputPasswordView: View {
             .frame(maxWidth: .infinity, minHeight: 44)
             
             .padding(.leading, sfSymbol == nil ? textFieldLeading / 2 : textFieldLeading)
-            
+            .foregroundColor(.black)
             .background(
                 
                 ZStack(alignment: .leading) {
