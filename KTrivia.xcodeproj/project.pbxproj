@@ -38,6 +38,7 @@
 		D03D6AA32801E9770076C2A2 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03D6AA22801E9770076C2A2 /* LoginService.swift */; };
 		D03D6AA52801EB3E0076C2A2 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03D6AA42801EB3E0076C2A2 /* LoginViewModel.swift */; };
 		D09762E9280B84DF00426F75 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D09762E8280B84DF00426F75 /* SDWebImageSwiftUI */; };
+		D09762EC280D13E400426F75 /* ProfilePictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09762EB280D13E400426F75 /* ProfilePictureView.swift */; };
 		D0A3C1C1280A63680067A4D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0A3C1C0280A63680067A4D0 /* LaunchScreen.storyboard */; };
 		D0A8839827D8176300A18714 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0A8839727D8176300A18714 /* Assets.xcassets */; };
 		D0A8839B27D8176300A18714 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0A8839A27D8176300A18714 /* Preview Assets.xcassets */; };
@@ -100,6 +101,7 @@
 		D03D6AA02801E9260076C2A2 /* LoginCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCredentials.swift; sourceTree = "<group>"; };
 		D03D6AA22801E9770076C2A2 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		D03D6AA42801EB3E0076C2A2 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		D09762EB280D13E400426F75 /* ProfilePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureView.swift; sourceTree = "<group>"; };
 		D0A3C1C0280A63680067A4D0 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D0A8839027D8176200A18714 /* KTrivia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KTrivia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0A8839327D8176200A18714 /* KTriviaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTriviaApp.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				D03D6A8727E285AF0076C2A2 /* ButtonView.swift */,
 				D03D6A8C27E2B8A90076C2A2 /* CloseModifier.swift */,
 				D0C6222E280B4E8600976CAF /* ImagePicker.swift */,
+				D09762EB280D13E400426F75 /* ProfilePictureView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -542,6 +545,7 @@
 				D03D6A8627E2827C0076C2A2 /* InputPasswordView.swift in Sources */,
 				D0A883A227D8179400A18714 /* CategoryListView.swift in Sources */,
 				D0C6222D280B451D00976CAF /* Color+Extension.swift in Sources */,
+				D09762EC280D13E400426F75 /* ProfilePictureView.swift in Sources */,
 				D03D6AA52801EB3E0076C2A2 /* LoginViewModel.swift in Sources */,
 				D03D6A9327E2C3DF0076C2A2 /* RegistrationService.swift in Sources */,
 				D0DE9D9827D9D01D006D8279 /* Array+Extensions.swift in Sources */,

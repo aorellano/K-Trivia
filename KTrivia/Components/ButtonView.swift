@@ -38,6 +38,7 @@ struct ButtonView: View {
         .foregroundColor(foreground)
         .font(.system(size: 16, weight: .bold))
         .cornerRadius(cornerRadius)
+        .shadow(radius: 5, x: 2, y: 2)
         .overlay(
             RoundedRectangle(cornerRadius: cornerRadius)
                 .stroke(border, lineWidth: 2)

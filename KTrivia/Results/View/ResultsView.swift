@@ -20,22 +20,24 @@ struct ResultsView: View {
         VStack(spacing: 100){
             HStack(alignment: .center, spacing: 20) {
                 VStack {
-                    WebImage(url: URL(string: viewModel.sessionService.userDetails?.profilePic ?? ""))
+                    WebImage(url: URL(string: viewModel.player1?.profilePicUrl ?? ""))
                         .resizable()
                         .scaledToFill()
                         .frame(width: 100, height: 100)
                         .clipped()
                         .cornerRadius(100)
-                    Text(viewModel.username ?? "")
+                    Text(viewModel.player1?.username ?? "")
                 }
                 Title(text: "VS", size: 30)
                 VStack {
                     
-                    Image(systemName: "person.circle")
-                        .font(.system(size: 100))
-                        .shadow(radius: 7)
-
-                    Text(viewModel.opponentUsername ?? "")
+                    WebImage(url: URL(string: viewModel.player2?.profilePicUrl ?? ""))
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 100, height: 100)
+                        .clipped()
+                        .cornerRadius(100)
+                    Text(viewModel.player2?.username ?? "")
                 }
             }
             VStack{
