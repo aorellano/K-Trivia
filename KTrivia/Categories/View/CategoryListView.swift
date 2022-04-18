@@ -63,7 +63,7 @@ struct CategoryListView: View {
                 .padding(.top, 50)
             }
             .navigationBarHidden(true)
-            .background(Color(red: 132/255, green: 52/255, blue: 245/255))
+            .background(Color.primaryColor)
         }
         .environment(\.rootPresentationMode, self.$isActive)
         .navigationViewStyle(StackNavigationViewStyle())

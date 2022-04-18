@@ -23,7 +23,6 @@ struct InputTextFieldView: View {
             .background(
                 ZStack(alignment: .leading) {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        //.stroke(Color.gray.opacity(0.25))
                         .foregroundColor(.white)
                     if let systemImage = sfSymbol {
                         Image(systemName: systemImage)
@@ -31,7 +30,6 @@ struct InputTextFieldView: View {
                             .padding(.leading, 5)
                             .foregroundColor(Color.gray.opacity(0.5))
                     }
-                    
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .stroke(Color.gray.opacity(0.25))
                 }

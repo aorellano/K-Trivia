@@ -19,7 +19,7 @@ struct CategoryHeaderView: View {
                     NavigationLink(destination: SignoutScreen().environmentObject(sessionService), isActive: $isActive) {
                          EmptyView()
                      }.isDetailLink(false)
-                    ProfilePictureView(size: 50, cornerRadius: 50)
+                    ProfilePictureView(profilePic: sessionService.userDetails?.profilePic, size: 50, cornerRadius: 50)
                         .environmentObject(sessionService)
                     .padding(.top, 10)
                     .padding(.trailing, 20)

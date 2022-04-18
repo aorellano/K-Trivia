@@ -16,42 +16,23 @@ struct InputPasswordView: View {
     
     var body: some View {
         SecureField(placeholder, text: $password)
-            
             .frame(maxWidth: .infinity, minHeight: 44)
-            
             .padding(.leading, sfSymbol == nil ? textFieldLeading / 2 : textFieldLeading)
             .foregroundColor(.black)
             .background(
-                
                 ZStack(alignment: .leading) {
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        //.stroke(Color.gray.opacity(0.25))
                         .foregroundColor(.white)
-                        
                     if let systemImage = sfSymbol {
-                        
                         Image(systemName: systemImage)
-                            
                             .font(.system(size: 16, weight: .semibold))
                             .padding(.leading, 5)
-                            
                             .foregroundColor(Color.gray.opacity(0.5))
-                            
-                            
                     }
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .stroke(Color.gray.opacity(0.25))
-              
-                        
-                        
-                        
-                        
                 }
-                   
-                
             )
-            
-            
     }
 }
 

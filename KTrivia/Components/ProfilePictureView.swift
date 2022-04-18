@@ -10,12 +10,13 @@ import SDWebImageSwiftUI
 
 struct ProfilePictureView: View {
     @EnvironmentObject var sessionService: SessionServiceImpl
+    let profilePic: String?
     let size: CGFloat
     let cornerRadius: CGFloat
     
     var body: some View {
-        if let profilePic = sessionService.userDetails?.profilePic {
-            WebImage(url: URL(string: profilePic))
+        if let pic = profilePic {
+            WebImage(url: URL(string: pic))
                 .resizable()
                 .scaledToFill()
                 .frame(width: size, height: size)
@@ -31,6 +32,6 @@ struct ProfilePictureView: View {
 
 struct ProfilePictureView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfilePictureView(size: 100, cornerRadius: 100)
+        ProfilePictureView(profilePic: "", size: 100, cornerRadius: 100)
     }
 }

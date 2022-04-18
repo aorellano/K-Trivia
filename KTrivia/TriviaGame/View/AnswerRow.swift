@@ -16,13 +16,11 @@ struct AnswerRow: View {
     @Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
 
     var answer: Answer
-   
     
     init(answer: Answer, viewModel: TriviaViewModel) {
         self.answer = answer
         _viewModel = StateObject(wrappedValue: viewModel)
     }
-    
     
     var body: some View {
         ZStack {
@@ -56,12 +54,10 @@ struct AnswerRow: View {
                 }
                 if answer.isCorrect {
                     backgroundColor = .green
-                    let impactMed = UIImpactFeedbackGenerator(style: .light)
-                    impactMed.impactOccurred()
+                    hapticFeedbackResponse(style: .light)
                 } else {
-                    backgroundColor = Color(red: 255/255, green: 36/255, blue: 0/255)
-                    let impactMed = UIImpactFeedbackGenerator(style: .heavy)
-                    impactMed.impactOccurred()
+                    backgroundColor = Color.incorrectColor
+                    hapticFeedbackResponse(style: .heavy)
                 }
                 isSelected = true
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -72,6 +68,10 @@ struct AnswerRow: View {
                 }
             }
         }
+    }
+    func hapticFeedbackResponse(style: UIImpactFeedbackGenerator.FeedbackStyle) {
+        let impactMed = UIImpactFeedbackGenerator(style: style)
+        impactMed.impactOccurred()
     }
 }
 

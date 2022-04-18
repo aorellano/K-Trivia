@@ -26,7 +26,6 @@ final class LoginViewModelImpl: ObservableObject, LoginViewModel {
     @Published var state: LoginState = .na
     @Published var credentials: LoginCredentials = LoginCredentials.new
     
-    private var subscriptions = Set<AnyCancellable>()
     let service: LoginService
     
     init(service: LoginService) {
@@ -34,17 +33,6 @@ final class LoginViewModelImpl: ObservableObject, LoginViewModel {
     }
     
     func login() {
-        service
-            .login(with: credentials)
-            .sink { res in
-                switch res {
-                case .failure(let err):
-                    self.state = .failed(error: err)
-                default: break
-                }
-            } receiveValue: { [weak self] in
-                self?.state = .successfull
-            }
-            .store(in: &subscriptions)
+        service.login(with: credentials)
     }
 }

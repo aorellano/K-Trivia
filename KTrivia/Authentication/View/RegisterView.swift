@@ -12,6 +12,7 @@ struct RegisterView: View {
         service: RegistrationServiceImpl()
     )
     @State var shouldShowImagePicker = false
+    @State var image: UIImage?
     
     var body: some View {
         NavigationView {
@@ -50,8 +51,6 @@ struct RegisterView: View {
                                        placeholder: "Password",
                                        sfSymbol: "lock")
                     
-                        
-                    
                     }
                     ButtonView(title: "Sign Up", background: Color.secondaryColor) {
                         vm.profilePicture = image
@@ -60,17 +59,14 @@ struct RegisterView: View {
                 }
                 .padding(.horizontal, 15)
             }
-            
             .navigationTitle("Register")
             .applyClose().foregroundColor(.white)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(red: 132/255, green: 52/255, blue: 245/255))
+            .background(Color.primaryColor)
         }.fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
             ImagePicker(image: $image)
         }
     }
-    
-    @State var image: UIImage?
 }
 
 struct RegisterView_Previews: PreviewProvider {
