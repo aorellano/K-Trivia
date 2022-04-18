@@ -28,7 +28,7 @@ struct RegisterView: View {
                                     .frame(width: 150, height: 150)
                                     .cornerRadius(75)
                                     .overlay(RoundedRectangle(cornerRadius: 75)
-                                                .stroke(Color.black, lineWidth: 1.5))
+                                                .stroke(Color.gray, lineWidth: 1.5))
                             } else {
                                 Image(systemName: "person.crop.circle.badge.plus")
                                     .font(.system(size: 150, weight: .light))
@@ -41,7 +41,7 @@ struct RegisterView: View {
                         InputTextFieldView(text: $vm.userDetails.username,
                                        placeholder: "Username",
                                        keyboardType: .namePhonePad,
-                                       sfSymbol: "envelope")
+                                       sfSymbol: "person")
                         InputTextFieldView(text: $vm.userDetails.email,
                                        placeholder: "Email",
                                        keyboardType: .emailAddress,

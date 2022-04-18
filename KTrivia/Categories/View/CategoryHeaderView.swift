@@ -4,7 +4,6 @@
 //
 //  Created by Alexis Orellano on 4/8/22.
 //
-
 import SwiftUI
 import SDWebImageSwiftUI
 
@@ -17,33 +16,19 @@ struct CategoryHeaderView: View {
             HStack {
                 Spacer()
                 ZStack {
-                    NavigationLink(destination: SignoutScreen()
-                                    .environmentObject(sessionService), isActive: $isActive)
-                     {
+                    NavigationLink(destination: SignoutScreen().environmentObject(sessionService), isActive: $isActive) {
                          EmptyView()
                      }.isDetailLink(false)
-                    WebImage(url: URL(string: sessionService.userDetails?.profilePic ?? ""))
-                    //.clipShape(Circle())
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 50, height: 50)
-                    .clipped()
-                    .cornerRadius(55)
-                
-//                    .overlay {
-//                        Circle().stroke(.white, lineWidth: 1.5)
-//                    }
-                    //.shadow(radius: 7)
-                    .padding(.trailing, 15)
+                    ProfilePictureView(size: 50, cornerRadius: 50)
+                        .environmentObject(sessionService)
+                    .padding(.top, 10)
+                    .padding(.trailing, 20)
                     .onTapGesture {
                         isActive = true
                     }
                 }
-                
-                
             }
             Title(text: "Choose Group", size: 30)
-            
         }
     }
 }
@@ -51,17 +36,6 @@ struct CategoryHeaderView: View {
 struct CategoryHeaderView_Previews: PreviewProvider {
     static var previews: some View {
         CategoryHeaderView()
-            //.environmentObject(SessionServiceImpl())
+            .environmentObject(SessionServiceImpl())
     }
 }
-
-//NavigationLink(destination: TriviaView(groupName: selectedGroup ?? "", viewModel: TriviaViewModel(groupName: selectedGroup ?? "")), isActive: $isActive) {
-//        EmptyView()
-//
-//}.isDetailLink(false)
-
-//NavigationLink(destination: ResultsView(viewModel: viewModel), isActive: $isActive)
-// {
-//     EmptyView()
-// }.isDetailLink(false)
-

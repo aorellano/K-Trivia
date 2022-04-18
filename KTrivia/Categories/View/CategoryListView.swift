@@ -9,8 +9,7 @@ import SwiftUI
 
 struct CategoryListView: View {
     @StateObject var viewModel: CategoryListViewModel
-    @State private var isTapped = false
-    @State var selectedGroup: String? = nil
+    @State var selectedCategory: String? = nil
     @State var isActive: Bool = false
     @EnvironmentObject var sessionService: SessionServiceImpl
     
@@ -28,33 +27,30 @@ struct CategoryListView: View {
                         .padding(.bottom, 20)
                     ScrollView {
                         VStack(spacing: 20) {
-                            if selectedGroup != nil {
-                                NavigationLink(destination: TriviaView(groupName: selectedGroup ?? "", viewModel: TriviaViewModel(groupName: selectedGroup ?? "", session: sessionService)), isActive: $isActive) {
+                            if selectedCategory != nil {
+                                NavigationLink(destination: TriviaView(groupName: selectedCategory ?? "", viewModel: TriviaViewModel(groupName: selectedCategory ?? "", session: sessionService)), isActive: $isActive) {
                                         EmptyView()
-                                   
                                 }.isDetailLink(false)
                             }
                             ForEach(viewModel.groups, id: \.self) { group in
-                                    Button(action: {
-                                        let impactMed = UIImpactFeedbackGenerator(style: .light)
-                                        impactMed.impactOccurred()
-                                        self.selectedGroup = group
-                                        self.isActive = true
-                                    }) {
-                                        HStack {
-                                            Spacer()
-                                            Text(group)
-                                                .fontWeight(.medium)
-                                            Spacer()
-                                        }
+                                Button(action: {
+                                    hapticFeedbackResponse()
+                                    self.selectedCategory = group
+                                    self.isActive = true
+                                }) {
+                                    HStack {
+                                        Spacer()
+                                        Text(group)
+                                            .fontWeight(.medium)
+                                        Spacer()
                                     }
-                                    .accentColor(Color.black)
-                                    .frame(height: 80)
-                                    .background(.white)
-                                    .cornerRadius(15)
-                                    .shadow(radius: 5, x: 2, y: 2)
-                                    .padding(.leading, 20)
-                                    .padding(.trailing, 20)
+                                }
+                                .accentColor(Color.black)
+                                .frame(height: 80)
+                                .background(.white)
+                                .cornerRadius(15)
+                                .shadow(radius: 5, x: 2, y: 2)
+                                .padding([.leading, .trailing], 20)
                             }
                         }
                     }.onAppear {
@@ -63,20 +59,20 @@ struct CategoryListView: View {
                         UITableView.appearance().showsVerticalScrollIndicator = false
                     }
                     .padding(.top, 40)
-            }.padding(.top, 50)
-        }
-            
+                }
+                .padding(.top, 50)
+            }
             .navigationBarHidden(true)
             .background(Color(red: 132/255, green: 52/255, blue: 245/255))
-            
-    }
-            .environment(\.rootPresentationMode, self.$isActive)
-            .navigationViewStyle(StackNavigationViewStyle())
-        
-            
-        
+        }
+        .environment(\.rootPresentationMode, self.$isActive)
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
+    func hapticFeedbackResponse() {
+        let impactMed = UIImpactFeedbackGenerator(style: .light)
+        impactMed.impactOccurred()
+    }
 }
 
 struct CategoryListView_Previews: PreviewProvider {
@@ -84,19 +80,7 @@ struct CategoryListView_Previews: PreviewProvider {
         let group = "Blackpink"
         let viewModel = CategoryListViewModel()
         viewModel.groups = [group]
-        
         return CategoryListView(viewModel: viewModel)
-    }
-}
-
-struct DeferView<Content: View>: View {
-    let content: () -> Content
-
-    init(@ViewBuilder _ content: @escaping () -> Content) {
-        self.content = content
-    }
-    var body: some View {
-        content()          // << everything is created here
     }
 }
 

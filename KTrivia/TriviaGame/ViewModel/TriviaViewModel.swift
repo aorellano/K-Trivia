@@ -26,10 +26,11 @@ class TriviaViewModel: ObservableObject, TriviaService {
     @Published private(set) var score = 0
     @Published var timeRemaining = 30
     @State var isActive = true
-    @Published var currentUser: String?
+    @Published var currentUser: SessionUserDetails?
     @Published var game: Game? {
         didSet {
             checkIfGameIsOver()
+            print(game?.player2)
         }
     }
     @Published var results: String?
@@ -38,13 +39,14 @@ class TriviaViewModel: ObservableObject, TriviaService {
     @Published var yourScore: String?
     @Published var opponentScore: String?
     @Published var isPlayerOne: Bool?
+    @Published var player2: User?
+    @Published var player1: User?
     
     init(groupName: String, session: SessionService, dataService: FirebaseService = FirebaseService()) {
         self.dataService = dataService
         self.sessionService = session
         self.getQuestions(for: groupName)
         self.retrieveUser()
-
     }
     
     func getTheGame() {
@@ -96,18 +98,33 @@ class TriviaViewModel: ObservableObject, TriviaService {
     }
     
     func endGame() {
-        print("endgame")
-            if game?.player1Id == currentUser {
-                dataService.updatePlayer1Score(String(score))
-                isPlayerOne = true
-
-            } else {
-                dataService.updatePlayer2Score(String(score))
-                isPlayerOne = false
-            }
-        
-        checkIfGameIsOver()
-        reachedEnd = true
+//        print("endgame")
+//            if game?.player1Id == currentUser {
+//                dataService.updatePlayer1Score(String(score))
+//                isPlayerOne = true
+//
+//                    dataService.findPlayer1Information(game?.player1Id ?? "") { [weak self] player1 in
+//                        print("Here i am assigning player 2 \(player1)")
+//                        self?.player1 = player1
+//
+//                }
+//                print("end of game my current user id is \(currentUser)")
+//                print("end of game player 1id is \(game?.player1Id ?? "")")
+//            } else {
+//
+//                    dataService.findPlayer2Information(game?.player2Id ?? "") { [weak self] player2 in
+//                        print("Here i am assigning player 2 \(player2)")
+//                        self?.player2 = player2
+//                    }
+//
+//
+//                dataService.updatePlayer2Score(String(score))
+//                isPlayerOne = false
+//                print("end of game player 2 id is \(game?.player2Id)")
+//            }
+//
+//        checkIfGameIsOver()
+//        reachedEnd = true
     }
     
     func checkIfGameIsOver() {
@@ -131,12 +148,12 @@ class TriviaViewModel: ObservableObject, TriviaService {
             }
         }
     }
-            
+    
 
     func retrieveUser() {
-        currentUser = sessionService.userDetails?.id ?? ""
+        currentUser = sessionService.userDetails
         username = sessionService.userDetails?.username
-        print("User id: \(currentUser)")
+        print("Current User: \(currentUser)")
     }
 }
 
