@@ -39,8 +39,7 @@ final class SessionServiceImpl: ObservableObject, SessionService {
 
 private extension SessionServiceImpl {
     func setupFirebaseHandler() {
-        handler = Auth
-            .auth()
+        handler = Auth.auth()
             .addStateDidChangeListener{ [weak self] res, user in
                 guard let self = self else { return }
                 self.state = user == nil ? .loggedOut : .loggedIn
@@ -77,5 +76,4 @@ private extension SessionServiceImpl {
                 }
             }
     }
-    
 }

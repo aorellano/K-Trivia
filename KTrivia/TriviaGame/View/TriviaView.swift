@@ -12,7 +12,6 @@ struct TriviaView: View {
     @State private var shouldNavigate = false
     @State var group: String
     
-    
     var answers = [
         Answer(text: "Answer1", isCorrect: true),
         Answer(text: "Answer2", isCorrect: false),
@@ -27,23 +26,14 @@ struct TriviaView: View {
     
     var body: some View {
         ZStack {
-                
                 VStack(spacing: 40) {
                     HStack {
                         Title(text: group, size: 20)
                         Spacer()
                         Title(text: "\(viewModel.timeRemaining)", size: 20)
-                        
-//                        Spacer()
-//                        Text("\(viewModel.index + 1)/5")
-//                            .foregroundColor(.black)
-//                            .font(.system(size: 18))
-//                            .fontWeight(.bold)
                     }
                     .padding(.top, 20)
                     ProgressBar(progress: viewModel.progress)
-//
-//
                     VStack(alignment: .leading, spacing: 20) {
                         Text(viewModel.question?.question ?? "")
                             .foregroundColor(.white)
@@ -64,29 +54,23 @@ struct TriviaView: View {
                     NavigationLink(destination: ResultsView(viewModel: viewModel),
                                       isActive: $shouldNavigate) { EmptyView() }
                 )
-                
         } .onReceive(viewModel.timer) { time in
             if viewModel.timeRemaining > 0 {
                 viewModel.timeRemaining -= 1
-                
             }
-            
             if viewModel.timeRemaining == 0 {
                 viewModel.endGame()
                 self.shouldNavigate = true
                 viewModel.timer.upstream.connect().cancel()
             }
         }
-        
         .onAppear {
             viewModel.getTheGame()
         }
-        
         .onDisappear {
             viewModel.endGame()
         }
-        
-        .background(Color(red: 132/255, green: 52/255, blue: 245/255))
+        .background(Color.primaryColor)
     }
 }
 

@@ -11,8 +11,7 @@ struct CloseModifier: ViewModifier {
     @Environment(\.presentationMode) var presentationMode
     
     func body(content: Content) -> some View {
-        content
-            .toolbar {
+        content.toolbar {
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
                 }, label: {

@@ -16,24 +16,16 @@ struct LoginView: View {
     var body: some View {
         NavigationView {
             ZStack {
-    
-                
                 VStack(spacing: 16) {
                     VStack(spacing: 16) {
                         InputTextFieldView(text: $vm.credentials.email, placeholder: "Email", keyboardType: .emailAddress, sfSymbol: "envelope")
-                        
-                            
                         InputPasswordView(password: $vm.credentials.password, placeholder: "Password", sfSymbol: "lock")
                     }
      
-                    
                     VStack(spacing: 16) {
-                        
                         ButtonView(title: "Login", background: Color.secondaryColor) {
                             vm.login()
-                            print("hi")
                         }
-                        
                         ButtonView(title: "Register",
                                    background: .white,
                                    foreground: Color.secondaryColor,
@@ -45,13 +37,11 @@ struct LoginView: View {
                         })
                     }
                 }
-                
                 .padding(.horizontal, 15)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .navigationTitle("Login")
-            .background(Color(red: 132/255, green: 52/255, blue: 245/255))
+                .navigationTitle("Login")
+                .background(Color.primaryColor)
             }
-            
         }
     }
 }

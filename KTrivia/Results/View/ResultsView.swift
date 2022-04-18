@@ -4,9 +4,9 @@
 //
 //  Created by Alexis Orellano on 3/12/22.
 //
-
 import SwiftUI
 import SDWebImageSwiftUI
+
 struct ResultsView: View {
     @StateObject var viewModel: TriviaViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
@@ -20,23 +20,12 @@ struct ResultsView: View {
         VStack(spacing: 100){
             HStack(alignment: .center, spacing: 20) {
                 VStack {
-                    WebImage(url: URL(string: viewModel.player1?.profilePicUrl ?? ""))
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 100, height: 100)
-                        .clipped()
-                        .cornerRadius(100)
+                    ProfilePictureView(profilePic: viewModel.currentUser?.profilePic, size: 100, cornerRadius: 100)
                     Text(viewModel.player1?.username ?? "")
                 }
                 Title(text: "VS", size: 30)
                 VStack {
-                    
-                    WebImage(url: URL(string: viewModel.player2?.profilePicUrl ?? ""))
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 100, height: 100)
-                        .clipped()
-                        .cornerRadius(100)
+                    ProfilePictureView(profilePic: viewModel.player2?.profilePicUrl, size: 100, cornerRadius: 100)
                     Text(viewModel.player2?.username ?? "")
                 }
             }
@@ -47,24 +36,21 @@ struct ResultsView: View {
                     Title(text: "-", size: 60)
                     Title(text: viewModel.opponentScore ?? "", size: 60)
                 }
-                    Title(text: viewModel.results ?? "", size: 60)
-
-
-                    Button (action: { self.rootPresentationMode.wrappedValue.dismiss() } )
-                                { Text("Play again") }
-                                .frame(height: 80)
-                                .shadow(radius: 5, x: 2, y: 2)
-                                .frame(width: 200)
-                                .background(.white)
-                                .cornerRadius(40)
+                Title(text: viewModel.results ?? "", size: 60)
+                Button (action: { self.rootPresentationMode.wrappedValue.dismiss() } ) {
+                    Text("Play again")
+                }
+                .frame(height: 80)
+                .shadow(radius: 5, x: 2, y: 2)
+                .frame(width: 200)
+                .background(.white)
+                .cornerRadius(40)
             }
-            
         }
         .navigationBarHidden(true)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .modifier(BackgroundColorStyle())
+        .background(Color.primaryColor)
         .ignoresSafeArea()
-            
     }
 }
 

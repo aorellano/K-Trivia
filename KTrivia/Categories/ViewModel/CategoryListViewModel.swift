@@ -11,8 +11,7 @@ class CategoryListViewModel: ObservableObject {
     @Published var groups = [String]()
     var dataService: DataService
     
-    
-    init(dataService: DataService = FirebaseService()) {
+    init(dataService: DataService = DataServiceImpl()) {
         self.dataService = dataService
     }
     

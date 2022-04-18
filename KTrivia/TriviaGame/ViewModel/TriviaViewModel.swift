@@ -9,12 +9,11 @@ import FirebaseFirestore
 import SwiftUI
 import Combine
 
-class TriviaViewModel: ObservableObject, TriviaService {
-    //@AppStorage("user") private var userData: Data?
-    
+class TriviaViewModel: ObservableObject {
     var questions = [Trivia]()
     var dataService: DataService
     var sessionService: SessionService
+    var gameService: GameService
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @Published private(set) var length = 0
     @Published private(set) var index = 0
@@ -30,7 +29,6 @@ class TriviaViewModel: ObservableObject, TriviaService {
     @Published var game: Game? {
         didSet {
             checkIfGameIsOver()
-            print(game?.player2)
         }
     }
     @Published var results: String?
@@ -42,15 +40,16 @@ class TriviaViewModel: ObservableObject, TriviaService {
     @Published var player2: User?
     @Published var player1: User?
     
-    init(groupName: String, session: SessionService, dataService: FirebaseService = FirebaseService()) {
+    init(groupName: String, session: SessionService, dataService: DataService = DataServiceImpl(), gameService: GameService = GameServiceImpl()) {
         self.dataService = dataService
         self.sessionService = session
+        self.gameService = gameService
         self.getQuestions(for: groupName)
         self.retrieveUser()
     }
     
     func getTheGame() {
-        dataService.startGame(with: currentUser!) {[weak self] game in
+        gameService.startGame(with: currentUser!) {[weak self] game in
             self?.game = game
         }
     }
@@ -131,17 +130,17 @@ class TriviaViewModel: ObservableObject, TriviaService {
         guard game != nil else { return }
         print("checking game")
         if isPlayerOne ?? true {
-            yourScore = dataService.game?.player1Score
-            opponentScore = dataService.game?.player2Score
+            yourScore = gameService.game?.player1Score
+            opponentScore = gameService.game?.player2Score
         } else {
-            yourScore = dataService.game?.player2Score
-            opponentScore = dataService.game?.player1Score
+            yourScore = gameService.game?.player2Score
+            opponentScore = gameService.game?.player1Score
         }
         
-        if dataService.game?.player1Score != "" && dataService.game?.player2Score != "" {
-            if isPlayerOne! && dataService.game.player1Score > dataService.game.player2Score {
+        if gameService.game?.player1Score != "" && gameService.game?.player2Score != "" {
+            if isPlayerOne! && gameService.game.player1Score > gameService.game.player2Score {
                 results = "YOU WON! :)"
-            } else if dataService.game.player1Score == dataService.game.player2Score {
+            } else if gameService.game.player1Score == gameService.game.player2Score {
                 results = "TIE!"
             } else {
                 results = "YOU LOST! :("
@@ -153,7 +152,7 @@ class TriviaViewModel: ObservableObject, TriviaService {
     func retrieveUser() {
         currentUser = sessionService.userDetails
         username = sessionService.userDetails?.username
-        print("Current User: \(currentUser)")
+        print("Current User: \(String(describing: currentUser))")
     }
 }
 
