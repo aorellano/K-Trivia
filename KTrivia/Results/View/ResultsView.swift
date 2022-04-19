@@ -18,23 +18,23 @@ struct ResultsView: View {
     
     var body: some View {
         VStack(spacing: 100){
-            HStack(alignment: .center, spacing: 20) {
+            HStack(alignment: .center, spacing: 40) {
                 VStack {
-                    ProfilePictureView(profilePic: viewModel.currentUser?.profilePic, size: 100, cornerRadius: 100)
-                    Text(viewModel.player1?.username ?? "")
+                    ProfilePictureView(profilePic: viewModel.game?.player1["profile_pic"], size: 100, cornerRadius: 100)
+                    Text(viewModel.game?.player1["username"] ?? "")
                 }
                 Title(text: "VS", size: 30)
                 VStack {
-                    ProfilePictureView(profilePic: viewModel.player2?.profilePicUrl, size: 100, cornerRadius: 100)
-                    Text(viewModel.player2?.username ?? "")
+                    ProfilePictureView(profilePic: viewModel.game?.player2["profile_pic"], size: 100, cornerRadius: 100)
+                    Text(viewModel.game?.player2["username"] ?? "")
                 }
             }
             VStack{
                 Title(text: "Final Scores", size: 30)
                 HStack {
-                    Title(text: viewModel.yourScore ?? "", size: 60)
+                    Title(text: String(viewModel.player1Score ?? 0), size: 60)
                     Title(text: "-", size: 60)
-                    Title(text: viewModel.opponentScore ?? "", size: 60)
+                    Title(text: String(viewModel.player2Score ?? 0), size: 60)
                 }
                 Title(text: viewModel.results ?? "", size: 60)
                 Button (action: { self.rootPresentationMode.wrappedValue.dismiss() } ) {
