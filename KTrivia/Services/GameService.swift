@@ -15,13 +15,15 @@ protocol GameService {
     func createOnlineGame()
     func updateGame(_ game: Game)
     func listenForGameChanges()
+    func updatePlayer1Score(_ score: String)
+    func updatePlayer2Score(_ score: String)
     func quitTheGame()
     var game: Game! { get set }
 }
 
 class GameServiceImpl: GameService {
     @Published var game: Game!
-
+    
     func createOnlineGame() {
         do {
             try FirebaseReference(.game).document(self.game.id).setData(from: self.game)
@@ -60,9 +62,9 @@ class GameServiceImpl: GameService {
     func createNewGame(with user: SessionUserDetails) {
         let userInfo = ["id": user.id, "profile_pic": user.profilePic, "username": user.username]
         print("creating game for \(user.username)")
-        self.game = Game(id: UUID().uuidString, player1: userInfo, player2: ["id":"", "profile_pic":"", "username":""], player1Score: "", player2Score: "", winnerPlayerId: "")
+        self.game = Game(id: UUID().uuidString, player1: userInfo, player2: ["id":"", "profile_pic":"", "username":""], player1Score: "", player2Score: "")
         self.createOnlineGame()
-        self.listenForGameChanges()
+
     }
     
     func updateGame(_ game: Game) {
@@ -77,7 +79,7 @@ class GameServiceImpl: GameService {
     func listenForGameChanges() {
         FirebaseReference(.game).document(self.game.id).addSnapshotListener { [self] documentSnapshot, error in
             print("changes recieved from firebase")
-
+       
             if error != nil {
                 print("Error listening to changes \(String(describing: error?.localizedDescription))")
             }
@@ -88,46 +90,49 @@ class GameServiceImpl: GameService {
         }
     }
     
+    func updatePlayer1Score(_ score: String) {
+        self.listenForGameChanges()
+        FirebaseReference(.game).document(self.game.id).setData([
+            "id": self.game.id,
+            "player1": self.game.player1,
+            "player2": self.game.player2,
+            "player1Score": score,
+            "player2Score": self.game.player2Score
+        ])
+        
+        
+        if game.player1Score != "" && game.player2Score != "" {
+            print("Game is over!")
+        }
+        print("score has been updated \(self.game.player1Score)")
+    }
+    
+    func updatePlayer2Score(_ score: String) {
+        self.listenForGameChanges()
+        FirebaseReference(.game).document(self.game.id).setData([
+            "id": self.game.id,
+            "player1": self.game.player1,
+            "player2": self.game.player2,
+            "player1Score": self.game.player1Score,
+            "player2Score": score
+        ])
+        
+
+    }
+    
+//    func updateWinner(with id: String) {
+//        self.listenForGameChanges()
+//        FirebaseReference(.game).document(self.game.id).setData([
+//            "id": self.game.id,
+//            "player1": self.game.player1,
+//            "player2": self.game.player2,
+//            "player1Score": self.game.player1Score,
+//            "player2Score": self.game.player2Score,
+//        ])
+//    }
     func quitTheGame() {
         //
     }
-    
-//    func updatePlayer1Score(_ score: String) {
-//        do {
-//            try db.collection("game").document(self.game.id).setData([
-//                "id": self.game.id,
-//                "player1Id": self.game.player1Id,
-//                "player2Id": self.game.player2Id,
-//                "player1Score": score,
-//                "player2Score": self.game.player2Score,
-//                "winnerPlayerId": self.game.winnerPlayerId
-//
-//            ])
-//
-//
-//
-//        }
-//
-//
-//
-//
-//    }
-//
-//    func updatePlayer2Score(_ score: String) {
-//        do {
-//            try db.collection("game").document(self.game.id).setData([
-//                "id": self.game.id,
-//                "player1Id": self.game.player1Id,
-//                "player2Id": self.game.player2Id,
-//                "player1Score": self.game.player1Score,
-//                "player2Score": score,
-//                "winnerPlayerId": self.game.winnerPlayerId
-//            ])
-//
-//
-//
-//        }
-//    }
     
 //    func findPlayer1Information(_ uid: String, completion: @escaping ((User) -> Void)) {
 ////        if let gameData = querySnapshot?.documents.first {
