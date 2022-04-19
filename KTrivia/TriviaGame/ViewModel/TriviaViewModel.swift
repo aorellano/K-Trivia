@@ -28,13 +28,9 @@ class TriviaViewModel: ObservableObject {
     @Published var currentUser: SessionUserDetails?
     @Published var game: Game? {
         didSet {
-            checkIfGameIsOver()
+            checkIfBothPlayersHaveFinished()
         }
     }
-    @Published var player2: [String: String]?
-    @Published var player1: [String: String]?
-    @Published var player1Score: Int?
-    @Published var player2Score: Int?
     @Published var isPlayerOne = false
     @Published var results: String?
     
@@ -44,14 +40,8 @@ class TriviaViewModel: ObservableObject {
         self.gameService = gameService
         self.getQuestions(for: groupName)
         self.retrieveUser()
-        
     }
     
-    func getTheGame() {
-        gameService.startGame(with: currentUser!) {[weak self] game in
-            self?.game = game
-        }
-    }
     
     func getQuestions(for group: String) {
         dataService.getQuestions(for: group) {[weak self] questions in
@@ -95,70 +85,46 @@ class TriviaViewModel: ObservableObject {
         score = 0
     }
     
+    func getTheGame() {
+        gameService.startGame(with: currentUser!) {[weak self] game in
+            self?.game = game
+        }
+    }
+    
     func endGame() {
-        gameService.listenForGameChanges()
-        checkIfUserHasAlreadyPlayed()
+        print("end of game")
         updatePlayerScore()
-        checkIfGameIsOver()
+        checkIfBothPlayersHaveFinished()
         reachedEnd = true
     }
     
     func updatePlayerScore() {
         if game?.player1["id"] == currentUser?.id {
-            gameService.updatePlayer1Score(String(score))
-            player1Score = score
+            gameService.updatePlayer1(score: String(score))
+            gameService.listenForGameChanges() {[weak self] game in
+                self?.game = game
+            }
             isPlayerOne = true
         } else {
-            gameService.updatePlayer2Score(String(score))
-            player2Score = score
-        }
-        
-    }
-    
-    func checkIfUserHasAlreadyPlayed() {
-        if game?.player1Score != "" {
-            player1Score = Int(game!.player1Score)
-            
-        } else if game?.player2Score != "" {
-            player2Score = Int(game!.player2Score)
-            
+            gameService.updatePlayer2(score: String(score))
+            gameService.listenForGameChanges() {[weak self] game in
+                self?.game = game
+            }
         }
     }
     
-    func checkIfGameIsOver() {
+    func checkIfBothPlayersHaveFinished() {
         print("checking game")
-        gameService.listenForGameChanges()
-        
-//        
-//        if game?.player1Score != "" && game?.player2Score != "" {
-//            if Int(game!.player1Score)! > Int(game!.player2Score)! {
-//                gameService.game.player1["isWinner"] = "true"
-//              
-//            } else {
-//                gameService.game.player2["isWinner"] = "true"
-//            }
-//            gameService.updateGame(game!)
-//        }
-        
-  
-        
-        
-
-//        if isPlayerOne ?? true {
-//            yourScore = gameService.game?.player1Score
-//            opponentScore = gameService.game?.player2Score
-//        } else {
-//            yourScore = gameService.game?.player2Score
-//            opponentScore = gameService.game?.player1Score
-//        }
-//
         if gameService.game?.player1Score != "" && gameService.game?.player2Score != "" {
             if isPlayerOne && gameService.game.player1Score > gameService.game.player2Score {
                 results = "YOU WON! :)"
+                gameService.updateWinner(id:game?.player1["id"] ?? "")
             } else if gameService.game.player1Score == gameService.game.player2Score {
                 results = "TIE!"
+                
             } else if !isPlayerOne && gameService.game.player1Score < gameService.game.player2Score {
                 results = "YOU WON! :)"
+                gameService.updateWinner(id: game?.player2["id"] ?? "")
             } else {
                 results = "YOU LOST! :("
             }

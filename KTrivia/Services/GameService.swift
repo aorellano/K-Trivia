@@ -14,9 +14,10 @@ protocol GameService {
     func startGame(with user: SessionUserDetails, completion: @escaping ((Game) -> Void))
     func createOnlineGame()
     func updateGame(_ game: Game)
-    func listenForGameChanges()
-    func updatePlayer1Score(_ score: String)
-    func updatePlayer2Score(_ score: String)
+    func listenForGameChanges(completion: @escaping ((Game) -> Void))
+    func updatePlayer1(score: String)
+    func updatePlayer2(score: String)
+    func updateWinner(id: String)
     func quitTheGame()
     var game: Game! { get set }
 }
@@ -49,7 +50,9 @@ class GameServiceImpl: GameService {
                 self.game = try? gameData.data(as: Game.self)
                 self.game.player2 = player1
                 self.updateGame(self.game)
-                self.listenForGameChanges()
+                self.listenForGameChanges() {[weak self] game in
+                    print("game started")
+                }
             } else {
                 self.createNewGame(with: user)
             }
@@ -62,7 +65,7 @@ class GameServiceImpl: GameService {
     func createNewGame(with user: SessionUserDetails) {
         let userInfo = ["id": user.id, "profile_pic": user.profilePic, "username": user.username]
         print("creating game for \(user.username)")
-        self.game = Game(id: UUID().uuidString, player1: userInfo, player2: ["id":"", "profile_pic":"", "username":""], player1Score: "", player2Score: "")
+        self.game = Game(id: UUID().uuidString, player1: userInfo, player2: ["id":"", "profile_pic":"", "username":""], player1Score: "", player2Score: "", winnerId:"")
         self.createOnlineGame()
 
     }
@@ -76,9 +79,9 @@ class GameServiceImpl: GameService {
         }
     }
     
-    func listenForGameChanges() {
+    func listenForGameChanges(completion: @escaping ((Game) -> Void)) {
         FirebaseReference(.game).document(self.game.id).addSnapshotListener { [self] documentSnapshot, error in
-            print("changes recieved from firebase")
+            print("changes recieved from firebase \(game.player1Score)")
        
             if error != nil {
                 print("Error listening to changes \(String(describing: error?.localizedDescription))")
@@ -87,37 +90,54 @@ class GameServiceImpl: GameService {
             if let snapshot = documentSnapshot {
                 self.game = try? snapshot.data(as: Game.self)
             }
+            
+            completion(
+                self.game
+            )
         }
     }
     
-    func updatePlayer1Score(_ score: String) {
-        self.listenForGameChanges()
+    func updatePlayer1(score: String) {
         FirebaseReference(.game).document(self.game.id).setData([
             "id": self.game.id,
             "player1": self.game.player1,
             "player2": self.game.player2,
             "player1Score": score,
-            "player2Score": self.game.player2Score
+            "player2Score": self.game.player2Score,
+            "winnerId": self.game.winnerId
         ])
         
-        
-        if game.player1Score != "" && game.player2Score != "" {
-            print("Game is over!")
-        }
-        print("score has been updated \(self.game.player1Score)")
+       
+//
+//
+//        if game.player1Score != "" && game.player2Score != "" {
+//            print("Game is over!")
+//        }
+//        print("score has been updated \(self.game.player1Score)")
     }
     
-    func updatePlayer2Score(_ score: String) {
-        self.listenForGameChanges()
+    func updatePlayer2(score: String) {
+        //\self.listenForGameChanges()
         FirebaseReference(.game).document(self.game.id).setData([
             "id": self.game.id,
             "player1": self.game.player1,
             "player2": self.game.player2,
             "player1Score": self.game.player1Score,
-            "player2Score": score
+            "player2Score": score,
+            "winnerId": self.game.winnerId
         ])
-        
-
+    }
+    
+    func updateWinner(id: String) {
+        //\self.listenForGameChanges()
+        FirebaseReference(.game).document(self.game.id).setData([
+            "id": self.game.id,
+            "player1": self.game.player1,
+            "player2": self.game.player2,
+            "player1Score": self.game.player1Score,
+            "player2Score": self.game.player2Score,
+            "winnerId": id
+        ])
     }
     
 //    func updateWinner(with id: String) {

@@ -32,9 +32,9 @@ struct ResultsView: View {
             VStack{
                 Title(text: "Final Scores", size: 30)
                 HStack {
-                    Title(text: String(viewModel.player1Score ?? 0), size: 60)
+                    Title(text: viewModel.game?.player1Score ?? "0", size: 60)
                     Title(text: "-", size: 60)
-                    Title(text: String(viewModel.player2Score ?? 0), size: 60)
+                    Title(text: viewModel.game?.player2Score ?? "0", size: 60)
                 }
                 Title(text: viewModel.results ?? "", size: 60)
                 Button (action: { self.rootPresentationMode.wrappedValue.dismiss() } ) {
