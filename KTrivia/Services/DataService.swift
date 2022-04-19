@@ -29,7 +29,7 @@ class DataServiceImpl: DataService {
                 let data = queryDocumentSnapshot.data()
                 let category = data["category"] as? String ?? ""
                 return category
-             }.removeDuplicates().filter({$0 != ""})
+            }.removeDuplicates().filter({$0 != ""})
             completion(
                 self.groups
             )
@@ -53,7 +53,7 @@ class DataServiceImpl: DataService {
                 let triviaQuestion = Trivia(category: category, type: type, question: question, correctAnswer: correctAnswer, incorrectAnswers: incorrectAnswers)
                 
                 return triviaQuestion
-            }
+            }.shuffled().enumerated().compactMap{ $0.offset < 5 ? $0.element : nil }
             
             completion(
                 self.questions
