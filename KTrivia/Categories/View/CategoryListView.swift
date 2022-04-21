@@ -28,9 +28,12 @@ struct CategoryListView: View {
                     ScrollView {
                         VStack(spacing: 20) {
                             if selectedCategory != nil {
-                                NavigationLink(destination: TriviaView(groupName: selectedCategory ?? "", viewModel: TriviaViewModel(groupName: selectedCategory ?? "", session: sessionService)), isActive: $isActive) {
-                                        EmptyView()
-                                }.isDetailLink(false)
+//                                NavigationLink(destination: TriviaView(groupName: selectedCategory ?? "", viewModel: TriviaViewModel(groupName: selectedCategory ?? "", session: sessionService)), isActive: $isActive) {
+//                                        EmptyView()
+//                                }.isDetailLink(false)
+                                NavigationLink(destination: SpinWheelView(groupName: selectedCategory ?? "", viewModel: TriviaViewModel(groupName: selectedCategory ?? "", sessionService: sessionService)), isActive: $isActive) {
+                                                                        EmptyView()
+                                                                }.isDetailLink(false)
                             }
                             ForEach(viewModel.groups, id: \.self) { group in
                                 Button(action: {

@@ -29,6 +29,15 @@
         }
       },
       {
+        "package": "FortuneWheel",
+        "repositoryURL": "https://github.com/sameersyd/FortuneWheel.git",
+        "state": {
+          "branch": null,
+          "revision": "2dcd0a03f34972ad96764a9ae9b4b46e94b83eeb",
+          "version": "0.1.4"
+        }
+      },
+      {
         "package": "GoogleAppMeasurement",
         "repositoryURL": "https://github.com/google/GoogleAppMeasurement.git",
         "state": {

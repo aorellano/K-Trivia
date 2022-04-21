@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct TriviaView: View {
+struct MultipleChoiceView: View {
     @StateObject var viewModel: TriviaViewModel
     @State private var shouldNavigate = false
+    @State var selectedCategory: String
     @State var group: String
     
     var answers = [
@@ -19,8 +20,9 @@ struct TriviaView: View {
         Answer(text: "Answer4", isCorrect: false)
     ]
     
-    init(groupName: String, viewModel: TriviaViewModel) {
+    init(groupName: String, selectedCategory: String, viewModel: TriviaViewModel) {
         self.group = groupName
+        self.selectedCategory = selectedCategory
         _viewModel = StateObject(wrappedValue: viewModel)
     }
     
