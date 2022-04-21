@@ -26,7 +26,9 @@ struct ProfilePictureView: View {
         } else {
             Image(systemName: "person.crop.circle.badge.plus")
                 .font(.system(size: size, weight: .light))
+                .foregroundColor(.white)
         }
+    
     }
 }
 

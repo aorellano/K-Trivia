@@ -14,6 +14,7 @@ class TriviaViewModel: ObservableObject {
     var dataService: DataService
     var sessionService: SessionService
     var gameService: GameService
+    var categoryType: String?
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @Published private(set) var length = 0
     @Published private(set) var index = 0
@@ -34,17 +35,17 @@ class TriviaViewModel: ObservableObject {
     @Published var isPlayerOne = false
     @Published var results: String?
     
-    init(groupName: String, session: SessionService, dataService: DataService = DataServiceImpl(), gameService: GameService = GameServiceImpl()) {
+    init(groupName: String, sessionService: SessionService, dataService: DataService = DataServiceImpl(), gameService: GameService = GameServiceImpl()) {
         self.dataService = dataService
-        self.sessionService = session
+        self.sessionService = sessionService
         self.gameService = gameService
-        self.getQuestions(for: groupName)
+        //self.getQuestions(for: groupName, and: categoryType ?? "")
         self.retrieveUser()
     }
     
     
-    func getQuestions(for group: String) {
-        dataService.getQuestions(for: group) {[weak self] questions in
+    func getQuestions(for group: String, and type: String) {
+        dataService.getQuestions(for: group, and: type) {[weak self] questions in
             self?.questions = questions
             self?.question = questions.randomElement()
             self?.answers = self?.question?.answers ?? [Answer(text: "", isCorrect: false)]

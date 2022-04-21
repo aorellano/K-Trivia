@@ -15,6 +15,7 @@ struct Trivia: Identifiable {
     var question: String
     var correctAnswer: String
     var incorrectAnswers: [String]
+    var file: String
     
     var formattedQuestion: AttributedString {
         do {
