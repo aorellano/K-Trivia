@@ -45,7 +45,7 @@ struct SpinWheelView: View {
                     
                     print("The Game is about to start for \(players[index])")
                 
-                    viewModel.getQuestions(for: group, and: selectedCategory ?? "")
+                    viewModel.getQuestions(for: group, and: "Song")
                 })
                     .padding()
                 Text("The category is... \(group)")

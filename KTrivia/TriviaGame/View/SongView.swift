@@ -8,7 +8,7 @@
 import SwiftUI
 import AVFoundation
 
-var player: AVAudioPlayer!
+
 
 struct SongView: View {
     @StateObject var viewModel: TriviaViewModel
@@ -16,6 +16,8 @@ struct SongView: View {
     @State var selectedCategory: String
     @State var answer = ""
     @State var shouldNavigate = false
+    @State var  isPlaying: Bool = false
+    @State var player = AVPlayer()
 
     
     init(groupName: String, selectedCategory: String, viewModel: TriviaViewModel) {
@@ -40,14 +42,21 @@ struct SongView: View {
                     .padding()
             
       
-//            Button(action: {
-//                playSound(viewModel.question?.file ?? "")
-//            }) {
-//                Image(systemName: "play")
-//                    .font(.system(size: 50))
-//
-//            }
-//            .padding()
+            Button(action: {
+                guard let url = URL(string: viewModel.question?.file ?? "") else { return }
+                print(url)
+                do {
+                    player = try AVPlayer(playerItem: AVPlayerItem(url: url))
+                    player.play()
+                } catch {
+                    print("error")
+                }
+            }) {
+                Image(systemName: "play.circle.fill")
+                    .font(.system(size: 50))
+
+            }
+            .padding()
             
             Spacer()
             InputTextFieldView(text: $answer, placeholder: "Enter Answer", keyboardType: .default, sfSymbol: "")
@@ -66,6 +75,7 @@ struct SongView: View {
         }
         .onAppear {
             viewModel.getTheGame()
+
         }
         .onDisappear {
             viewModel.endGame()
@@ -76,14 +86,12 @@ struct SongView: View {
         .navigationBarHidden(true)
     }
     
-//    func playSound(_ audio: String) {
-//        guard let url = Bundl else { return }
-//        print(url)
-//        do {
-//            player = try STKA(contentsOf: url)
-//            player.play()
-//        } catch {
-//            print("error")
-//        }
-//    }
+    func playPause() {
+        self.isPlaying.toggle()
+        if isPlaying == true {
+            player.pause()
+        } else {
+            player.play()
+        }
+    }
 }
