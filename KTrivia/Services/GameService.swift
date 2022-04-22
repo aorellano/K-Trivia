@@ -17,6 +17,8 @@ protocol GameService {
     func listenForGameChanges(completion: @escaping ((Game) -> Void))
     func updatePlayer1(score: String)
     func updatePlayer2(score: String)
+    func updatePlayer1Total(score: String)
+    func updatePlayer2Total(score: String)
     func updateWinner(id: String)
     func quitTheGame()
     var game: Game! { get set }
@@ -65,7 +67,7 @@ class GameServiceImpl: GameService {
     func createNewGame(with user: SessionUserDetails) {
         let userInfo = ["id": user.id, "profile_pic": user.profilePic, "username": user.username]
         print("creating game for \(user.username)")
-        self.game = Game(id: UUID().uuidString, player1: userInfo, player2: ["id":"", "profile_pic":"", "username":""], player1Score: "", player2Score: "", winnerId:"")
+        self.game = Game(id: UUID().uuidString, player1: userInfo, player2: ["id":"", "profile_pic":"", "username":""], player1Score: "", player2Score: "", player1TotalScore: "", player2TotalScore: "", winnerId:"")
         self.createOnlineGame()
 
     }
@@ -104,16 +106,10 @@ class GameServiceImpl: GameService {
             "player2": self.game.player2,
             "player1Score": score,
             "player2Score": self.game.player2Score,
+            "player1TotalScore": self.game.player1TotalScore,
+            "player2TotalScore": self.game.player2TotalScore,
             "winnerId": self.game.winnerId
         ])
-        
-       
-//
-//
-//        if game.player1Score != "" && game.player2Score != "" {
-//            print("Game is over!")
-//        }
-//        print("score has been updated \(self.game.player1Score)")
     }
     
     func updatePlayer2(score: String) {
@@ -124,6 +120,35 @@ class GameServiceImpl: GameService {
             "player2": self.game.player2,
             "player1Score": self.game.player1Score,
             "player2Score": score,
+            "player1TotalScore": self.game.player1TotalScore,
+            "player2TotalScore": self.game.player2TotalScore,
+            "winnerId": self.game.winnerId
+        ])
+    }
+    
+    func updatePlayer1Total(score: String) {
+        FirebaseReference(.game).document(self.game.id).setData([
+            "id": self.game.id,
+            "player1": self.game.player1,
+            "player2": self.game.player2,
+            "player1Score": self.game.player1Score,
+            "player2Score": self.game.player2Score,
+            "player1TotalScore": score,
+            "player2TotalScore": self.game.player2TotalScore,
+            "winnerId": self.game.winnerId
+        ])
+    }
+    
+    func updatePlayer2Total(score: String) {
+        //\self.listenForGameChanges()
+        FirebaseReference(.game).document(self.game.id).setData([
+            "id": self.game.id,
+            "player1": self.game.player1,
+            "player2": self.game.player2,
+            "player1Score": self.game.player1Score,
+            "player2Score": self.game.player2Score,
+            "player1TotalScore": self.game.player1TotalScore,
+            "player2TotalScore": score,
             "winnerId": self.game.winnerId
         ])
     }
@@ -136,6 +161,8 @@ class GameServiceImpl: GameService {
             "player2": self.game.player2,
             "player1Score": self.game.player1Score,
             "player2Score": self.game.player2Score,
+            "player1TotalScore": self.game.player1TotalScore,
+            "player2TotalScore": self.game.player2TotalScore,
             "winnerId": id
         ])
     }

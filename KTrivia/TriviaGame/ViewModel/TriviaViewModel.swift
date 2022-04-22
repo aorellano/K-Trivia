@@ -15,7 +15,6 @@ class TriviaViewModel: ObservableObject {
     var sessionService: SessionService
     var gameService: GameService
     var categoryType: String?
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @Published private(set) var length = 0
     @Published private(set) var index = 0
     @Published private(set) var reachedEnd = false
@@ -24,7 +23,7 @@ class TriviaViewModel: ObservableObject {
     @Published private(set) var answers: [Answer] = []
     @Published private(set) var progress: CGFloat = 0.00
     @Published private(set) var score = 0
-    @Published var timeRemaining = 30
+    @Published private(set) var totalScore = 0
     @State var isActive = true
     @Published var currentUser: SessionUserDetails?
     @Published var game: Game? {
@@ -42,7 +41,6 @@ class TriviaViewModel: ObservableObject {
         //self.getQuestions(for: groupName, and: categoryType ?? "")
         self.retrieveUser()
     }
-    
     
     func getQuestions(for group: String, and type: String) {
         dataService.getQuestions(for: group, and: type) {[weak self] questions in
@@ -81,7 +79,13 @@ class TriviaViewModel: ObservableObject {
         answerSelected = true
         if answer.isCorrect {
             score += 1
+        } else {
+            score = 0
         }
+    }
+    
+    func updateTotalScore() {
+        totalScore += 1
     }
     
     func resetGame() {
@@ -134,6 +138,10 @@ class TriviaViewModel: ObservableObject {
             }
         }
     }
+    
+
+        
+
     
 
     func retrieveUser() {

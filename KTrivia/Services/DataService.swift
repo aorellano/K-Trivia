@@ -42,34 +42,20 @@ class DataServiceImpl: DataService {
                 return
             }
             
-            if type == "MV" || type == "Performance" {
-                self.questions = documents.map { (queryDocumentSnapshot) -> Trivia in
-                    let data = queryDocumentSnapshot.data()
-                    let category = data["category"] as? String ?? ""
-                    let type = data["type"] as? String ?? ""
-                    let question = data["question"] as? String ?? ""
-                    let correctAnswer = data["correct_answer"] as? String ?? ""
-                    let file = data["file"] as? String ?? ""
+            self.questions = documents.map { (queryDocumentSnapshot) -> Trivia in
+                let data = queryDocumentSnapshot.data()
+                let category = data["category"] as? String ?? ""
+                let type = data["type"] as? String ?? ""
+                let question = data["question"] as? String ?? ""
+                let correctAnswer = data["correct_answer"] as? String ?? ""
+                let incorrectAnswers = data["incorrect_answers"] as? [String] ?? [""]
+                let file = data["file"] as? String ?? ""
                     
-                    let triviaQuestion = Trivia(category: category, type: type, question: question, correctAnswer: correctAnswer, incorrectAnswers: [""], file: file)
+                let triviaQuestion = Trivia(category: category, type: type, question: question, correctAnswer: correctAnswer, incorrectAnswers: incorrectAnswers, file: file)
                     
-                    return triviaQuestion
-                }.shuffled().enumerated().compactMap{ $0.offset < 5 ? $0.element : nil }
-            } else {
-                self.questions = documents.map { (queryDocumentSnapshot) -> Trivia in
-                    let data = queryDocumentSnapshot.data()
-                    let category = data["category"] as? String ?? ""
-                    let type = data["type"] as? String ?? ""
-                    let question = data["question"] as? String ?? ""
-                    let correctAnswer = data["correct_answer"] as? String ?? ""
-                    let incorrectAnswers = data["incorrect_answers"] as? [String] ?? [""]
-                    let file = data["file"] as? String ?? ""
-                    
-                    let triviaQuestion = Trivia(category: category, type: type, question: question, correctAnswer: correctAnswer, incorrectAnswers: incorrectAnswers, file: file)
-                    
-                    return triviaQuestion
-                }.shuffled().enumerated().compactMap{ $0.offset < 5 ? $0.element : nil }
-            }
+                return triviaQuestion
+            }.shuffled().enumerated().compactMap{ $0.offset < 5 ? $0.element : nil }
+            
             
             completion(
                 self.questions

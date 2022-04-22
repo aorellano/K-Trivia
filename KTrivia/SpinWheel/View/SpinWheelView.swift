@@ -15,6 +15,8 @@ struct SpinWheelView: View {
     @State var isActive: Bool = false
     @State var selectedCategory: String? = nil
     var players  = ["Choice", "Lyrics", "Choice", "MV", "Choice", "Song", "Performance"]
+    @State var viewHasAppeared = 0
+    @State var showingAlert = false
     
     
     init(groupName: String, viewModel: TriviaViewModel) {
@@ -31,37 +33,15 @@ struct SpinWheelView: View {
                        
                         Text(viewModel.game?.player1["username"] ?? "")
                             .foregroundColor(.white)
-                        
-                        HStack {
-                            Image(uiImage: UIImage(named: "LaunchScreenIcon")!)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 15, height: 15)
-                            Image(uiImage: UIImage(named: "LaunchScreenIcon")!)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 15, height: 15)
-                            Image(uiImage: UIImage(named: "LaunchScreenIcon")!)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 15, height: 15)
-                        }
+                        QuestionBombs(totalScore: viewModel.totalScore)
+
                     }
                     Title(text: "VS", size: 30)
                     VStack {
                         ProfilePictureView(profilePic: viewModel.game?.player2["profile_pic"], size: 100, cornerRadius: 100)
                         Text(viewModel.game?.player2["username"] ?? "")
                             .foregroundColor(.white)
-                        HStack {
-                            Image(uiImage: UIImage(named: "LaunchScreenIcon")!)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 15, height: 15)
-                            Image(uiImage: UIImage(named: "LaunchScreenIcon")!)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 15, height: 15)
-                        }
+                        //QuestionBombs(totalScore: 1)
                     }
                 }
                 .padding()
@@ -85,9 +65,7 @@ struct SpinWheelView: View {
                 }
                    
                 
-    
-                if selectedCategory == "MV" || selectedCategory == "Performance" {
-                    NavigationLink(destination: ScreenshotQuestionView(groupName: group ?? "", selectedCategory: selectedCategory ?? "", viewModel: viewModel), isActive: $isActive) {
+                NavigationLink(destination: MultipleChoiceView(groupName: group ?? "", selectedCategory: selectedCategory ?? "", viewModel: viewModel), isActive: $isActive) {
                     ButtonView(title: "Play", background: Color.secondaryColor) {
                         print("Hello")
                         //if selectedCategory != nil {
@@ -97,51 +75,28 @@ struct SpinWheelView: View {
                         isActive = true
                     }
                     .padding()
-                    }
-                } else if selectedCategory == "Lyrics"{
-                    NavigationLink(destination: ScreenshotQuestionView(groupName: group ?? "", selectedCategory: selectedCategory ?? "", viewModel: viewModel), isActive: $isActive) {
-                    ButtonView(title: "Play", background: Color.secondaryColor) {
-                        print("Hello")
-                        //if selectedCategory != nil {
-                                                            
-                    
-                        //}
-                        isActive = true
-                    }
-                    .padding()
-                    }
-                } else if selectedCategory == "Song" {
-                    NavigationLink(destination: SongView(groupName: group ?? "", selectedCategory: selectedCategory ?? "", viewModel: viewModel), isActive: $isActive) {
-                    ButtonView(title: "Play", background: Color.secondaryColor) {
-                        print("Hello")
-                        //if selectedCategory != nil {
-                                                            
-                    
-                        //}
-                        isActive = true
-                    }
-                    .padding()
-                    }
-                    } else {
-                        NavigationLink(destination: MultipleChoiceView(groupName: group ?? "", selectedCategory: selectedCategory ?? "", viewModel: viewModel), isActive: $isActive) {
-                        ButtonView(title: "Play", background: Color.secondaryColor) {
-                            print("Hello")
-                            //if selectedCategory != nil {
-                                                                
-                        
-                            //}
-                            isActive = true
-                        }
-                        .padding()
-                        }
-                    }
+                }
+                .alert("Would you like to recieve a question bomb or challenge your opponent for their question bomb?", isPresented: $showingAlert) {
+                        Button("Recieve") { viewModel.updateTotalScore() }
+                                Button("Challenge"){ print("Challenging for Question Bomb")}
+                }
+            
                 
     
                 
-
+                    
                 
             }.onAppear {
-                viewModel.getTheGame()
+                if viewHasAppeared == 0 {
+                    viewModel.getTheGame()
+                }
+                viewHasAppeared += 1
+           
+                if viewModel.score == 3 {
+                    print("gonna show this")
+                    showingAlert.toggle()
+                }
+                print("This view is appearing \(viewHasAppeared)")
             }
             .padding(.top, 20)
             .navigationBarHidden(true)
