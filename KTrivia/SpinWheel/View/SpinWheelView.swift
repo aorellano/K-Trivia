@@ -31,12 +31,37 @@ struct SpinWheelView: View {
                        
                         Text(viewModel.game?.player1["username"] ?? "")
                             .foregroundColor(.white)
+                        
+                        HStack {
+                            Image(uiImage: UIImage(named: "LaunchScreenIcon")!)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 15, height: 15)
+                            Image(uiImage: UIImage(named: "LaunchScreenIcon")!)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 15, height: 15)
+                            Image(uiImage: UIImage(named: "LaunchScreenIcon")!)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 15, height: 15)
+                        }
                     }
                     Title(text: "VS", size: 30)
                     VStack {
                         ProfilePictureView(profilePic: viewModel.game?.player2["profile_pic"], size: 100, cornerRadius: 100)
                         Text(viewModel.game?.player2["username"] ?? "")
                             .foregroundColor(.white)
+                        HStack {
+                            Image(uiImage: UIImage(named: "LaunchScreenIcon")!)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 15, height: 15)
+                            Image(uiImage: UIImage(named: "LaunchScreenIcon")!)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 15, height: 15)
+                        }
                     }
                 }
                 .padding()
@@ -48,8 +73,19 @@ struct SpinWheelView: View {
                     viewModel.getQuestions(for: group, and: selectedCategory ?? "")
                 })
                     .padding()
-                Text("The category is... \(group)")
-                    .foregroundColor(.white)
+                
+                if viewModel.score == 0 {
+                    ScoreIndicatorView(colors: [.white, .white, .white])
+                } else if viewModel.score == 1 {
+                    ScoreIndicatorView(colors: [Color.secondaryColor, .white, .white])
+                } else if viewModel.score == 2 {
+                    ScoreIndicatorView(colors: [Color.secondaryColor, Color.secondaryColor, .white])
+                } else {
+                    ScoreIndicatorView(colors: [Color.secondaryColor, Color.secondaryColor, Color.secondaryColor])
+                }
+                   
+                
+    
                 if selectedCategory == "MV" || selectedCategory == "Performance" {
                     NavigationLink(destination: ScreenshotQuestionView(groupName: group ?? "", selectedCategory: selectedCategory ?? "", viewModel: viewModel), isActive: $isActive) {
                     ButtonView(title: "Play", background: Color.secondaryColor) {
@@ -74,7 +110,7 @@ struct SpinWheelView: View {
                     }
                     .padding()
                     }
-                } else {
+                } else if selectedCategory == "Song" {
                     NavigationLink(destination: SongView(groupName: group ?? "", selectedCategory: selectedCategory ?? "", viewModel: viewModel), isActive: $isActive) {
                     ButtonView(title: "Play", background: Color.secondaryColor) {
                         print("Hello")
@@ -85,8 +121,23 @@ struct SpinWheelView: View {
                         isActive = true
                     }
                     .padding()
-                }
-                }
+                    }
+                    } else {
+                        NavigationLink(destination: MultipleChoiceView(groupName: group ?? "", selectedCategory: selectedCategory ?? "", viewModel: viewModel), isActive: $isActive) {
+                        ButtonView(title: "Play", background: Color.secondaryColor) {
+                            print("Hello")
+                            //if selectedCategory != nil {
+                                                                
+                        
+                            //}
+                            isActive = true
+                        }
+                        .padding()
+                        }
+                    }
+                
+    
+                
 
                 
             }.onAppear {

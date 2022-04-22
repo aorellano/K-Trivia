@@ -27,7 +27,7 @@ struct ScreenshotQuestionView: View {
                 Spacer()
                 Title(text: "\(viewModel.timeRemaining)", size: 20)
             }
-            .padding([.leading, .trailing, .top], 20)
+            //.padding([.leading, .trailing, .top], 20)
  
                 Text(viewModel.question?.question ?? "")
                     .foregroundColor(.white)
@@ -37,12 +37,13 @@ struct ScreenshotQuestionView: View {
             
       
             ScreenshotView(screenshotImage: viewModel.question?.file)
-                .padding()
+                //.padding()
             Spacer()
             InputTextFieldView(text: $answer, placeholder: "Enter Answer", keyboardType: .default, sfSymbol: "")
-                .padding()
+              
+                //.padding()
                 
-        }
+        }.padding()
         
         .onReceive(viewModel.timer) { time in
             if viewModel.timeRemaining > 0 {

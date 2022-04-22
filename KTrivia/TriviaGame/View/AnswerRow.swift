@@ -42,15 +42,16 @@ struct AnswerRow: View {
             .scaleEffect(isSelected ? 0.96 : 1)
             .animation(.spring(response: 0.9, dampingFraction: 0.8), value: 0.6)
             .onTapGesture {
-                if viewModel.reachedEnd {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        isActive = true
-                    }
-                }
+//                if viewModel.reachedEnd {
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+//                        isActive = true
+//                    }
+//                }
                 if !viewModel.answerSelected {
                     isSelected = true
                     viewModel.selectAnswer(answer: answer)
                     backgroundColor = Color.white
+                    viewModel.endGame()
                 }
                 if answer.isCorrect {
                     backgroundColor = .green
@@ -60,10 +61,13 @@ struct AnswerRow: View {
                     hapticFeedbackResponse(style: .heavy)
                 }
                 isSelected = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
+                    self.presentationMode.wrappedValue.dismiss()
+                }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                     isSelected = false
                 }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.96) {
                     viewModel.goToNextQuestion()
                 }
             }
