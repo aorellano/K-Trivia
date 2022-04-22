@@ -13,5 +13,7 @@ struct Game: Codable {
     var player2: [String: String]
     var player1Score: String
     var player2Score: String
+    var player1TotalScore: String
+    var player2TotalScore: String
     var winnerId: String
 }
