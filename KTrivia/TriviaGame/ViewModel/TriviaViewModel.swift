@@ -57,6 +57,9 @@ class TriviaViewModel: ObservableObject {
         answerSelected = false
         progress = CGFloat(Double(index + 1) / Double(5) * 350)
 
+        let currentTriviaQuestion = questions.first
+        question = currentTriviaQuestion
+        answers = question?.answers ?? [Answer(text: "", isCorrect: false)]
         if index < length {
             let currentTriviaQuestion = questions[index]
             question = currentTriviaQuestion

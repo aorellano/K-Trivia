@@ -46,6 +46,7 @@
 		D09762FD280FC7F300426F75 /* SongView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09762FC280FC7F300426F75 /* SongView.swift */; };
 		D09762FF280FC80A00426F75 /* LyricsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09762FE280FC80A00426F75 /* LyricsView.swift */; };
 		D09763012810983400426F75 /* ScreenshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09763002810983400426F75 /* ScreenshotView.swift */; };
+		D09763062812208800426F75 /* ScoreIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09763052812208800426F75 /* ScoreIndicatorView.swift */; };
 		D0A3C1C1280A63680067A4D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0A3C1C0280A63680067A4D0 /* LaunchScreen.storyboard */; };
 		D0A8839827D8176300A18714 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0A8839727D8176300A18714 /* Assets.xcassets */; };
 		D0A8839B27D8176300A18714 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0A8839A27D8176300A18714 /* Preview Assets.xcassets */; };
@@ -115,6 +116,7 @@
 		D09762FE280FC80A00426F75 /* LyricsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsView.swift; sourceTree = "<group>"; };
 		D09763002810983400426F75 /* ScreenshotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotView.swift; sourceTree = "<group>"; };
 		D09763022811D48100426F75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D09763052812208800426F75 /* ScoreIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreIndicatorView.swift; sourceTree = "<group>"; };
 		D0A3C1C0280A63680067A4D0 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D0A8839027D8176200A18714 /* KTrivia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KTrivia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0A8839327D8176200A18714 /* KTriviaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KTriviaApp.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				D0C6222E280B4E8600976CAF /* ImagePicker.swift */,
 				D09762EB280D13E400426F75 /* ProfilePictureView.swift */,
 				D09763002810983400426F75 /* ScreenshotView.swift */,
+				D09763052812208800426F75 /* ScoreIndicatorView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -589,6 +592,7 @@
 				D03D6A8D27E2B8A90076C2A2 /* CloseModifier.swift in Sources */,
 				D03D6AA32801E9770076C2A2 /* LoginService.swift in Sources */,
 				D03D6A8827E285AF0076C2A2 /* ButtonView.swift in Sources */,
+				D09763062812208800426F75 /* ScoreIndicatorView.swift in Sources */,
 				D03D6A9F2801E4450076C2A2 /* SignoutScreen.swift in Sources */,
 				D09762F7280F78A000426F75 /* SpinWheelView.swift in Sources */,
 				D014D8D827DD290400642A7E /* ResultsView.swift in Sources */,
