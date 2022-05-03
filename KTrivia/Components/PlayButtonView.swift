@@ -12,25 +12,39 @@ struct PlayButtonView: View {
     @State var  isPlaying: Bool = false
     @State var player = AVPlayer()
     var file: String?
+    @State var systemImage: String?
+    
     
     var body: some View {
         Button(action: {
-            guard let url = URL(string: file ?? "") else { return }
-            print(url)
-            do {
-                player = try AVPlayer(playerItem: AVPlayerItem(url: url))
-                player.play()
-            } catch {
-                print("error")
-            }
+            playPause()
+
         }) {
-            Image(systemName: "play.circle.fill")
+            Image(systemName: systemImage ?? "")
                 .font(.system(size: 50))
 
+        }.onAppear {
+            playPause()
         }
     
     }
+    
+    func playPause() {
+        self.isPlaying.toggle()
+       
+        guard let url = URL(string: file ?? "") else { return }
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+        }catch {
+                //error handeling here
+        }
+        player = AVPlayer(playerItem: AVPlayerItem(url: url))
+        player.play()
+        systemImage = "playpause.fill"
+    }
 }
+
+
 
 struct PlayButton_Previews: PreviewProvider {
     static var previews: some View {

@@ -17,7 +17,7 @@ struct ScreenshotView: View {
                 .resizable()
                 .scaledToFill()
                 .frame(width: 400, height: 200)
-                .cornerRadius(20)
+                //.cornerRadius(20)
                 //.overlay(RoundedRectangle(cornerRadius: cornerRadius)
                 //.stroke(Color.gray, lineWidth: 1.5)
         } else {
