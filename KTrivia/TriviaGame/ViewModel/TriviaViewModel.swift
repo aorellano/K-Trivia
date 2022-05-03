@@ -33,6 +33,8 @@ class TriviaViewModel: ObservableObject {
     }
     @Published var isPlayerOne = false
     @Published var results: String?
+    var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+   
     
     init(groupName: String, sessionService: SessionService, dataService: DataService = DataServiceImpl(), gameService: GameService = GameServiceImpl()) {
         self.dataService = dataService
@@ -55,24 +57,24 @@ class TriviaViewModel: ObservableObject {
         answerSelected = false
         progress = CGFloat(Double(index + 1) / Double(5) * 350)
 
-        let currentTriviaQuestion = questions.first
+        //let currentTriviaQuestion = questions.first
+        //question = currentTriviaQuestion
+        //answers = question?.answers ?? [Answer(text: "", isCorrect: false)]
+       // if index < length {
+        let currentTriviaQuestion = questions.randomElement()
         question = currentTriviaQuestion
         answers = question?.answers ?? [Answer(text: "", isCorrect: false)]
-        if index < length {
-            let currentTriviaQuestion = questions[index]
-            question = currentTriviaQuestion
-            answers = question?.answers ?? [Answer(text: "", isCorrect: false)]
-        }
+        //}
     }
     
     func goToNextQuestion() {
-        if index + 1 < 5 {
-            index += 1
+        //if index + 1 < 5 {
+            //index += 1
             setQuestion()
-        }
-        if index == 4 {
-            reachedEnd = true
-        }
+        //}
+        //if index == 4 {
+            //reachedEnd = true
+        //}
     }
     
     func selectAnswer(answer: Answer) {
@@ -86,6 +88,8 @@ class TriviaViewModel: ObservableObject {
     
     func updateTotalScore() {
         totalScore += 1
+        score = 0
+        updatePlayerScore(with: totalScore)
     }
     
     func resetGame() {
@@ -101,20 +105,30 @@ class TriviaViewModel: ObservableObject {
     
     func endGame() {
         print("end of game")
-        updatePlayerScore()
+        updatePlayerScore(with: 0)
         checkIfBothPlayersHaveFinished()
         reachedEnd = true
     }
     
-    func updatePlayerScore() {
+    func updatePlayerScore(with totalScore: Int) {
+        
         if game?.player1["id"] == currentUser?.id {
             gameService.updatePlayer1(score: String(score))
+            if totalScore > 0 {
+                gameService.updatePlayer1Total(score: String(totalScore))
+
+            }
             gameService.listenForGameChanges() {[weak self] game in
                 self?.game = game
             }
             isPlayerOne = true
+            
         } else {
             gameService.updatePlayer2(score: String(score))
+            if totalScore > 0 {
+                gameService.updatePlayer2Total(score: String(totalScore))
+
+            }
             gameService.listenForGameChanges() {[weak self] game in
                 self?.game = game
             }

@@ -11,6 +11,7 @@ struct ResultsView: View {
     @StateObject var viewModel: TriviaViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     @Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
+  
     
     init(viewModel: TriviaViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)

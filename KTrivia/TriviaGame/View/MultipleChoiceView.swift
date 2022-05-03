@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct MultipleChoiceView: View {
+    //@Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+    //@Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
     @StateObject var viewModel: TriviaViewModel
-    @State private var shouldNavigate = false
-    @State var selectedCategory: String
-    @State var group: String
-    var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    @State var timeRemaining = 30
     
+    @State private var shouldNavigate = false
+    @State private var timeRemaining = 15
     var answers = [
         Answer(text: "Answer1", isCorrect: true),
         Answer(text: "Answer2", isCorrect: false),
@@ -22,11 +21,20 @@ struct MultipleChoiceView: View {
         Answer(text: "Answer4", isCorrect: false)
     ]
     
-    init(groupName: String, selectedCategory: String, viewModel: TriviaViewModel) {
-        self.group = groupName
+    @State private var isActive: Bool = false
+    
+    
+    
+    @State private var selectedCategory: String
+   
+    @State private var group: String
+
+    init(group: String, selectedCategory: String, viewModel: TriviaViewModel) {
+        self.group = group
         self.selectedCategory = selectedCategory
         _viewModel = StateObject(wrappedValue: viewModel)
     }
+
     
     var body: some View {
         ZStack {
@@ -44,6 +52,7 @@ struct MultipleChoiceView: View {
                             .foregroundColor(.white)
                             .font(.system(size: 22))
                             .fontWeight(.bold)
+                            .padding([.leading, .trailing], 15)
                         if selectedCategory == "Song" {
                             PlayButtonView(file: viewModel.question?.file)
                         } else {
@@ -53,37 +62,43 @@ struct MultipleChoiceView: View {
                         Spacer()
                     
                         ForEach(viewModel.answers, id: \.id) { answer in
-                            AnswerRow(answer: answer, viewModel: viewModel)
+                            AnswerRow(answer: answer, timeRemaining: timeRemaining, viewModel: viewModel)
                                         .environmentObject(viewModel)
+                            
                         }
+                        .padding([.leading, .trailing], 15)
                     }
-                    .padding([.leading, .trailing, .bottom], 30)
+                    
+                    
                 }
-                .padding([.leading, .trailing], 25)
+                //.padding([.leading, .trailing], 25)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .navigationBarHidden(true)
                 .background(
                     NavigationLink(destination: ResultsView(viewModel: viewModel),
-                                      isActive: $shouldNavigate) { EmptyView() }
+                                   isActive: $shouldNavigate) { EmptyView() }.isDetailLink(false)
                 )
-        } .onReceive(timer) { time in
+                //.padding([.leading, .trailing, .bottom], 30)
+            
+        
+        }
+        .onReceive(viewModel.timer) { time in
             if timeRemaining > 0 {
                 timeRemaining -= 1
-            }
-            if timeRemaining == 0 {
-                viewModel.endGame()
-                self.shouldNavigate = true
-                timer.upstream.connect().cancel()
             }
         }
         .onAppear {
             //viewModel.getTheGame()
+            
         }
         .onDisappear {
-            viewModel.endGame()
+           viewModel.endGame()
         }
         .background(Color.primaryColor)
+        //.environment(\.presentationMode, self.$isActive)
+//        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
+
 
 

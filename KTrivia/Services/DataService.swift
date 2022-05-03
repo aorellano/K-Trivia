@@ -54,7 +54,7 @@ class DataServiceImpl: DataService {
                 let triviaQuestion = Trivia(category: category, type: type, question: question, correctAnswer: correctAnswer, incorrectAnswers: incorrectAnswers, file: file)
                     
                 return triviaQuestion
-            }.shuffled().enumerated().compactMap{ $0.offset < 5 ? $0.element : nil }
+            }
             
             
             completion(

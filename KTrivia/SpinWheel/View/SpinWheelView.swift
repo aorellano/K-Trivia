@@ -65,7 +65,8 @@ struct SpinWheelView: View {
                 }
                    
                 
-                NavigationLink(destination: MultipleChoiceView(groupName: group ?? "", selectedCategory: selectedCategory ?? "", viewModel: viewModel), isActive: $isActive) {
+                NavigationLink(destination: MultipleChoiceView(group: group ?? "", selectedCategory: selectedCategory ?? "", viewModel: viewModel), isActive: $isActive)
+                    {
                     ButtonView(title: "Play", background: Color.secondaryColor) {
                         print("Hello")
                         //if selectedCategory != nil {
@@ -75,7 +76,7 @@ struct SpinWheelView: View {
                         isActive = true
                     }
                     .padding()
-                }
+                    }.isDetailLink(false)
                 .alert("Would you like to recieve a question bomb or challenge your opponent for their question bomb?", isPresented: $showingAlert) {
                         Button("Recieve") { viewModel.updateTotalScore() }
                                 Button("Challenge"){ print("Challenging for Question Bomb")}
@@ -87,6 +88,7 @@ struct SpinWheelView: View {
                     
                 
             }.onAppear {
+                print("score is: \(viewModel.score)")
                 if viewHasAppeared == 0 {
                     viewModel.getTheGame()
                 }
@@ -104,8 +106,8 @@ struct SpinWheelView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.primaryColor)
         
-        .environment(\.rootPresentationMode, self.$isActive)
-        .navigationViewStyle(StackNavigationViewStyle())
+//        .environment(\.rootPresentationMode, self.$isActive)
+//        .navigationViewStyle(StackNavigationViewStyle())
     }
         
 }
