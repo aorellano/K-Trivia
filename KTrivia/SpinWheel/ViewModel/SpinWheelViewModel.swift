@@ -8,7 +8,6 @@
 import Foundation
 
 class SpinWheelViewModel: ObservableObject {
-    var gameService: GameService
     var sessionService: SessionService
     var dataService: DataService
     @Published var game: Game?
@@ -17,17 +16,14 @@ class SpinWheelViewModel: ObservableObject {
 //    var dataService: DataService
 //    var gameService: GameService
 //
-    init(groupName: String, sessionService: SessionService, gameService: GameService = GameServiceImpl(), dataService: DataService = DataServiceImpl()) {
-        self.gameService = gameService
+    init(groupName: String, sessionService: SessionService, dataService: DataService = DataServiceImpl()) {
         self.sessionService = sessionService
         self.dataService = dataService
         self.retrieveUser()
     }
     
     func createGame() {
-        gameService.startGame(with: currentUser!) { [weak self] game in
-            self?.game = game
-        }
+        GameService.shared.startGame(with: currentUser!)
     }
     
     func retrieveUser() {
