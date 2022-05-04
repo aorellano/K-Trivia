@@ -36,7 +36,7 @@ struct SpinWheelView: View {
                        
                         Text(viewModel.game?.player1["username"] ?? "")
                             .foregroundColor(.white)
-                        QuestionBombs(totalScore: viewModel.totalScore)
+                        QuestionBombs(totalScore: Int(viewModel.game?.player1TotalScore ?? "0") ?? 0)
 
                     }
                     Title(text: "VS", size: 30)
@@ -44,7 +44,7 @@ struct SpinWheelView: View {
                         ProfilePictureView(profilePic: viewModel.game?.player2["profile_pic"], size: 100, cornerRadius: 100)
                         Text(viewModel.game?.player2["username"] ?? "")
                             .foregroundColor(.white)
-                        //QuestionBombs(totalScore: 1)
+                       QuestionBombs(totalScore: Int(viewModel.game?.player2TotalScore ?? "0") ?? 0)
                     }
                 }
                 .padding()

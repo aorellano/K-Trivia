@@ -82,12 +82,11 @@ struct AnswerRow: View {
         }.onReceive(viewModel.timer) { time in
             if timeRemaining > 0 {
                 timeRemaining -= 1
-                print(timeRemaining)
 
             }
             if timeRemaining == 0 {
+                viewModel.selectAnswer(answer: answer)
                 viewModel.endGame()
-
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.10) {
                     self.presentationMode.wrappedValue.dismiss()
                 }
