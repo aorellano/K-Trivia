@@ -75,7 +75,7 @@ struct AnswerRow: View {
                     isSelected = false
                 }
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
-                    viewModel.goToNextQuestion()
+                    viewModel.setQuestion()
                 }
                 
             }

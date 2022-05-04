@@ -11,6 +11,7 @@ struct MultipleChoiceView: View {
     //@Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     //@Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
     @StateObject var viewModel: TriviaViewModel
+    @State var showingAlert = false
     
     @State private var shouldNavigate = false
     @State private var timeRemaining = 15
@@ -22,11 +23,7 @@ struct MultipleChoiceView: View {
     ]
     
     @State private var isActive: Bool = false
-    
-    
-    
     @State private var selectedCategory: String
-   
     @State private var group: String
 
     init(group: String, selectedCategory: String, viewModel: TriviaViewModel) {
@@ -46,7 +43,7 @@ struct MultipleChoiceView: View {
                     }
                     .padding([.leading, .trailing], 30)
                     .padding(.top, 20)
-                    ProgressBar(progress: viewModel.progress)
+                    ProgressBar(progress: CGFloat(timeRemaining*20))
                     VStack(spacing: 20) {
                         Text(viewModel.question?.question ?? "")
                             .foregroundColor(.white)
@@ -67,6 +64,7 @@ struct MultipleChoiceView: View {
                             
                         }
                         .padding([.leading, .trailing], 15)
+                        
                     }
                     
                     
@@ -79,9 +77,11 @@ struct MultipleChoiceView: View {
                                    isActive: $shouldNavigate) { EmptyView() }.isDetailLink(false)
                 )
                 //.padding([.leading, .trailing, .bottom], 30)
+                
             
-        
+                
         }
+        
         .onReceive(viewModel.timer) { time in
             if timeRemaining > 0 {
                 timeRemaining -= 1
@@ -89,6 +89,7 @@ struct MultipleChoiceView: View {
         }
         .onAppear {
             //viewModel.getTheGame()
+            
             
         }
         .onDisappear {

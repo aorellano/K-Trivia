@@ -65,6 +65,9 @@
 		D0C62231280B691200976CAF /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D0C62230280B691200976CAF /* FirebaseStorage */; };
 		D0DE9D9627D97DBA006D8279 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = D0DE9D9527D97DBA006D8279 /* FirebaseFirestoreSwift-Beta */; };
 		D0DE9D9827D9D01D006D8279 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DE9D9727D9D01D006D8279 /* Array+Extensions.swift */; };
+		D0DF4A5E2821149E00E0AA22 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF4A5D2821149E00E0AA22 /* ActivityIndicator.swift */; };
+		D0DF4A60282114ED00E0AA22 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF4A5F282114ED00E0AA22 /* LoadingView.swift */; };
+		D0DF4A6228224DAA00E0AA22 /* GameNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF4A6128224DAA00E0AA22 /* GameNotifications.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +136,9 @@
 		D0C6222C280B451D00976CAF /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		D0C6222E280B4E8600976CAF /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		D0DE9D9727D9D01D006D8279 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		D0DF4A5D2821149E00E0AA22 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		D0DF4A5F282114ED00E0AA22 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		D0DF4A6128224DAA00E0AA22 /* GameNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameNotifications.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +240,8 @@
 				D09763052812208800426F75 /* ScoreIndicatorView.swift */,
 				D097630728123CC700426F75 /* QuestionBombs.swift */,
 				D097630928124E5200426F75 /* PlayButtonView.swift */,
+				D0DF4A5D2821149E00E0AA22 /* ActivityIndicator.swift */,
+				D0DF4A5F282114ED00E0AA22 /* LoadingView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -291,6 +299,7 @@
 				D014D8D927DD2AA500642A7E /* Answer.swift */,
 				D0BEF62228051527000125C7 /* Game.swift */,
 				D0BEF62428051899000125C7 /* User.swift */,
+				D0DF4A6128224DAA00E0AA22 /* GameNotifications.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -596,6 +605,7 @@
 				D03D6A8827E285AF0076C2A2 /* ButtonView.swift in Sources */,
 				D09763062812208800426F75 /* ScoreIndicatorView.swift in Sources */,
 				D03D6A9F2801E4450076C2A2 /* SignoutScreen.swift in Sources */,
+				D0DF4A5E2821149E00E0AA22 /* ActivityIndicator.swift in Sources */,
 				D09762F7280F78A000426F75 /* SpinWheelView.swift in Sources */,
 				D014D8D827DD290400642A7E /* ResultsView.swift in Sources */,
 				D014D8D227DD266200642A7E /* AnswerRow.swift in Sources */,
@@ -605,6 +615,7 @@
 				D0A883A227D8179400A18714 /* CategoryListView.swift in Sources */,
 				D0C6222D280B451D00976CAF /* Color+Extension.swift in Sources */,
 				D09762EC280D13E400426F75 /* ProfilePictureView.swift in Sources */,
+				D0DF4A6228224DAA00E0AA22 /* GameNotifications.swift in Sources */,
 				D03D6AA52801EB3E0076C2A2 /* LoginViewModel.swift in Sources */,
 				D03D6A9327E2C3DF0076C2A2 /* RegistrationService.swift in Sources */,
 				D0DE9D9827D9D01D006D8279 /* Array+Extensions.swift in Sources */,
@@ -624,6 +635,7 @@
 				D024740C27DADC7000D663A4 /* Title.swift in Sources */,
 				D09762FF280FC80A00426F75 /* LyricsView.swift in Sources */,
 				D03D6A8427E27F900076C2A2 /* InputTextFieldView.swift in Sources */,
+				D0DF4A60282114ED00E0AA22 /* LoadingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
