@@ -18,20 +18,18 @@ struct CategoryListView: View {
     }
     
     var body: some View {
-        NavigationView {
             ZStack {
                 VStack {
-                    CategoryHeaderView()
+                    HeaderView(text: "Choose Group")
                         .environmentObject(sessionService)
-                        .padding(.top, -50)
-                        .padding(.bottom, 20)
+                        .padding(.top, -80)
                     ScrollView {
                         VStack(spacing: 20) {
                             if selectedCategory != nil {
 //                                NavigationLink(destination: TriviaView(groupName: selectedCategory ?? "", viewModel: TriviaViewModel(groupName: selectedCategory ?? "", session: sessionService)), isActive: $isActive) {
 //                                        EmptyView()
 //                                }.isDetailLink(false)
-                                NavigationLink(destination: SpinWheelView(groupName: selectedCategory ?? "", viewModel: TriviaViewModel(groupName: selectedCategory ?? "", sessionService: sessionService)), isActive: $isActive) {
+                                NavigationLink(destination: SpinWheelView(groupName: selectedCategory ?? "", viewModel: TriviaViewModel(groupName: selectedCategory ?? "", sessionService: sessionService, gameId: "")), isActive: $isActive) {
                                                                         EmptyView()
                                                                 }.isDetailLink(false)
                             }
@@ -59,17 +57,19 @@ struct CategoryListView: View {
                     }.onAppear {
                         viewModel.getGroups()
                         UITableView.appearance().backgroundColor = .clear
+                        UINavigationBar.appearance().tintColor = .white
                         UITableView.appearance().showsVerticalScrollIndicator = false
                     }
-                    .padding(.top, 40)
+                    
                 }
-                .padding(.top, 50)
+                
             }
-            .navigationBarHidden(true)
+            
             .background(Color.primaryColor)
-        }
-        .environment(\.rootPresentationMode, self.$isActive)
-        .navigationViewStyle(StackNavigationViewStyle())
+    
+        
+//        .environment(\.rootPresentationMode, self.$isActive)
+//        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     func hapticFeedbackResponse() {

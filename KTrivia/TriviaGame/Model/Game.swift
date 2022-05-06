@@ -9,6 +9,7 @@ import Foundation
 
 struct Game: Codable {
     let id: String
+    var groupName: String
     var player1: [String: String]
     var player2: [String: String]
     var player1Score: String
@@ -18,3 +19,5 @@ struct Game: Codable {
     var blockPlayerId: String
     var winnerId: String
 }
+
+//add groupname to game model
