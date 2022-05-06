@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FortuneWheel
+import FirebaseAuth
 import Combine
 
 struct SpinWheelView: View {
@@ -20,6 +21,7 @@ struct SpinWheelView: View {
     @State var showingAlert1 = false
     @State var buttonColor: Color = Color.gray
     @State var isBlocked = false
+    
     
     init(groupName: String, viewModel: TriviaViewModel) {
         self.group = groupName
@@ -64,23 +66,30 @@ struct SpinWheelView: View {
                 Text(viewModel.gameNotification)
                     .foregroundColor(.white)
             
-                   
-                    
-                        
-                        
-                        
-                        
-          
                 .padding()
-                if viewModel.score == 0 {
-                    ScoreIndicatorView(colors: [.white, .white, .white])
-                } else if viewModel.score == 1 {
-                    ScoreIndicatorView(colors: [Color.secondaryColor, .white, .white])
-                } else if viewModel.score == 2 {
-                    ScoreIndicatorView(colors: [Color.secondaryColor, Color.secondaryColor, .white])
+                
+                if viewModel.currentUser?.id == viewModel.game?.player1["id"] {
+                    if viewModel.game?.player1Score == "0" {
+                        ScoreIndicatorView(colors: [.white, .white, .white])
+                    } else if viewModel.game?.player1Score == "1" {
+                        ScoreIndicatorView(colors: [Color.secondaryColor, .white, .white])
+                    } else if viewModel.game?.player1Score == "2"  {
+                        ScoreIndicatorView(colors: [Color.secondaryColor, Color.secondaryColor, .white])
+                    } else {
+                        ScoreIndicatorView(colors: [Color.secondaryColor, Color.secondaryColor, Color.secondaryColor])
+                    }
                 } else {
-                    ScoreIndicatorView(colors: [Color.secondaryColor, Color.secondaryColor, Color.secondaryColor])
+                    if viewModel.game?.player2Score == "0" {
+                        ScoreIndicatorView(colors: [.white, .white, .white])
+                    } else if viewModel.game?.player2Score == "1" {
+                        ScoreIndicatorView(colors: [Color.secondaryColor, .white, .white])
+                    } else if viewModel.game?.player2Score == "2"  {
+                        ScoreIndicatorView(colors: [Color.secondaryColor, Color.secondaryColor, .white])
+                    } else {
+                        ScoreIndicatorView(colors: [Color.secondaryColor, Color.secondaryColor, Color.secondaryColor])
+                    }
                 }
+                
                    
                 
                 NavigationLink(destination: MultipleChoiceView(group: group ?? "", selectedCategory: selectedCategory ?? "", viewModel: viewModel), isActive: $isActive){
@@ -100,12 +109,14 @@ struct SpinWheelView: View {
                 
             }
             .onAppear {
+              
                 selectedCategory = nil
                 buttonColor = Color.gray
-                print("score is: \(viewModel.score)")
-                if viewHasAppeared == 0 {
+                
+                if viewHasAppeared == 0 && viewModel.gameId == "" {
                     viewModel.getTheGame()
-                    
+                } else {
+                    viewModel.resumeGame(with: viewModel.gameId)
                 }
                 viewHasAppeared += 1
            
@@ -113,10 +124,11 @@ struct SpinWheelView: View {
                     print("gonna show this")
                     showingAlert1.toggle()
                 }
-
+                
+                    
+                UINavigationBar.appearance().tintColor = .white
             }
-            .padding(.top, 20)
-            .navigationBarHidden(true)
+            .padding(.top, -50)
         
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.primaryColor)

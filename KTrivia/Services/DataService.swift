@@ -12,14 +12,15 @@ import FirebaseFirestore
 protocol DataService {
     func getGroups(completion: @escaping ([String]) -> Void)
     func getQuestions(for group: String, and type: String, completion: @escaping ([Trivia]) -> Void)
+    func getUsersGameIds(for user: String, completion: @escaping ([Game]) -> Void)
 }
 
-class DataServiceImpl: DataService {
+class DataServiceImpl: ObservableObject, DataService {
     @Published var groups = [String]()
     @Published var questions = [Trivia]()
-
+    @Published var games = [Game]()
+    
     func getGroups(completion: @escaping ([String]) -> Void) {
-        print("getting groups")
         FirebaseReference(.questions).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 return
@@ -56,10 +57,64 @@ class DataServiceImpl: DataService {
                 return triviaQuestion
             }
             
-            
             completion(
                 self.questions
             )
         }
     }
+    
+    func getUsersGameIds(for user: String, completion: @escaping ([Game]) -> Void) {
+        
+        let docRef = FirebaseReference(.users).document(user)
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let data = document.data()
+                let games = data?["games"] as? [String] ?? [""]
+                print("hi \(games)")
+                self.getGameInformation(with: games) { games in
+                    completion(
+                        self.games
+                    )
+                }
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+    
+    func getGameInformation(with gameIds: [String], completion: @escaping ([Game]) -> Void) {
+        if gameIds.count == 1 && gameIds.first == "" {
+            return
+        }
+        FirebaseReference(.game).addSnapshotListener { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                return
+            }
+            
+            self.games = documents.map { (queryDocumentSnapshot) -> Game in
+                let data = queryDocumentSnapshot.data()
+                let id = data["id"] as? String ?? ""
+                let player1 = data["player1"] as? [String: String] ?? ["":""]
+                let player2 = data["player2"] as? [String: String] ?? ["":""]
+                let groupName = data["groupName"] as? String ?? ""
+                let player1Score = data["player1Score"] as? String ?? ""
+                let player2Score = data["player2Score"] as? String ?? ""
+                let blockPlayerId = data["blockPlayerId"] as? String ?? ""
+                
+                if gameIds.contains(id) {
+                    let game = Game(id: id, groupName: groupName, player1: player1, player2: player2, player1Score: player1Score, player2Score: player2Score, player1TotalScore: "", player2TotalScore: "", blockPlayerId: blockPlayerId, winnerId:"")
+                    return game
+            
+                }
+                
+                return Game(id: "", groupName: "", player1: ["":""], player2: ["":""], player1Score: "", player2Score: "", player1TotalScore: "", player2TotalScore: "", blockPlayerId: "", winnerId:"")
+            }
+            
+            completion(
+                self.games
+            )
+        }
+    }
 }
+        
+

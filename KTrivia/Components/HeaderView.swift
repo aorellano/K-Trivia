@@ -7,9 +7,14 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct CategoryHeaderView: View {
+struct HeaderView: View {
     @State private var isActive: Bool = false
     @EnvironmentObject var sessionService: SessionServiceImpl
+    @State private var text: String
+    
+    init(text: String) {
+        self.text = text
+    }
     
     var body: some View {
         VStack {
@@ -21,21 +26,21 @@ struct CategoryHeaderView: View {
                      }.isDetailLink(false)
                     ProfilePictureView(profilePic: sessionService.userDetails?.profilePic, size: 50, cornerRadius: 50)
                         .environmentObject(sessionService)
-                    .padding(.top, 10)
+               
                     .padding(.trailing, 20)
                     .onTapGesture {
                         isActive = true
                     }
                 }
             }
-            Title(text: "Choose Group", size: 30)
+            Title(text: text ?? "", size: 30)
         }
     }
 }
 
 struct CategoryHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryHeaderView()
+        HeaderView(text: "Default")
             .environmentObject(SessionServiceImpl())
     }
 }

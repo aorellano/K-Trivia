@@ -14,14 +14,16 @@ class TriviaViewModel: ObservableObject {
     var dataService: DataService
     var sessionService: SessionService
     var categoryType: String?
+    @Published var gameId: String
     private var cancellables: Set<AnyCancellable> = []
     @Published var gameNotification = GameNotfication.waitingForPlayer
     @Published private(set) var reachedEnd = false
     @Published private(set) var answerSelected = false
     @Published private(set) var question: Trivia?
     @Published private(set) var answers: [Answer] = []
-    @Published private(set) var score = 0
+    @Published var score = 0
     @Published private(set) var totalScore = 0
+    @Published private(set) var groupName: String
     @State var isActive = true
     @Published var currentUser: SessionUserDetails?
     @Published var game: Game? {
@@ -44,10 +46,15 @@ class TriviaViewModel: ObservableObject {
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
    
     
-    init(groupName: String, sessionService: SessionService, dataService: DataService = DataServiceImpl()) {
+    init(groupName: String, sessionService: SessionService, dataService: DataService = DataServiceImpl(), gameId: String) {
+        print("vieModel getting inilitized")
+        self.groupName = groupName
         self.dataService = dataService
         self.sessionService = sessionService
+        self.gameId = gameId
         self.retrieveUser()
+        
+        //self.getTheGame(with: <#T##String#>)
     }
     
     func updateGameNotificationsFor(_ state: GameState) {
@@ -71,15 +78,26 @@ class TriviaViewModel: ObservableObject {
         }
     }
     
+    //should check if game object if nil if it is start new game
+    //if not current game should resume
     func getTheGame() {
         guard let currentUser = currentUser else {
             return
         }
-        GameService.shared.startGame(with: currentUser)
+
+        GameService.shared.startGame(with: currentUser, and: groupName)
         GameService.shared.$game
             .assign(to: \.game, on: self)
             .store(in: &cancellables)
         
+    }
+    
+    func resumeGame(with id: String) {
+        GameService.shared.resumeGame(with: id)
+        GameService.shared.$game
+            .assign(to: \.game, on: self)
+            .store(in: &cancellables)
+        print("YO\(game?.player2Score)")
     }
     
     func setQuestion() {

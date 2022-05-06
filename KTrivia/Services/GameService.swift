@@ -26,16 +26,16 @@ class GameService: ObservableObject {
         }
     }
 
-    func startGame(with user: SessionUserDetails) {
+    func startGame(with user: SessionUserDetails, and groupName: String) {
         let player1 = ["id": user.id, "profile_pic": user.profilePic, "username": user.username]
-
+        
         FirebaseReference(.game)
             .whereField("player2", isEqualTo: ["id":"","profile_pic":"","username":""])
             .whereField("player1", isNotEqualTo: player1)
             .getDocuments { querySnapshot, error in
             if error != nil {
                 print("Error starting game: \(String(describing: error?.localizedDescription))")
-                self.createNewGame(with: user)
+                self.createNewGame(with: user, and: groupName)
                 return
             }
 
@@ -44,17 +44,20 @@ class GameService: ObservableObject {
                 self.game.player2 = player1
                 self.game.blockPlayerId = player1["id"] ?? ""
                 self.updateGame(self.game)
+                self.updateUser(id: user.id, with: self.game.id)
                 self.listenForGameChanges()
             } else {
-                self.createNewGame(with: user)
+                self.createNewGame(with: user, and: groupName)
             }
         }
     }
 
-    func createNewGame(with user: SessionUserDetails) {
+    func createNewGame(with user: SessionUserDetails, and groupName: String) {
         let userInfo = ["id": user.id, "profile_pic": user.profilePic, "username": user.username]
-        self.game = Game(id: UUID().uuidString, player1: userInfo, player2: ["id":"", "profile_pic":"", "username":""], player1Score: "", player2Score: "", player1TotalScore: "", player2TotalScore: "", blockPlayerId: userInfo["id"] ?? "", winnerId:"")
+        print("GROUPNAME \(groupName)")
+        self.game = Game(id: UUID().uuidString, groupName: groupName, player1: userInfo, player2: ["id":"", "profile_pic":"", "username":""], player1Score: "", player2Score: "", player1TotalScore: "", player2TotalScore: "", blockPlayerId: userInfo["id"] ?? "", winnerId:"")
         self.updateGame(self.game)
+        self.updateUser(id: user.id, with: self.game.id)
         self.createOnlineGame()
         self.listenForGameChanges()
     }
@@ -66,6 +69,43 @@ class GameService: ObservableObject {
         } catch {
             print("Error creating online game \(error.localizedDescription)")
         }
+    }
+    
+    func resumeGame(with id: String) {
+        print("... resuming game")
+        print(id)
+        FirebaseReference(.game)
+            .whereField("id", isEqualTo: id).getDocuments { querySnapshot, error in
+            if error != nil {
+                print("Error starting game: \(String(describing: error?.localizedDescription))")
+         
+                return
+            }
+
+            if let gameData = querySnapshot?.documents.first {
+                self.game = try? gameData.data(as: Game.self)
+                print(self.game)
+//                self.game.player2 = player1
+//                self.game.blockPlayerId = player1["id"] ?? ""
+                self.updateGame(self.game)
+//                self.updateUser(id: user.id, with: self.game.id)
+                self.listenForGameChanges()
+            }
+        }
+
+    }
+    
+    
+    
+    func updateUser(id: String, with gameId: String) {
+        let gameRef = FirebaseReference(.users).document(id)
+        gameRef.updateData(["games": FieldValue.arrayUnion([gameId])]) { error in
+                if let err = error {
+                    print(err)
+                    return
+                }
+            }
+        print("Games updated!")
     }
 
     func listenForGameChanges() {
