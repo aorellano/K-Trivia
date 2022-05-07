@@ -21,7 +21,7 @@ class TriviaViewModel: ObservableObject {
     @Published private(set) var answerSelected = false
     @Published private(set) var question: Trivia?
     @Published private(set) var answers: [Answer] = []
-    @Published var score = 0
+   // @Published var score = 0
     @Published private(set) var totalScore = 0
     @Published private(set) var groupName: String
     @State var isActive = true
@@ -53,8 +53,8 @@ class TriviaViewModel: ObservableObject {
         self.sessionService = sessionService
         self.gameId = gameId
         self.retrieveUser()
-        
-        //self.getTheGame(with: <#T##String#>)
+        self.checkIfUserIsPlayerOne()
+        self.checkIfGameIsOver()
     }
     
     func updateGameNotificationsFor(_ state: GameState) {
@@ -111,62 +111,98 @@ class TriviaViewModel: ObservableObject {
         answerSelected = true
         checkIfUserIsPlayerOne()
         updatePlayersScore(answer: answer)
-        GameService.shared.updateGame(game!)
     }
     
     func updatePlayersScore(answer: Answer) {
-        if score == 3 {
-            updateTotalScore()
-        }
+        
         if answer.isCorrect && isPlayerOne {
+            var score = Int(game?.player1Score ?? "") ?? 0
             score += 1
             game?.player1Score = String(score)
+            
+            if score == 3 {
+                updateTotalScore()
+                game?.player1Score = "0"
+            }
+            GameService.shared.updateGame(game!)
         } else if answer.isCorrect && !isPlayerOne {
+            var score = Int(game?.player2Score ?? "") ?? 0
             score += 1
             game?.player2Score = String(score)
+            if score == 3 {
+                updateTotalScore()
+                game?.player2Score = "0"
+            }
+            GameService.shared.updateGame(game!)
         } else if !answer.isCorrect && isPlayerOne {
-            score = 0
-            game?.player1Score = String(score)
+            game?.player1Score = "0"
             game?.blockPlayerId = currentUser?.id ?? ""
+            GameService.shared.updateGame(game!)
         } else {
-            score = 0
-            game?.player2Score = String(score)
+            game?.player2Score = "0"
             game?.blockPlayerId = currentUser?.id ?? ""
+            GameService.shared.updateGame(game!)
         }
     }
     
     func updateTotalScore() {
-        totalScore += 1
-        score = 0
-        
+
         if totalScore == 3 {
             print("You have won the game")
+            //endGame()
         }
         
         if isPlayerOne {
+            var totalScore = Int(game?.player1TotalScore ?? "") ?? 0
+            totalScore += 1
             game?.player1TotalScore = String(totalScore)
-            game?.player1Score = String(score)
+            //game?.player1Score = "0"
+            GameService.shared.updateGame(game!)
         } else {
+            var totalScore = Int(game?.player2TotalScore ?? "") ?? 0
+            totalScore += 1
             game?.player2TotalScore = String(totalScore)
-            game?.player2Score = String(score)
+            game?.player2Score = "0"
+            //GameService.shared.updateGame(game!)
         }
     }
     
     func resetGame() {
-        score = 0
+        game?.player1Score = "0"
+        game?.player2Score = "0"
+        game?.player1TotalScore = "0"
+        game?.player2TotalScore = "0"
+        GameService.shared.updateGame(game!)
     }
 
     func endGame() {
 //        print("end of game")
 //        updatePlayerScore(with: 0)
 //        checkIfBothPlayersHaveFinished()
-//        reachedEnd = true
+        print("The game is endingggggg")
+        if isPlayerOne && game?.player1TotalScore == "3" {
+            results = "YOU WON!"
+        } else if !isPlayerOne && game?.player2TotalScore == "3" {
+            results = "YOU WON!"
+        } else {
+            results = "YOU LOST :("
+        }
+        reachedEnd = true
     }
     
     
     func checkForGameStatus() -> Bool {
+        
         return game != nil ? game?.blockPlayerId == currentUser?.id : false
            
+    }
+    
+    func checkIfGameIsOver() {
+        if gameId != nil || gameId != "" {
+            self.resumeGame(with: gameId ?? "")
+            print(game)
+            self.endGame()
+        }
     }
     
 //    func updatePlayerScore(with totalScore: Int) {
@@ -223,6 +259,7 @@ class TriviaViewModel: ObservableObject {
         } else {
             isPlayerOne = false
         }
+        
     }
 }
 

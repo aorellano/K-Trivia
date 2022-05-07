@@ -56,7 +56,7 @@ struct AnswerRow: View {
                     isSelected = true
                     viewModel.selectAnswer(answer: answer)
                     backgroundColor = Color.white
-                    viewModel.endGame()
+                    //viewModel.endGame()
                 }
                 if answer.isCorrect {
                     backgroundColor = .green
@@ -65,28 +65,37 @@ struct AnswerRow: View {
                     backgroundColor = Color.incorrectColor
                     hapticFeedbackResponse(style: .heavy)
                 }
+                
+                if viewModel.game?.player1TotalScore == "3" || viewModel.game?.player2TotalScore == "3" {
+                    viewModel.endGame()
+                    isActive = true
+                } else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                    isSelected = true
+                 
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        isSelected = false
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
+                        viewModel.setQuestion()
+                    }
+                }
     
-                isSelected = true
-                print(isSelected)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
-                    self.presentationMode.wrappedValue.dismiss()
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    isSelected = false
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
-                    viewModel.setQuestion()
-                }
+
                 
             }
         }.onReceive(viewModel.timer) { time in
             if timeRemaining > 0 {
                 timeRemaining -= 1
-
+                print(timeRemaining)
             }
             if timeRemaining == 0 {
                 viewModel.selectAnswer(answer: answer)
                 viewModel.endGame()
+            
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.10) {
                     self.presentationMode.wrappedValue.dismiss()
                 }
@@ -94,6 +103,9 @@ struct AnswerRow: View {
                 viewModel.timer.upstream.connect().cancel()
  
             }
+        }
+        .onDisappear {
+            viewModel.timer.upstream.connect().cancel()
         }
 
     }

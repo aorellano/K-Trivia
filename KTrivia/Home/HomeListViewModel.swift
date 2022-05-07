@@ -20,7 +20,7 @@ class HomeListViewModel: ObservableObject {
         dataService.getUsersGameIds(for: user) { games in
             
             self.games = games.filter({$0.id != ""})
-            print(self.games)
+            print("Hello \(self.games)")
         }
     }
 }
