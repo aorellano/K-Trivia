@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MultipleChoiceView: View {
-    //@Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+//    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     //@Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
     @StateObject var viewModel: TriviaViewModel
     @State var showingAlert = false
@@ -72,10 +72,10 @@ struct MultipleChoiceView: View {
                 //.padding([.leading, .trailing], 25)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .navigationBarHidden(true)
-                .background(
-                    NavigationLink(destination: ResultsView(viewModel: viewModel),
-                                   isActive: $shouldNavigate) { EmptyView() }.isDetailLink(false)
-                )
+//                .background(
+//                    NavigationLink(destination: ResultsView(viewModel: viewModel),
+//                                   isActive: $shouldNavigate) { EmptyView() }.isDetailLink(false)
+//                )
                 //.padding([.leading, .trailing, .bottom], 30)
                 
             
@@ -92,9 +92,7 @@ struct MultipleChoiceView: View {
             
             
         }
-        .onDisappear {
-           viewModel.endGame()
-        }
+
         .background(Color.primaryColor)
         //.environment(\.presentationMode, self.$isActive)
 //        .navigationViewStyle(StackNavigationViewStyle())

@@ -39,34 +39,95 @@ struct HomeView: View {
                     }
                     .padding()
                 }.isDetailLink(false)
-                HStack {
-                    Text("Current Games")
-                        .foregroundColor(.white)
-                        .fontWeight(.bold)
-                        .padding()
-                    Spacer()
-                }
-
-                ScrollView(.horizontal, showsIndicators: false) {
+                
+                if viewModel.games.count != 0 {
                     HStack {
-                        ForEach(viewModel.games, id: \.id) { game in
-                            CurrentGameView(viewModel: viewModel, game: game, sessionService: sessionService)
-                                
+                        Text("Current Games")
+                            .foregroundColor(.white)
+                            .fontWeight(.bold)
+                            .padding()
+                        Spacer()
+                    }
+
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(viewModel.games, id: \.id) { game in
+                                //Text(game.blockPlayerId)
+                                ZStack {
+                                CurrentGameView(viewModel: viewModel, game: game, blockedId: game.blockPlayerId, sessionService: sessionService)
+                                    VStack {
+                                        if game.player1["id"] == Auth.auth().currentUser?.uid {
+                                            if game.player2["username"] == "" {
+                                                Text("Waiting...")
+                                                    .font(.system(size: 14))
+                                                    .fontWeight(.bold)
+                                                ProfilePictureView(profilePic: game.player2["profile_pic"], size: 50, cornerRadius: 25)
+                                            } else {
+                                                Text(game.player2["username"] ?? "")
+                                                    .font(.system(size: 14))
+                                                    .fontWeight(.bold)
+                                                ProfilePictureView(profilePic: game.player2["profile_pic"], size: 50, cornerRadius: 25)
+                                          }
+                                                
+                                        } else {
+                                            Text(game.player1["username"] ?? "")
+                                                .font(.system(size: 14))
+                                                .fontWeight(.bold)
+                                            ProfilePictureView(profilePic: game.player1["profile_pic"], size: 50, cornerRadius: 25)
+                                        }
+                                            
+                                        HStack {
+                                            if game.player1Score == "" && game.player2Score == "" {
+                                                Text("0")
+                                                    .fontWeight(.bold)
+                                                Text("-")
+                                                    .fontWeight(.bold)
+                                                Text("0")
+                                                    .fontWeight(.bold)
+                                            } else {
+                                                Text(game.player1TotalScore)
+                                                    .fontWeight(.bold)
+                                                Text("-")
+                                                    .fontWeight(.bold)
+                                                Text(game.player2TotalScore)
+                                                    .fontWeight(.bold)
+                          
+                                            }
+                                        }
+                                       
+                                        //if checkIfUserIsBlocked() {
+                                        if game.blockPlayerId == Auth.auth().currentUser?.uid {
+                                            Text("Waiting...")
+                                        } else if game.player1TotalScore == "3" || game.player2TotalScore == "3" {
+                                            Text("View Results")
+                                        } else {
+                                            Text("Your Turn!")
+                                        }
+                                    }
+                                    .foregroundColor(.white)
+                                }
+                                    
+                            }
                         }
                     }
                 }
+            }
                 .onAppear {
                     print(user!)
                     viewModel.getGames(for: user!)
+                    
                 }
-            }
+            
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.primaryColor)
             .navigationBarHidden(true)
+            
         }
+        
         .environment(\.rootPresentationMode, self.$isActive)
         .navigationViewStyle(StackNavigationViewStyle())
+        
     }
 }
 

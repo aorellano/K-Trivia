@@ -32,6 +32,7 @@ class GameService: ObservableObject {
         FirebaseReference(.game)
             .whereField("player2", isEqualTo: ["id":"","profile_pic":"","username":""])
             .whereField("player1", isNotEqualTo: player1)
+            .whereField("groupName", isEqualTo: groupName)
             .getDocuments { querySnapshot, error in
             if error != nil {
                 print("Error starting game: \(String(describing: error?.localizedDescription))")
@@ -55,7 +56,7 @@ class GameService: ObservableObject {
     func createNewGame(with user: SessionUserDetails, and groupName: String) {
         let userInfo = ["id": user.id, "profile_pic": user.profilePic, "username": user.username]
         print("GROUPNAME \(groupName)")
-        self.game = Game(id: UUID().uuidString, groupName: groupName, player1: userInfo, player2: ["id":"", "profile_pic":"", "username":""], player1Score: "", player2Score: "", player1TotalScore: "", player2TotalScore: "", blockPlayerId: userInfo["id"] ?? "", winnerId:"")
+        self.game = Game(id: UUID().uuidString, groupName: groupName, player1: userInfo, player2: ["id":"", "profile_pic":"", "username":""], player1Score: "0", player2Score: "0", player1TotalScore: "0", player2TotalScore: "0", blockPlayerId: userInfo["id"] ?? "", winnerId:"")
         self.updateGame(self.game)
         self.updateUser(id: user.id, with: self.game.id)
         self.createOnlineGame()

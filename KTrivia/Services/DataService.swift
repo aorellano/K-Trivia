@@ -100,9 +100,11 @@ class DataServiceImpl: ObservableObject, DataService {
                 let player1Score = data["player1Score"] as? String ?? ""
                 let player2Score = data["player2Score"] as? String ?? ""
                 let blockPlayerId = data["blockPlayerId"] as? String ?? ""
+                let player1TotalScore = data["player1TotalScore"] as? String ?? ""
+                let player2TotalScore = data["player2TotalScore"] as? String ?? ""
                 
                 if gameIds.contains(id) {
-                    let game = Game(id: id, groupName: groupName, player1: player1, player2: player2, player1Score: player1Score, player2Score: player2Score, player1TotalScore: "", player2TotalScore: "", blockPlayerId: blockPlayerId, winnerId:"")
+                    let game = Game(id: id, groupName: groupName, player1: player1, player2: player2, player1Score: player1Score, player2Score: player2Score, player1TotalScore: player1TotalScore, player2TotalScore: player2TotalScore, blockPlayerId: blockPlayerId, winnerId:"")
                     return game
             
                 }

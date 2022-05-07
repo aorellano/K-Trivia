@@ -14,10 +14,14 @@ struct CurrentGameView: View {
     @State var isActive: Bool = false
     var sessionService: SessionServiceImpl
     @State var backgroundColor = Color.white
+    @State var currentStatus: String?
+    @State var blockedId: String?
    
-    init(viewModel: HomeListViewModel, game: Game, sessionService: SessionServiceImpl) {
+    init(viewModel: HomeListViewModel, game: Game, blockedId: String, sessionService: SessionServiceImpl) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.game = game
+        self.blockedId = blockedId
+        print(blockedId)
         self.sessionService = sessionService
     }
     
@@ -33,73 +37,37 @@ struct CurrentGameView: View {
                 isActive = true
             }
             //spinWheel should be sent a gameObject and if it is nil then game should be created
-            NavigationLink(destination: NavigationLazyView(SpinWheelView(groupName: game.groupName, viewModel: TriviaViewModel(groupName: game.groupName, sessionService: sessionService, gameId: game.id))), isActive: $isActive) {
-                
-                EmptyView()
-            }.isDetailLink(false)
-            
-            VStack {
-                if game.player1["id"] == Auth.auth().currentUser?.uid {
-                    if game.player2["username"] == "" {
-                        Text("Waiting...")
-                            .font(.system(size: 14))
-                            .fontWeight(.bold)
-                        ProfilePictureView(profilePic: game.player2["profile_pic"], size: 50, cornerRadius: 25)
-                    } else {
-                        Text(game.player2["username"] ?? "")
-                            .font(.system(size: 14))
-                            .fontWeight(.bold)
-                        ProfilePictureView(profilePic: game.player2["profile_pic"], size: 50, cornerRadius: 25)
-                  }
+            if game.player1TotalScore == "3" || game.player2TotalScore == "3" {
+                NavigationLink(destination: NavigationLazyView(ResultsView(viewModel: TriviaViewModel(groupName: game.groupName, sessionService: sessionService, gameId: game.id))), isActive: $isActive) {
                         
-                } else {
-                    Text(game.player1["username"] ?? "")
-                        .font(.system(size: 14))
-                        .fontWeight(.bold)
-                    ProfilePictureView(profilePic: game.player1["profile_pic"], size: 50, cornerRadius: 25)
-                }
-                    
-                
-                    
-                HStack {
-                    if game.player1Score == "" && game.player2Score == "" {
-                        Text("0")
-                            .fontWeight(.bold)
-                        Text("-")
-                            .fontWeight(.bold)
-                        Text("0")
-                            .fontWeight(.bold)
-                            
-                            
-                    } else {
-                        Text(game.player1Score)
-                            .fontWeight(.bold)
-                        Text("-")
-                            .fontWeight(.bold)
-                        Text(game.player2Score)
-                            .fontWeight(.bold)
-  
-                    }
-                }
-               
-                if game.blockPlayerId == Auth.auth().currentUser?.uid {
-                    Text("Waiting...")
-                        .font(.system(size: 14))
-                        .fontWeight(.bold)
-                    
-                } else {
-                   
-                    Text("Your Turn!")
-                        .font(.system(size: 14))
-                        .fontWeight(.bold)
-
-                }
+                        EmptyView()
+                    }.isDetailLink(false)
+            } else {
+                NavigationLink(destination: NavigationLazyView(SpinWheelView(groupName: game.groupName, viewModel: TriviaViewModel(groupName: game.groupName, sessionService: sessionService, gameId: game.id))), isActive: $isActive) {
+                        
+                        EmptyView()
+                    }.isDetailLink(false)
             }
             
          
+        }.onAppear {
+            
+            //checkIfUserIsBlocked()
+            print("GAME \(game)")
         }
-        .foregroundColor(.white)
+        
     }
+    
+//    func checkIfUserIsBlocked()  {
+//        print("Blocked user: \(blockedId)")
+//        if blockedId == Auth.auth().currentUser?.uid {
+//            currentStatus = "Waiting..."
+//        } else if game.player1TotalScore == "3" || game.player2TotalScore == "3" {
+//            currentStatus = "View Results"
+//        } else {
+//            currentStatus = "Your Turn!"
+//        }
+//    }
         
 }
 

@@ -32,6 +32,7 @@ struct SpinWheelView: View {
         ZStack{
             VStack {
                 Title(text: "Spin the Wheel", size: 30)
+                    .padding(.top, -20)
                 HStack(alignment: .center, spacing: 40) {
                     VStack {
                         ProfilePictureView(profilePic: viewModel.game?.player1["profile_pic"], size: 100, cornerRadius: 100)
@@ -69,7 +70,7 @@ struct SpinWheelView: View {
                 .padding()
                 
                 if viewModel.currentUser?.id == viewModel.game?.player1["id"] {
-                    if viewModel.game?.player1Score == "0" {
+                    if viewModel.game?.player1Score == "0" || viewModel.game?.player1Score == ""  {
                         ScoreIndicatorView(colors: [.white, .white, .white])
                     } else if viewModel.game?.player1Score == "1" {
                         ScoreIndicatorView(colors: [Color.secondaryColor, .white, .white])
@@ -79,7 +80,7 @@ struct SpinWheelView: View {
                         ScoreIndicatorView(colors: [Color.secondaryColor, Color.secondaryColor, Color.secondaryColor])
                     }
                 } else {
-                    if viewModel.game?.player2Score == "0" {
+                    if viewModel.game?.player2Score == "0" || viewModel.game?.player2Score == "" {
                         ScoreIndicatorView(colors: [.white, .white, .white])
                     } else if viewModel.game?.player2Score == "1" {
                         ScoreIndicatorView(colors: [Color.secondaryColor, .white, .white])
@@ -100,7 +101,7 @@ struct SpinWheelView: View {
                         isActive = true
                     }
                     .padding()
-                }.isDetailLink(false)
+                }
                     .disabled(selectedCategory == nil)
                 .alert("Would you like to recieve a question bomb or challenge your opponent for their question bomb?", isPresented: $showingAlert1) {
                         Button("Recieve") { viewModel.updateTotalScore() }
@@ -119,11 +120,12 @@ struct SpinWheelView: View {
                     viewModel.resumeGame(with: viewModel.gameId)
                 }
                 viewHasAppeared += 1
-           
-                if viewModel.score == 3 {
-                    print("gonna show this")
-                    showingAlert1.toggle()
-                }
+                
+                
+//                if viewModel.game?.player1Score == "3" || viewModel.game?.player2Score == "3" && viewModel.reachedEnd != true {
+//                    print("gonna show this")
+//                    showingAlert1.toggle()
+//                }
                 
                     
                 UINavigationBar.appearance().tintColor = .white

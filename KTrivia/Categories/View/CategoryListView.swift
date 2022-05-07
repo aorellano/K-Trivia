@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CategoryListView: View {
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+    @Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
     @StateObject var viewModel: CategoryListViewModel
     @State var selectedCategory: String? = nil
     @State var isActive: Bool = false
@@ -31,7 +33,7 @@ struct CategoryListView: View {
 //                                }.isDetailLink(false)
                                 NavigationLink(destination: SpinWheelView(groupName: selectedCategory ?? "", viewModel: TriviaViewModel(groupName: selectedCategory ?? "", sessionService: sessionService, gameId: "")), isActive: $isActive) {
                                                                         EmptyView()
-                                                                }.isDetailLink(false)
+                                                                }
                             }
                             ForEach(viewModel.groups, id: \.self) { group in
                                 Button(action: {
