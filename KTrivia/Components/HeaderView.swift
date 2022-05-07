@@ -21,7 +21,7 @@ struct HeaderView: View {
             HStack {
                 Spacer()
                 ZStack {
-                    NavigationLink(destination: SignoutScreen().environmentObject(sessionService), isActive: $isActive) {
+                    NavigationLink(destination: ProfileView().environmentObject(sessionService), isActive: $isActive) {
                          EmptyView()
                      }.isDetailLink(false)
                     ProfilePictureView(profilePic: sessionService.userDetails?.profilePic, size: 50, cornerRadius: 50)
