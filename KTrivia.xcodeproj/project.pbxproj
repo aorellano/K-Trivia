@@ -31,7 +31,7 @@
 		D03D6A9827E40D800076C2A2 /* SessionUserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03D6A9727E40D800076C2A2 /* SessionUserDetails.swift */; };
 		D03D6A9A27E40DDC0076C2A2 /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03D6A9927E40DDC0076C2A2 /* SessionService.swift */; };
 		D03D6A9C2800EC510076C2A2 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03D6A9B2800EC510076C2A2 /* HeaderView.swift */; };
-		D03D6A9F2801E4450076C2A2 /* SignoutScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03D6A9E2801E4450076C2A2 /* SignoutScreen.swift */; };
+		D03D6A9F2801E4450076C2A2 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03D6A9E2801E4450076C2A2 /* ProfileView.swift */; };
 		D03D6AA12801E9260076C2A2 /* LoginCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03D6AA02801E9260076C2A2 /* LoginCredentials.swift */; };
 		D03D6AA32801E9770076C2A2 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03D6AA22801E9770076C2A2 /* LoginService.swift */; };
 		D03D6AA52801EB3E0076C2A2 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03D6AA42801EB3E0076C2A2 /* LoginViewModel.swift */; };
@@ -70,6 +70,8 @@
 		D0DF4A65282302EC00E0AA22 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF4A64282302EC00E0AA22 /* HomeView.swift */; };
 		D0DF4A6728230D3500E0AA22 /* CurrentGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF4A6628230D3500E0AA22 /* CurrentGameView.swift */; };
 		D0DF4A69282324F700E0AA22 /* HomeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF4A68282324F700E0AA22 /* HomeListViewModel.swift */; };
+		D0DF4A6C282623EB00E0AA22 /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF4A6B282623EB00E0AA22 /* LeaderboardView.swift */; };
+		D0DF4A6E2826326700E0AA22 /* LeaderboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF4A6D2826326700E0AA22 /* LeaderboardViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,7 +109,7 @@
 		D03D6A9727E40D800076C2A2 /* SessionUserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUserDetails.swift; sourceTree = "<group>"; };
 		D03D6A9927E40DDC0076C2A2 /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		D03D6A9B2800EC510076C2A2 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		D03D6A9E2801E4450076C2A2 /* SignoutScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignoutScreen.swift; sourceTree = "<group>"; };
+		D03D6A9E2801E4450076C2A2 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		D03D6AA02801E9260076C2A2 /* LoginCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCredentials.swift; sourceTree = "<group>"; };
 		D03D6AA22801E9770076C2A2 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		D03D6AA42801EB3E0076C2A2 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -143,6 +145,8 @@
 		D0DF4A64282302EC00E0AA22 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		D0DF4A6628230D3500E0AA22 /* CurrentGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentGameView.swift; sourceTree = "<group>"; };
 		D0DF4A68282324F700E0AA22 /* HomeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListViewModel.swift; sourceTree = "<group>"; };
+		D0DF4A6B282623EB00E0AA22 /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
+		D0DF4A6D2826326700E0AA22 /* LeaderboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -355,12 +359,12 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		D03D6A9D2801E4320076C2A2 /* Settings */ = {
+		D03D6A9D2801E4320076C2A2 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				D03D6A9E2801E4450076C2A2 /* SignoutScreen.swift */,
+				D03D6A9E2801E4450076C2A2 /* ProfileView.swift */,
 			);
-			path = Settings;
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		D09762EF280F72EB00426F75 /* SpinWheel */ = {
@@ -420,9 +424,10 @@
 			children = (
 				D09763022811D48100426F75 /* Info.plist */,
 				D09762EF280F72EB00426F75 /* SpinWheel */,
+				D0DF4A6A282623D600E0AA22 /* Leaderboard */,
 				D0DF4A63282302D900E0AA22 /* Home */,
 				D0BEF62628064C7B000125C7 /* Helpers */,
-				D03D6A9D2801E4320076C2A2 /* Settings */,
+				D03D6A9D2801E4320076C2A2 /* Profile */,
 				D03D6A7C27E27EB60076C2A2 /* TriviaGame */,
 				D03D6A7B27E27EA80076C2A2 /* Categories */,
 				D03D6A7727E27DB90076C2A2 /* Authentication */,
@@ -474,6 +479,15 @@
 				D0DF4A68282324F700E0AA22 /* HomeListViewModel.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		D0DF4A6A282623D600E0AA22 /* Leaderboard */ = {
+			isa = PBXGroup;
+			children = (
+				D0DF4A6B282623EB00E0AA22 /* LeaderboardView.swift */,
+				D0DF4A6D2826326700E0AA22 /* LeaderboardViewModel.swift */,
+			);
+			path = Leaderboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -613,13 +627,14 @@
 				D03D6A7427E1911A0076C2A2 /* RootPresentationMode.swift in Sources */,
 				D03D6A8B27E2B6160076C2A2 /* RegisterView.swift in Sources */,
 				D03D6AA12801E9260076C2A2 /* LoginCredentials.swift in Sources */,
+				D0DF4A6C282623EB00E0AA22 /* LeaderboardView.swift in Sources */,
 				D014D8D527DD273900642A7E /* ProgressBar.swift in Sources */,
 				D0C6222F280B4E8600976CAF /* ImagePicker.swift in Sources */,
 				D03D6A8D27E2B8A90076C2A2 /* CloseModifier.swift in Sources */,
 				D03D6AA32801E9770076C2A2 /* LoginService.swift in Sources */,
 				D03D6A8827E285AF0076C2A2 /* ButtonView.swift in Sources */,
 				D09763062812208800426F75 /* ScoreIndicatorView.swift in Sources */,
-				D03D6A9F2801E4450076C2A2 /* SignoutScreen.swift in Sources */,
+				D03D6A9F2801E4450076C2A2 /* ProfileView.swift in Sources */,
 				D0DF4A5E2821149E00E0AA22 /* ActivityIndicator.swift in Sources */,
 				D09762F7280F78A000426F75 /* SpinWheelView.swift in Sources */,
 				D014D8D827DD290400642A7E /* ResultsView.swift in Sources */,
@@ -648,6 +663,7 @@
 				D0A883B827D886F400A18714 /* Trivia.swift in Sources */,
 				D03D6A9A27E40DDC0076C2A2 /* SessionService.swift in Sources */,
 				D024740C27DADC7000D663A4 /* Title.swift in Sources */,
+				D0DF4A6E2826326700E0AA22 /* LeaderboardViewModel.swift in Sources */,
 				D09762FF280FC80A00426F75 /* LyricsView.swift in Sources */,
 				D0DF4A65282302EC00E0AA22 /* HomeView.swift in Sources */,
 				D03D6A8427E27F900076C2A2 /* InputTextFieldView.swift in Sources */,

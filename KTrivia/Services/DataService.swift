@@ -13,12 +13,15 @@ protocol DataService {
     func getGroups(completion: @escaping ([String]) -> Void)
     func getQuestions(for group: String, and type: String, completion: @escaping ([Trivia]) -> Void)
     func getUsersGameIds(for user: String, completion: @escaping ([Game]) -> Void)
+    func updateUsers(score: Int, with id: String)
+    func getUsers(completion: @escaping ([SessionUserDetails]) -> Void)
 }
 
 class DataServiceImpl: ObservableObject, DataService {
     @Published var groups = [String]()
     @Published var questions = [Trivia]()
     @Published var games = [Game]()
+    @Published var users = [SessionUserDetails]()
     
     func getGroups(completion: @escaping ([String]) -> Void) {
         FirebaseReference(.questions).addSnapshotListener { (querySnapshot, error) in
@@ -114,6 +117,46 @@ class DataServiceImpl: ObservableObject, DataService {
             
             completion(
                 self.games
+            )
+        }
+    }
+    
+    
+    func updateUsers(score: Int, with id: String) {
+        let totalScore = Double(score)
+        let gameRef = FirebaseReference(.users).document(id)
+        gameRef.updateData(["totalScore": FieldValue.increment(totalScore)]) { error in
+                if let err = error {
+                    print(err)
+                    return
+                }
+            }
+        print("User updated!")
+    }
+    
+    func getUsers(completion: @escaping ([SessionUserDetails]) -> Void) {
+        FirebaseReference(.users).addSnapshotListener { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                return
+            }
+            
+            self.users = documents.map { (queryDocumentSnapshot) -> SessionUserDetails in
+                let data = queryDocumentSnapshot.data()
+                let id = data["uid"] as? String ?? ""
+                print(id)
+                let username = data["username"] as? String ?? ""
+                print(username)
+                let profilePic = data["profilePicUrl"] as? String ?? ""
+                print(profilePic)
+                let totalScore = data["totalScore"] as? Double ?? 0.0
+                print(totalScore)
+                return SessionUserDetails(id: id, username: username, profilePic: profilePic, games: [""], totalScore: totalScore)
+               
+                }
+              
+            
+            completion(
+                self.users
             )
         }
     }

@@ -71,8 +71,16 @@ private extension SessionServiceImpl {
                     return
                 }
                 
+                guard let games = data["games"] as? [String] else {
+                    return
+                }
+                
+                guard let totalScore = data["totalScore"] as? Double else {
+                    return
+                }
+                
                 DispatchQueue.main.async {
-                    self.userDetails = SessionUserDetails(id: uid, username: username, profilePic: profilePic)
+                    self.userDetails = SessionUserDetails(id: uid, username: username, profilePic: profilePic, games: games, totalScore: totalScore)
                 }
             }
     }

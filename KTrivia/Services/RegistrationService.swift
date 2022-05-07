@@ -33,7 +33,7 @@ final class RegistrationServiceImpl: ObservableObject, RegistrationService {
     }
     
     func storeUsers(_ uid: String, _ details: RegistrationDetails, _ profilePic: String) {
-        let userData = ["uid": uid, "username": details.username, "email": details.email, "profilePicUrl": profilePic]
+        let userData = ["uid": uid, "username": details.username, "email": details.email, "profilePicUrl": profilePic, "games": [""], "totalScore": 0] as [String : Any]
         FirebaseReference(.users).document(uid).setData(userData) { error in
                 if let err = error {
                     print(err)

@@ -157,12 +157,14 @@ class TriviaViewModel: ObservableObject {
             totalScore += 1
             game?.player1TotalScore = String(totalScore)
             //game?.player1Score = "0"
+            dataService.updateUsers(score: Int(game?.player1TotalScore ?? "1") ?? 1, with: game?.player1["id"] ?? "")
             GameService.shared.updateGame(game!)
         } else {
             var totalScore = Int(game?.player2TotalScore ?? "") ?? 0
             totalScore += 1
             game?.player2TotalScore = String(totalScore)
             game?.player2Score = "0"
+            dataService.updateUsers(score: Int(game?.player2TotalScore ?? "1") ?? 1, with: game?.player2["id"] ?? "")
             //GameService.shared.updateGame(game!)
         }
     }
@@ -182,11 +184,17 @@ class TriviaViewModel: ObservableObject {
         print("The game is endingggggg")
         if isPlayerOne && game?.player1TotalScore == "3" {
             results = "YOU WON!"
+            game?.winnerId = game?.player1["id"] ?? ""
+            GameService.shared.updateGame(game!)
         } else if !isPlayerOne && game?.player2TotalScore == "3" {
             results = "YOU WON!"
+            game?.winnerId = game?.player2["id"] ?? ""
+            GameService.shared.updateGame(game!)
         } else {
             results = "YOU LOST :("
         }
+        
+        
         reachedEnd = true
     }
     
