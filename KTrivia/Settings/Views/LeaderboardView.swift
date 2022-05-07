@@ -21,11 +21,7 @@ struct LeaderboardView: View {
                 .padding(.bottom, 60)
             ScrollView {
                 ForEach(viewModel.users, id: \.id) { user in
-                    Button(action: {
-                        //hapticFeedbackResponse()
-                        //self.selectedCategory = group
-                        //self.isActive = true
-                    }) {
+   
                         HStack {
                             Text(user.username)
                                 .fontWeight(.bold)
@@ -34,7 +30,7 @@ struct LeaderboardView: View {
                                 .fontWeight(.bold)
                         }
                         .padding()
-                    }
+                    
                     .accentColor(Color.black)
                     .frame(height: 80)
                     .background(.white)

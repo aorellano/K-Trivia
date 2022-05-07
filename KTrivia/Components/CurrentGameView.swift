@@ -56,6 +56,7 @@ struct CurrentGameView: View {
             print("GAME \(game)")
         }
         
+        
     }
     
 //    func checkIfUserIsBlocked()  {
