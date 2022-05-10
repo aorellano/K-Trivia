@@ -6,9 +6,12 @@
 //
 
 import FirebaseFirestore
+import FirebaseAuth
 
-class LeaderboardViewModel: ObservableObject {
+class UsersViewModel: ObservableObject {
     @Published var users = [SessionUserDetails]()
+    @Published var filteredUsers = [SessionUserDetails]()
+    @Published var friends = [[String:String]]()
     
     var dataService: DataService
     
@@ -16,12 +19,29 @@ class LeaderboardViewModel: ObservableObject {
         self.dataService = dataService
     }
     
-    
     func getUsers() {
         dataService.getUsers() { users in
             let sortedUsers = users.sorted(by: {$0.totalScore > $1.totalScore})
             self.users = sortedUsers
         }
+    }
+    
+    func getFriends()  {
+        let user = Auth.auth().currentUser?.uid
+        dataService.getFriends(for: user ?? "") { friends in
+            //let sortedUsers = users.sorted(by: {$0.totalScore > $1.totalScore})
+            print("hiii\(friends)")
+            self.friends = friends
+        }
+    }
+    
+    func search(with query: String) {
+        self.getUsers()
+        filteredUsers = users.filter { $0.username.contains(query) }
+    }
+    
+    func addFriend(to user: [String:String], with id: [String:String]) {
+        dataService.addFriend(to: user, with: id)
     }
 }
 

@@ -71,10 +71,11 @@
 		D0DF4A6728230D3500E0AA22 /* CurrentGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF4A6628230D3500E0AA22 /* CurrentGameView.swift */; };
 		D0DF4A69282324F700E0AA22 /* HomeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF4A68282324F700E0AA22 /* HomeListViewModel.swift */; };
 		D0DF4A6C282623EB00E0AA22 /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF4A6B282623EB00E0AA22 /* LeaderboardView.swift */; };
-		D0DF4A6E2826326700E0AA22 /* LeaderboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF4A6D2826326700E0AA22 /* LeaderboardViewModel.swift */; };
+		D0DF4A6E2826326700E0AA22 /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF4A6D2826326700E0AA22 /* UsersViewModel.swift */; };
 		D0DF4A722827236B00E0AA22 /* QuestionFactoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF4A712827236B00E0AA22 /* QuestionFactoryView.swift */; };
 		D0FEA9752829B74D003C1AD6 /* SubmitQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEA9742829B74D003C1AD6 /* SubmitQuestionView.swift */; };
 		D0FEA9772829FBFC003C1AD6 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEA9762829FBFC003C1AD6 /* FriendsView.swift */; };
+		D0FEA9792829FCB5003C1AD6 /* FriendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEA9782829FCB5003C1AD6 /* FriendsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,10 +150,11 @@
 		D0DF4A6628230D3500E0AA22 /* CurrentGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentGameView.swift; sourceTree = "<group>"; };
 		D0DF4A68282324F700E0AA22 /* HomeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListViewModel.swift; sourceTree = "<group>"; };
 		D0DF4A6B282623EB00E0AA22 /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
-		D0DF4A6D2826326700E0AA22 /* LeaderboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewModel.swift; sourceTree = "<group>"; };
+		D0DF4A6D2826326700E0AA22 /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
 		D0DF4A712827236B00E0AA22 /* QuestionFactoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionFactoryView.swift; sourceTree = "<group>"; };
 		D0FEA9742829B74D003C1AD6 /* SubmitQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitQuestionView.swift; sourceTree = "<group>"; };
 		D0FEA9762829FBFC003C1AD6 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
+		D0FEA9782829FCB5003C1AD6 /* FriendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -510,7 +512,8 @@
 		D0DF4A702827232500E0AA22 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				D0DF4A6D2826326700E0AA22 /* LeaderboardViewModel.swift */,
+				D0DF4A6D2826326700E0AA22 /* UsersViewModel.swift */,
+				D0FEA9782829FCB5003C1AD6 /* FriendsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -688,10 +691,11 @@
 				D0BEF62328051527000125C7 /* Game.swift in Sources */,
 				D09762F9280F924F00426F75 /* SpinWheelViewModel.swift in Sources */,
 				D0BEF62828064C88000125C7 /* FirebaseReference.swift in Sources */,
+				D0FEA9792829FCB5003C1AD6 /* FriendsViewModel.swift in Sources */,
 				D0A883B827D886F400A18714 /* Trivia.swift in Sources */,
 				D03D6A9A27E40DDC0076C2A2 /* SessionService.swift in Sources */,
 				D024740C27DADC7000D663A4 /* Title.swift in Sources */,
-				D0DF4A6E2826326700E0AA22 /* LeaderboardViewModel.swift in Sources */,
+				D0DF4A6E2826326700E0AA22 /* UsersViewModel.swift in Sources */,
 				D09762FF280FC80A00426F75 /* LyricsView.swift in Sources */,
 				D0DF4A65282302EC00E0AA22 /* HomeView.swift in Sources */,
 				D03D6A8427E27F900076C2A2 /* InputTextFieldView.swift in Sources */,

@@ -29,7 +29,7 @@ struct ProfileView: View {
 //                            Text("Past Games")
 //                        }
 //                    }
-                    SGNavigationLink(destination: LeaderboardView()) {
+                    SGNavigationLink(destination: FriendsView().environmentObject(sessionService)) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .foregroundColor(.white)
