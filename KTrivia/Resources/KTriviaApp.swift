@@ -13,7 +13,7 @@ import SceneKit
 @main
 struct KTriviaApp: App {
     @StateObject var sessionService = SessionServiceImpl()
-//    @StateObject var dataService = DataServiceImpl()
+    @StateObject var dataService = DataServiceImpl()
     
     init() {
         FirebaseApp.configure()
@@ -25,7 +25,7 @@ struct KTriviaApp: App {
             case .loggedIn:
                 HomeView()
                     .environmentObject(sessionService)
-                    //.environmentObject(dataService)
+                    .environmentObject(dataService)
                 //print(sessionService.userDetails)
             case .loggedOut:
                 LoginView()

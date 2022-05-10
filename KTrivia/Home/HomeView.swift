@@ -24,6 +24,7 @@ struct HomeView: View {
             VStack {
                 HeaderView(text: "Welcome!")
                     .environmentObject(sessionService)
+                    .environmentObject(dataService)
                     .padding(.trailing, -10)
                 Spacer()
                 Image(uiImage: UIImage(named: "LaunchScreenIcon")!)
@@ -62,11 +63,13 @@ struct HomeView: View {
                                                     .font(.system(size: 14))
                                                     .fontWeight(.bold)
                                                 ProfilePictureView(profilePic: game.player2["profile_pic"], size: 50, cornerRadius: 25)
+                                                    
                                             } else {
                                                 Text(game.player2["username"] ?? "")
                                                     .font(.system(size: 14))
                                                     .fontWeight(.bold)
                                                 ProfilePictureView(profilePic: game.player2["profile_pic"], size: 50, cornerRadius: 25)
+                                                
                                           }
                                                 
                                         } else {
@@ -74,7 +77,9 @@ struct HomeView: View {
                                                 .font(.system(size: 14))
                                                 .fontWeight(.bold)
                                             ProfilePictureView(profilePic: game.player1["profile_pic"], size: 50, cornerRadius: 25)
+                                            
                                         }
+                                            
                                             
                                         HStack {
                                             if game.player1Score == "" && game.player2Score == "" {
@@ -118,7 +123,7 @@ struct HomeView: View {
                     
                 }
             
-            .padding()
+                .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.primaryColor)
             .navigationBarHidden(true)

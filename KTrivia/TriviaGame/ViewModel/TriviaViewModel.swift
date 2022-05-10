@@ -97,7 +97,6 @@ class TriviaViewModel: ObservableObject {
         GameService.shared.$game
             .assign(to: \.game, on: self)
             .store(in: &cancellables)
-        print("YO\(game?.player2Score)")
     }
     
     func setQuestion() {

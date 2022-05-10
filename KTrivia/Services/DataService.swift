@@ -8,6 +8,8 @@
 import Foundation
 import Firebase
 import FirebaseFirestore
+import FirebaseStorage
+import UIKit
 
 protocol DataService {
     func getGroups(completion: @escaping ([String]) -> Void)
@@ -15,6 +17,8 @@ protocol DataService {
     func getUsersGameIds(for user: String, completion: @escaping ([Game]) -> Void)
     func updateUsers(score: Int, with id: String)
     func getUsers(completion: @escaping ([SessionUserDetails]) -> Void)
+    func createQuestion(with category: String, type: String, question: String, correctAnswer: String, incorrectAnswers: [String], screenshot: UIImage, audio: String)
+    func createChoiceQuestion(with category: String, type: String, question: String, correctAnswer: String, incorrectAnswers: [String])
 }
 
 class DataServiceImpl: ObservableObject, DataService {
@@ -65,6 +69,8 @@ class DataServiceImpl: ObservableObject, DataService {
             )
         }
     }
+    
+    
     
     func getUsersGameIds(for user: String, completion: @escaping ([Game]) -> Void) {
         
@@ -159,6 +165,84 @@ class DataServiceImpl: ObservableObject, DataService {
                 self.users
             )
         }
+    }
+    func createQuestion(with category: String, type: String, question: String, correctAnswer: String, incorrectAnswers: [String], screenshot: UIImage, audio: String) {
+        
+        let uuid = UUID().uuidString
+        
+        let question = Trivia(category: category, type: type, question: question, correctAnswer: correctAnswer, incorrectAnswers: incorrectAnswers, file: "")
+        
+        storeScreenshot(of: screenshot, with: uuid, question: question)
+//
+//        do {
+//            try FirebaseReference(.questions).document().setData(from: question)
+//
+//        } catch {
+//            print("Error creating online game \(error.localizedDescription)")
+//        }
+        
+//        let gameRef = FirebaseReference(.questions).document(id)
+//        gameRef.updateData(["totalScore": FieldValue.increment(totalScore)]) { error in
+//                if let err = error {
+//                    print(err)
+//                    return
+//                }
+//            }
+        
+//        if audio == "" {
+//            storeScreenshot(of: type, with: screenshot)
+//        } else {
+//            print("this is audio")
+//        }
+        
+    }
+    
+    func createChoiceQuestion(with category: String, type: String, question: String, correctAnswer: String, incorrectAnswers: [String]) {
+        let uuid = UUID().uuidString
+        
+        let question = Trivia(category: category, type: type, question: question, correctAnswer: correctAnswer, incorrectAnswers: incorrectAnswers, file: "")
+        
+        storeData(screenshot: "", question: question)
+        //storeScreenshot(of: screenshot, with: uuid, question: question)
+//
+    }
+    func storeScreenshot(of image: UIImage, with id: String, question: Trivia){
+//        if type == "MV" {
+//            print("this is a photo")
+//        } else {
+//            print("this is a performacne")
+//        }
+//
+        let ref = Storage.storage().reference(withPath: id)
+        let imageData = image.jpegData(compressionQuality: 0.5)!
+        ref.putData(imageData, metadata: nil) { metadata, err in
+            if let err = err {
+                print("Failed to push image to storage \(err)")
+                    return
+            }
+
+            ref.downloadURL { url, err in
+                if let err = err {
+                    print("Failed to retreive downloadURL \(err)")
+                    return
+                }
+
+                let screenshot = url?.absoluteString ?? ""
+                self.storeData(screenshot: screenshot, question: question)
+                print("Successfully stored image with url: \(url?.absoluteString ?? "")")
+            }
+        }
+    }
+    
+    func storeData(screenshot: String, question: Trivia) {
+        
+        let q = Trivia(category: question.category, type: question.type, question: question.question, correctAnswer: question.correctAnswer, incorrectAnswers: question.incorrectAnswers, file: screenshot)
+                do {
+                    try FirebaseReference(.questions).document().setData(from: q)
+        
+                } catch {
+                    print("Error creating online game \(error.localizedDescription)")
+                }
     }
 }
         
