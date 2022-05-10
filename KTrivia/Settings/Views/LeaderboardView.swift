@@ -23,6 +23,7 @@ struct LeaderboardView: View {
                 ForEach(viewModel.users, id: \.id) { user in
    
                         HStack {
+                            ProfilePictureView(profilePic: user.profilePic, size: 50, cornerRadius: 25)
                             Text(user.username)
                                 .fontWeight(.bold)
                             Spacer()

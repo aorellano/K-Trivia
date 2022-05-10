@@ -9,25 +9,26 @@ import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var sessionService: SessionServiceImpl
+    @EnvironmentObject var dataService: DataServiceImpl
     @State var isActive: Bool = false
     var body: some View {
         VStack(spacing: 20) {
                 VStack {
                 ProfilePictureView(profilePic: sessionService.userDetails?.profilePic, size: 100, cornerRadius: 50)
-                        .padding(.top, -60)
+                        .padding(.top, -40)
                     Text(sessionService.userDetails?.username ?? "")
                         .foregroundColor(.white)
                         .fontWeight(.bold)
                         .padding(.bottom, 60)
                     VStack(spacing: 15){
-                    SGNavigationLink(destination: LeaderboardView()) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(.white)
-                                .frame(height: 70)
-                            Text("Past Games")
-                        }
-                    }
+//                    SGNavigationLink(destination: LeaderboardView()) {
+//                        ZStack {
+//                            RoundedRectangle(cornerRadius: 10)
+//                                .foregroundColor(.white)
+//                                .frame(height: 70)
+//                            Text("Past Games")
+//                        }
+//                    }
                     SGNavigationLink(destination: LeaderboardView()) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
@@ -44,7 +45,7 @@ struct ProfileView: View {
                             Text("Leaderboard")
                         }
                     }
-                    SGNavigationLink(destination: QuestionFactoryView()) {
+                    SGNavigationLink(destination: SubmitQuestionView().environmentObject(dataService)) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .foregroundColor(.white)

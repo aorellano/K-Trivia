@@ -24,6 +24,7 @@ struct HomeView: View {
             VStack {
                 HeaderView(text: "Welcome!")
                     .environmentObject(sessionService)
+                    .environmentObject(dataService)
                     .padding(.trailing, -10)
                 Spacer()
                 Image(uiImage: UIImage(named: "LaunchScreenIcon")!)

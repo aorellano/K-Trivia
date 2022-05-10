@@ -73,6 +73,8 @@
 		D0DF4A6C282623EB00E0AA22 /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF4A6B282623EB00E0AA22 /* LeaderboardView.swift */; };
 		D0DF4A6E2826326700E0AA22 /* LeaderboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF4A6D2826326700E0AA22 /* LeaderboardViewModel.swift */; };
 		D0DF4A722827236B00E0AA22 /* QuestionFactoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DF4A712827236B00E0AA22 /* QuestionFactoryView.swift */; };
+		D0FEA9752829B74D003C1AD6 /* SubmitQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEA9742829B74D003C1AD6 /* SubmitQuestionView.swift */; };
+		D0FEA9772829FBFC003C1AD6 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0FEA9762829FBFC003C1AD6 /* FriendsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +151,8 @@
 		D0DF4A6B282623EB00E0AA22 /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 		D0DF4A6D2826326700E0AA22 /* LeaderboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewModel.swift; sourceTree = "<group>"; };
 		D0DF4A712827236B00E0AA22 /* QuestionFactoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionFactoryView.swift; sourceTree = "<group>"; };
+		D0FEA9742829B74D003C1AD6 /* SubmitQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmitQuestionView.swift; sourceTree = "<group>"; };
+		D0FEA9762829FBFC003C1AD6 /* FriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -497,6 +501,8 @@
 				D0DF4A6B282623EB00E0AA22 /* LeaderboardView.swift */,
 				D03D6A9E2801E4450076C2A2 /* ProfileView.swift */,
 				D0DF4A712827236B00E0AA22 /* QuestionFactoryView.swift */,
+				D0FEA9742829B74D003C1AD6 /* SubmitQuestionView.swift */,
+				D0FEA9762829FBFC003C1AD6 /* FriendsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -648,6 +654,7 @@
 				D03D6AA12801E9260076C2A2 /* LoginCredentials.swift in Sources */,
 				D0DF4A6C282623EB00E0AA22 /* LeaderboardView.swift in Sources */,
 				D014D8D527DD273900642A7E /* ProgressBar.swift in Sources */,
+				D0FEA9772829FBFC003C1AD6 /* FriendsView.swift in Sources */,
 				D0C6222F280B4E8600976CAF /* ImagePicker.swift in Sources */,
 				D03D6A8D27E2B8A90076C2A2 /* CloseModifier.swift in Sources */,
 				D03D6AA32801E9770076C2A2 /* LoginService.swift in Sources */,
@@ -668,6 +675,7 @@
 				D03D6AA52801EB3E0076C2A2 /* LoginViewModel.swift in Sources */,
 				D03D6A9327E2C3DF0076C2A2 /* RegistrationService.swift in Sources */,
 				D0DF4A722827236B00E0AA22 /* QuestionFactoryView.swift in Sources */,
+				D0FEA9752829B74D003C1AD6 /* SubmitQuestionView.swift in Sources */,
 				D0DE9D9827D9D01D006D8279 /* Array+Extensions.swift in Sources */,
 				D0DF4A69282324F700E0AA22 /* HomeListViewModel.swift in Sources */,
 				D09763012810983400426F75 /* ScreenshotView.swift in Sources */,

@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct Trivia: Identifiable {
+struct Trivia: Identifiable, Codable {
     var id: String = UUID().uuidString
     var category: String
     var type: String
