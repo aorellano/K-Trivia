@@ -19,6 +19,8 @@ protocol DataService {
     func getUsers(completion: @escaping ([SessionUserDetails]) -> Void)
     func createQuestion(with category: String, type: String, question: String, correctAnswer: String, incorrectAnswers: [String], screenshot: UIImage, audio: String)
     func createChoiceQuestion(with category: String, type: String, question: String, correctAnswer: String, incorrectAnswers: [String])
+    func getFriends(for user: String, completion: @escaping ([[String:String]]) -> Void)
+    func addFriend(to user: [String:String], with id: [String:String])
 }
 
 class DataServiceImpl: ObservableObject, DataService {
@@ -26,6 +28,7 @@ class DataServiceImpl: ObservableObject, DataService {
     @Published var questions = [Trivia]()
     @Published var games = [Game]()
     @Published var users = [SessionUserDetails]()
+    @Published var friends = [[String:String]]()
     
     func getGroups(completion: @escaping ([String]) -> Void) {
         FirebaseReference(.questions).addSnapshotListener { (querySnapshot, error) in
@@ -243,6 +246,43 @@ class DataServiceImpl: ObservableObject, DataService {
                 } catch {
                     print("Error creating online game \(error.localizedDescription)")
                 }
+    }
+    
+    func getFriends(for user: String, completion: @escaping (([[String:String]]) -> Void)) {
+        let docRef = FirebaseReference(.users).document(user)
+        docRef.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    let data = document.data()
+                    print(data)
+                    self.friends = data?["friends"] as? [[String:String]] ?? [["":""]]
+                    print(self.friends)
+                    completion(
+                        self.friends
+                    )
+                } else {
+                    print("Document does not exist")
+                }
+        }
+    }
+    
+    func addFriend(to user: [String:String], with id: [String:String]) {
+        var ref = FirebaseReference(.users).document(id.keys.first ?? "")
+//        gameRef.updateData(["totalScore": FieldValue.increment(totalScore)]) { error in
+//                if let err = error {
+//                    print(err)
+//                    return
+//                }
+//            }
+        //FieldValue.arrayUnion([gameId])]
+        
+        ref.updateData(["friends": FieldValue.arrayUnion([user])])
+        
+        var ref2 = FirebaseReference(.users).document(user.keys.first ?? "")
+        ref2.updateData(["friends": FieldValue.arrayUnion([id])])
+    
+        
+
+                
     }
 }
         

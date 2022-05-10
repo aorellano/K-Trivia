@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct LeaderboardView: View {
-   @StateObject var viewModel: LeaderboardViewModel
+   @StateObject var viewModel: UsersViewModel
     var arr = ["first", "second", "third", "fourth", "fifth"]
     
-    init(viewModel: LeaderboardViewModel = .init()) {
+    init(viewModel: UsersViewModel = .init()) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
     var body: some View {
