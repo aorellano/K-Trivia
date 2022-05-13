@@ -25,8 +25,32 @@ class GameService: ObservableObject {
             print("Error creating online game: \(error.localizedDescription)")
         }
     }
-
-    func startGame(with user: SessionUserDetails, and groupName: String) {
+    
+    func createNewGame(with user: SessionUserDetails, and friend: UserInfo, and groupName: String) {
+        let userInfo = ["id": user.id, "profile_pic": user.profilePic, "username": user.username]
+        let friendInfo = ["id": friend.id, "profile_pic": friend.profile_pic, "username": friend.username]
+        print("GROUPNAME \(groupName)")
+        self.game = Game(id: UUID().uuidString, groupName: groupName, player1: userInfo, player2: friendInfo, player1Score: "0", player2Score: "0", player1TotalScore: "0", player2TotalScore: "0", blockPlayerId: userInfo["id"] ?? "", winnerId:"")
+        self.updateGame(self.game)
+        self.updateUser(id: user.id, with: self.game.id)
+        self.createOnlineGame()
+        self.listenForGameChanges()
+    }
+    
+    func startGameWithFriend(with currentUser: SessionUserDetails, and friend: UserInfo, and groupName: String) {
+        print("LETS DO IT")
+        let player1Info = ["id": currentUser.id, "profile_pic": currentUser.profilePic, "username": currentUser.username]
+        let player2Info = ["id": friend.id, "profile_pic": friend.profile_pic, "username": friend.username]
+        print("GROUPNAME \(groupName)")
+        self.game = Game(id: UUID().uuidString, groupName: groupName, player1: player1Info, player2: player2Info, player1Score: "0", player2Score: "0", player1TotalScore: "0", player2TotalScore: "0", blockPlayerId: player2Info["id"] ?? "", winnerId:"")
+        self.updateGame(self.game)
+        self.updateUser(id: currentUser.id, with: self.game.id)
+        self.updateUser(id: friend.id, with: self.game.id)
+        self.createOnlineGame()
+        self.listenForGameChanges()
+    }
+    
+    func startRandomGame(with user: SessionUserDetails,  and groupName: String) {
         let player1 = ["id": user.id, "profile_pic": user.profilePic, "username": user.username]
         
         FirebaseReference(.game)
@@ -52,7 +76,6 @@ class GameService: ObservableObject {
             }
         }
     }
-
     func createNewGame(with user: SessionUserDetails, and groupName: String) {
         let userInfo = ["id": user.id, "profile_pic": user.profilePic, "username": user.username]
         print("GROUPNAME \(groupName)")

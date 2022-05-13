@@ -67,6 +67,8 @@ private extension SessionServiceImpl {
                     return
                 }
                 
+          
+                
                 guard let profilePic = data["profilePicUrl"] as? String else {
                     return
                 }
@@ -79,8 +81,15 @@ private extension SessionServiceImpl {
                     return
                 }
                 
+                guard let friends = data["friends"] as? [[String: String]] else {
+                    return
+                }
+                print(friends)
+                
                 DispatchQueue.main.async {
-                    self.userDetails = SessionUserDetails(id: uid, username: username, profilePic: profilePic, games: games, totalScore: totalScore)
+                    
+                    self.userDetails = SessionUserDetails(id: uid, username: username, profilePic: profilePic, games: games, totalScore: totalScore, friends: friends)
+                    print(self.userDetails)
                 }
             }
     }

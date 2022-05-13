@@ -11,137 +11,97 @@ struct SubmitQuestionView: View {
     @State var question = ""
     @State var correctAnswer = ""
     @State var incorrectAnswers = ["", "", ""]
-    @State var selectedGroup = ""
-    @State var selectedOption = ""
     @State var shouldShowImagePicker = false
     @State var image = UIImage(named: "")
-    var groups = ["BTS", "Twice", "Stray Kids"]
-    var options = ["Choice", "Lyrics", "Performance", "MV", "Song"]
+    @State var showAlert = false
+    var selectedGroup: String
+    var selectedOption: String
     @EnvironmentObject var dataService: DataServiceImpl
     
+    init(selectedGroup: String, selectedOption: String) {
+        self.selectedGroup = selectedGroup
+        self.selectedOption = selectedOption
+        print(self.selectedGroup)
+        print(self.selectedOption)
+    }
+    
     var body: some View {
+//        if type == "MV" || type == "Performance" {
+//
+//        }
         VStack {
-            Title(text: "Question Factory", size: 30)
-                .padding(.top, -60)
-            VStack {
-                RoundedRectangle(cornerRadius: 10)
+            if selectedOption == "MV" || selectedOption == "Performance" {
+            ZStack {
+                RoundedRectangle(cornerRadius: 20)
+                    .frame(height: 200)
                     .foregroundColor(.white)
-                    if let image = self.image {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFill()
-                            .frame(height: 160)
-                            .cornerRadius(10)
-                            .foregroundColor(.white)
+                    .padding(.top, 20)
+                if let image = self.image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 200)
+                        .cornerRadius(20)
+                        .padding(.top, 20)
+                        .foregroundColor(.white)
+                }
+    
+                Image(systemName: "photo")
+                    .onTapGesture {
+                        shouldShowImagePicker.toggle()
                     }
-                    HStack() {
-                        Image(systemName: "photo")
-                            .onTapGesture {
-                                shouldShowImagePicker.toggle()
-                        }
-                        .foregroundColor(Color.secondaryColor)
-                
-                        Spacer()
-
-                        }
-                }
+                    .foregroundColor(Color.secondaryColor)
+                    .padding(.leading, -180)
+                    .padding(.top, 180)
             
-//            ZStack {
-//                VStack {
-//                ZStack{
-//                    RoundedRectangle(cornerRadius: 10)
-//                            .frame(width: 200, height: 100)
-//                            .foregroundColor(.white)
-//
-//                    VStack{
-//                    RoundedRectangle(cornerRadius: 10)
-//                        .background(.white)
-//                    if let image = self.image {
-//                        Image(uiImage: image)
-//                            .resizable()
-//                            .scaledToFill()
-//                            .frame(width: 200, height: 100)
-//                            .cornerRadius(75)
-//                            .foregroundColor(.white)
-//
-//                        }
-//
-//
-//
-//                HStack() {
-//                    Image(systemName: "photo")
-//                        .onTapGesture {
-//                            shouldShowImagePicker.toggle()
-//                        }
-//                        .foregroundColor(Color.secondaryColor)
-//
-//                    Spacer()
-//                    Image(systemName: "music.note")
-//                        .onTapGesture {
-//                            print("opening library")
-//                        }
-//                        .foregroundColor(Color.secondaryColor)
-//                }
-//                .padding()
-//                    }
-//                }
-//                }
-//            }
-            
-            Text("Select Group and Question Type")
-                .foregroundColor(.white)
-                .fontWeight(.semibold)
-                .padding(.bottom, -5)
-            Picker("Select Group", selection: $selectedGroup) {
-                ForEach(groups, id:\.self) { group in
-                    Text(group)
-                        .foregroundColor(.white)
-                }
-            }.pickerStyle(.segmented)
-                .frame(height: 40)
-            Picker("Select Type", selection: $selectedOption) {
-                ForEach(options, id:\.self) { type in
-                    Text(type)
-                        .foregroundColor(.white)
-                }
-            
-                
-            }.pickerStyle(.segmented)
-                .frame(height: 40)
+            }
+        }
+            Spacer()
             VStack(spacing: 10){
                 InputTextFieldView(text: $question, placeholder: "Question", keyboardType: .default, sfSymbol: .none)
                 InputTextFieldView(text: $correctAnswer, placeholder: "Correct Answer", keyboardType: .default, sfSymbol: "checkmark.square.fill")
                 InputTextFieldView(text: $incorrectAnswers[0], placeholder: "Incorrect Answer #1", keyboardType: .default, sfSymbol: "x.square.fill")
                 InputTextFieldView(text: $incorrectAnswers[1], placeholder: "Incorrect Answer #2", keyboardType: .default, sfSymbol: "x.square.fill")
                 InputTextFieldView(text: $incorrectAnswers[2], placeholder: "Incorrect Answer #3", keyboardType: .default, sfSymbol: "x.square.fill")
-            }.padding(.top, -5)
+            }
             
+            Spacer()
             ButtonView(title: "Submit Question", background: Color.secondaryColor) {
-              
-                if image != UIImage(named: "") {
+                if question == "" || correctAnswer == "" || incorrectAnswers[0] == "" || incorrectAnswers[1] == "" || incorrectAnswers[2] == "" {
+                    showAlert = true
+                } else if image != UIImage(named: "") {
                     dataService.createQuestion(with: selectedGroup, type: selectedOption, question: question, correctAnswer: correctAnswer, incorrectAnswers: incorrectAnswers, screenshot: image!, audio: "")
+                    image = UIImage(named: "")
+                    question = ""
+                    correctAnswer = ""
+                    incorrectAnswers = ["","",""]
                 } else {
-                dataService.createChoiceQuestion(with: selectedGroup, type: selectedOption, question: question, correctAnswer: correctAnswer, incorrectAnswers: incorrectAnswers)
+                    dataService.createChoiceQuestion(with: selectedGroup, type: selectedOption, question: question, correctAnswer: correctAnswer, incorrectAnswers: incorrectAnswers)
+                    question = ""
+                    correctAnswer = ""
+                    incorrectAnswers = ["","",""]
                 }
             }
             
-            
         }
-        
         .fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
             ImagePicker(image: $image)
-                
         }
+        .alert("Please fill out all fields", isPresented: $showAlert) {
+                            Button("OK", role: .cancel) { }
+                        }
         
+                
+        
+        .foregroundColor(.black)
+        .navigationTitle("Create a Question")
+        .navigationBarTitleDisplayMode(.inline)
             .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.primaryColor)
+            .background(Color(red:242/255, green: 242/255, blue: 247/255))
     }
+    
+    
         
 }
 
-struct SubmitQuestionView_Previews: PreviewProvider {
-    static var previews: some View {
-        SubmitQuestionView()
-    }
-}

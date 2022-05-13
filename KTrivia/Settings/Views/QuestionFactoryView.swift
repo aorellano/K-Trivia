@@ -8,34 +8,63 @@
 import SwiftUI
 
 struct QuestionFactoryView: View {
-    var options = ["Submit Questions", "Review Questions "]
+    var groups = ["BTS", "Twice", "Stray Kids"]
+    var options = ["Choice", "Lyrics", "Performance", "MV", "Song"]
+    @State var selectedGroup = "BTS"
+    @State var selectedOption = "Choice"
+    @State var isActive = false
     var body: some View {
         VStack {
-            Title(text: "Question Factory", size: 30)
-                .padding(.top, -20)
-                .padding(.bottom, 60)
-            ScrollView {
-                ForEach(options, id: \.self) { option in
-   
-                        HStack {
-                            Text(option)
-                                .fontWeight(.bold)
-                            Spacer()
-                            
-                        }
-                        .padding()
-                    
-                    .accentColor(Color.black)
-                    .frame(height: 80)
-                    .background(.white)
-                    .cornerRadius(15)
-                    .shadow(radius: 5, x: 2, y: 2)
-                    .padding([.leading, .trailing], 20)
-                }
+            if selectedGroup != "" && selectedOption != "" {
+                NavigationLink(destination: NavigationLazyView(SubmitQuestionView(selectedGroup: selectedGroup, selectedOption: selectedOption)), isActive: $isActive) {
+                    EmptyView()
+                }.isDetailLink(false)
             }
+            
+            VStack {
+                Text("Select Group")
+                    .foregroundColor(.black)
+                    .fontWeight(.semibold)
+                    .padding(.top, 30)
+                   // .padding(.bottom, -10)
+                Picker("Select Group", selection: $selectedGroup) {
+                    ForEach(groups, id:\.self) { group in
+                        Text(group)
+                    }
+                }.pickerStyle(.wheel)
+                .frame(height: 200)
+            }
+            
+            Spacer()
+            
+            VStack {
+                Text("Select Question Type")
+                    .fontWeight(.semibold)
+                    .padding(.top, -60)
+                    .padding(.bottom, 20)
+                Picker("Select Type", selection: $selectedOption) {
+                    ForEach(options, id:\.self) { type in
+                        Text(type)
+                    }
+                    
+                }.pickerStyle(.wheel)
+                .frame(height: 100)
+            }
+            Spacer()
+            
+                
+                    ButtonView(title: "Enter", background: Color.secondaryColor) {
+                        isActive = true
+                    }
+
+            
+            
         }
+        .padding()
+        .navigationTitle("Choose Options")
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.primaryColor)
+        .background(Color(red:242/255, green: 242/255, blue: 247/255))
+        
     }
 }
 

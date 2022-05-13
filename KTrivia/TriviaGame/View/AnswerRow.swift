@@ -29,7 +29,7 @@ struct AnswerRow: View {
     
     var body: some View {
         ZStack {
-            NavigationLink(destination: ResultsView(viewModel: viewModel), isActive: $isActive)
+            NavigationLink(destination: NavigationLazyView(ResultsView(viewModel: viewModel)), isActive: $isActive)
              {
                  EmptyView()
              }.isDetailLink(false)

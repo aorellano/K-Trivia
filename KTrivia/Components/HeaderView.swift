@@ -10,6 +10,7 @@ import SDWebImageSwiftUI
 struct HeaderView: View {
     @State private var isActive: Bool = false
     @EnvironmentObject var sessionService: SessionServiceImpl
+    @EnvironmentObject var dataService: DataServiceImpl
     @State private var text: String
     
     init(text: String) {
@@ -21,19 +22,17 @@ struct HeaderView: View {
             HStack {
                 Spacer()
                 ZStack {
-                    NavigationLink(destination: ProfileView().environmentObject(sessionService), isActive: $isActive) {
+                    NavigationLink(destination: NavigationLazyView(ProfileView()).environmentObject(sessionService).environmentObject(dataService), isActive: $isActive) {
                          EmptyView()
                      }.isDetailLink(false)
                     ProfilePictureView(profilePic: sessionService.userDetails?.profilePic, size: 50, cornerRadius: 50)
                         .environmentObject(sessionService)
                
-                    .padding(.trailing, 20)
                     .onTapGesture {
                         isActive = true
                     }
                 }
             }
-            Title(text: text ?? "", size: 30)
         }
     }
 }

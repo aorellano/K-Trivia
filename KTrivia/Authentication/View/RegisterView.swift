@@ -13,6 +13,8 @@ struct RegisterView: View {
     )
     @State var shouldShowImagePicker = false
     @State var image: UIImage?
+    @State var showAlert = false
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     
     var body: some View {
         NavigationView {
@@ -35,6 +37,7 @@ struct RegisterView: View {
                                     .font(.system(size: 150, weight: .light))
                                     .padding(.top, -20)
                                     .padding(.bottom, 25)
+                                    .foregroundColor(.black)
                             }
                         }
                     }
@@ -53,16 +56,28 @@ struct RegisterView: View {
                     
                     }
                     ButtonView(title: "Sign Up", background: Color.secondaryColor) {
-                        vm.profilePicture = image
-                        vm.register()
+                        if image == UIImage(named: "") {
+                            showAlert = true
+                        } else {
+                            vm.profilePicture = image
+                            vm.register()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.55) {
+                                self.presentationMode.wrappedValue.dismiss()
+                            }
+                        }
+                        
                     }
+                    .alert("Please Choose Profile Picture", isPresented: $showAlert) {
+                                Button("OK", role: .cancel) { }
+                            }
                 }
                 .padding(.horizontal, 15)
             }
             .navigationTitle("Register")
+           
             .applyClose().foregroundColor(.white)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.primaryColor)
+            .background(Color(red:242/255, green: 242/255, blue: 247/255))
         }.fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
             ImagePicker(image: $image)
         }

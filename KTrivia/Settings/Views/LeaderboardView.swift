@@ -16,9 +16,6 @@ struct LeaderboardView: View {
     }
     var body: some View {
         VStack {
-            Title(text: "Leaderboard", size: 30)
-                .padding(.top, -20)
-                .padding(.bottom, 60)
             ScrollView {
                 ForEach(viewModel.users, id: \.id) { user in
    
@@ -32,19 +29,22 @@ struct LeaderboardView: View {
                         }
                         .padding()
                     
-                    .accentColor(Color.black)
+                    //.accentColor(Color.black)
+                    .foregroundColor(.white)
                     .frame(height: 80)
-                    .background(.white)
+                    .background(Color.secondaryColor)
                     .cornerRadius(15)
                     .shadow(radius: 5, x: 2, y: 2)
                     .padding([.leading, .trailing], 20)
                 }
+                .padding(.top, 60)
             }
         }.onAppear {
             viewModel.getUsers()
         }
+        .navigationTitle("Leaderboard")
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.primaryColor)
+        .background(Color(red:242/255, green: 242/255, blue: 247/255))
     }
 }
 

@@ -22,7 +22,7 @@ struct ProfilePictureView: View {
                 .frame(width: size, height: size)
                 .cornerRadius(cornerRadius)
                 .overlay(RoundedRectangle(cornerRadius: cornerRadius)
-                .stroke(Color.gray, lineWidth: 1.5))
+                .stroke(Color.gray, lineWidth: 0.1))
         } else {
             Image(systemName: "person.crop.circle.badge.plus")
                 .font(.system(size: size, weight: .light))

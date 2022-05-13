@@ -37,19 +37,27 @@ struct MultipleChoiceView: View {
         ZStack {
                 VStack(spacing: 40) {
                     HStack {
-                        Title(text: group, size: 20)
+                        Text(group)
+                            .font(.system(size: 30))
+                            .fontWeight(.bold)
+                            .foregroundColor(Color.secondaryColor)
                         Spacer()
-                        Title(text: "\(timeRemaining)", size: 20)
+                        Text("\(timeRemaining)")
+                            .font(.system(size: 30))
+                            .fontWeight(.bold)
+                            .foregroundColor(Color.secondaryColor)
+                            
+                        
                     }
                     .padding([.leading, .trailing], 30)
                     .padding(.top, 20)
+                    
                     ProgressBar(progress: CGFloat(timeRemaining*20))
                     VStack(spacing: 20) {
                         Text(viewModel.question?.question ?? "")
-                            .foregroundColor(.white)
                             .font(.system(size: 22))
                             .fontWeight(.bold)
-                            .padding([.leading, .trailing], 15)
+                            .padding()
                         if selectedCategory == "Song" {
                             PlayButtonView(file: viewModel.question?.file)
                         } else {
@@ -69,6 +77,7 @@ struct MultipleChoiceView: View {
                     
                     
                 }
+                .foregroundColor(.black)
                 //.padding([.leading, .trailing], 25)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .navigationBarHidden(true)
@@ -92,8 +101,8 @@ struct MultipleChoiceView: View {
             
             
         }
-
-        .background(Color.primaryColor)
+        
+        .background(Color(red:242/255, green: 242/255, blue: 247/255))
         //.environment(\.presentationMode, self.$isActive)
 //        .navigationViewStyle(StackNavigationViewStyle())
     }

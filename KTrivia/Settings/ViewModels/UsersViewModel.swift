@@ -29,9 +29,20 @@ class UsersViewModel: ObservableObject {
     func getFriends()  {
         let user = Auth.auth().currentUser?.uid
         dataService.getFriends(for: user ?? "") { friends in
+            var filtered = [[String:String]]()
+            for i in friends.indices {
+                let friend = friends[i]
+                if friend["id"] != "" {
+                    filtered.append(friend)
+                }
+            }
+
+            
+            print(filtered)
+         
             //let sortedUsers = users.sorted(by: {$0.totalScore > $1.totalScore})
             print("hiii\(friends)")
-            self.friends = friends
+            self.friends = filtered
         }
     }
     
@@ -40,8 +51,8 @@ class UsersViewModel: ObservableObject {
         filteredUsers = users.filter { $0.username.contains(query) }
     }
     
-    func addFriend(to user: [String:String], with id: [String:String]) {
-        dataService.addFriend(to: user, with: id)
+    func addFriend(to user: [String:String], with friend: [String:String]) {
+        dataService.addFriend(to: user, with: friend)
     }
 }
 

@@ -20,7 +20,7 @@ protocol DataService {
     func createQuestion(with category: String, type: String, question: String, correctAnswer: String, incorrectAnswers: [String], screenshot: UIImage, audio: String)
     func createChoiceQuestion(with category: String, type: String, question: String, correctAnswer: String, incorrectAnswers: [String])
     func getFriends(for user: String, completion: @escaping ([[String:String]]) -> Void)
-    func addFriend(to user: [String:String], with id: [String:String])
+    func addFriend(to user: [String:String], with friend: [String:String])
 }
 
 class DataServiceImpl: ObservableObject, DataService {
@@ -62,7 +62,7 @@ class DataServiceImpl: ObservableObject, DataService {
                 let incorrectAnswers = data["incorrect_answers"] as? [String] ?? [""]
                 let file = data["file"] as? String ?? ""
                     
-                let triviaQuestion = Trivia(category: category, type: type, question: question, correctAnswer: correctAnswer, incorrectAnswers: incorrectAnswers, file: file)
+                let triviaQuestion = Trivia(category: category, type: type, question: question, correct_Answer: correctAnswer, incorrect_answers: incorrectAnswers, file: file)
                     
                 return triviaQuestion
             }
@@ -114,9 +114,10 @@ class DataServiceImpl: ObservableObject, DataService {
                 let blockPlayerId = data["blockPlayerId"] as? String ?? ""
                 let player1TotalScore = data["player1TotalScore"] as? String ?? ""
                 let player2TotalScore = data["player2TotalScore"] as? String ?? ""
+                let winnerId = data["winnerId"] as? String ?? ""
                 
                 if gameIds.contains(id) {
-                    let game = Game(id: id, groupName: groupName, player1: player1, player2: player2, player1Score: player1Score, player2Score: player2Score, player1TotalScore: player1TotalScore, player2TotalScore: player2TotalScore, blockPlayerId: blockPlayerId, winnerId:"")
+                    let game = Game(id: id, groupName: groupName, player1: player1, player2: player2, player1Score: player1Score, player2Score: player2Score, player1TotalScore: player1TotalScore, player2TotalScore: player2TotalScore, blockPlayerId: blockPlayerId, winnerId:winnerId)
                     return game
             
                 }
@@ -159,7 +160,8 @@ class DataServiceImpl: ObservableObject, DataService {
                 print(profilePic)
                 let totalScore = data["totalScore"] as? Double ?? 0.0
                 print(totalScore)
-                return SessionUserDetails(id: id, username: username, profilePic: profilePic, games: [""], totalScore: totalScore)
+            
+                return SessionUserDetails(id: id, username: username, profilePic: profilePic, games: [""], totalScore: totalScore, friends: [["":""]])
                
                 }
               
@@ -173,7 +175,7 @@ class DataServiceImpl: ObservableObject, DataService {
         
         let uuid = UUID().uuidString
         
-        let question = Trivia(category: category, type: type, question: question, correctAnswer: correctAnswer, incorrectAnswers: incorrectAnswers, file: "")
+        let question = Trivia(category: category, type: type, question: question, correct_Answer: correctAnswer, incorrect_answers: incorrectAnswers, file: "")
         
         storeScreenshot(of: screenshot, with: uuid, question: question)
 //
@@ -203,7 +205,7 @@ class DataServiceImpl: ObservableObject, DataService {
     func createChoiceQuestion(with category: String, type: String, question: String, correctAnswer: String, incorrectAnswers: [String]) {
         let uuid = UUID().uuidString
         
-        let question = Trivia(category: category, type: type, question: question, correctAnswer: correctAnswer, incorrectAnswers: incorrectAnswers, file: "")
+        let question = Trivia(category: category, type: type, question: question, correct_Answer: correctAnswer, incorrect_answers: incorrectAnswers, file: "")
         
         storeData(screenshot: "", question: question)
         //storeScreenshot(of: screenshot, with: uuid, question: question)
@@ -238,8 +240,8 @@ class DataServiceImpl: ObservableObject, DataService {
     }
     
     func storeData(screenshot: String, question: Trivia) {
-        
-        let q = Trivia(category: question.category, type: question.type, question: question.question, correctAnswer: question.correctAnswer, incorrectAnswers: question.incorrectAnswers, file: screenshot)
+        let q = Trivia(category: question.category, type: question.type, question: question.question, correct_Answer: question.correct_Answer, incorrect_answers: question.incorrect_answers, file: screenshot)
+        print(q)
                 do {
                     try FirebaseReference(.questions).document().setData(from: q)
         
@@ -253,7 +255,7 @@ class DataServiceImpl: ObservableObject, DataService {
         docRef.getDocument { (document, error) in
                 if let document = document, document.exists {
                     let data = document.data()
-                    print(data)
+                    print("TRYING")
                     self.friends = data?["friends"] as? [[String:String]] ?? [["":""]]
                     print(self.friends)
                     completion(
@@ -265,8 +267,8 @@ class DataServiceImpl: ObservableObject, DataService {
         }
     }
     
-    func addFriend(to user: [String:String], with id: [String:String]) {
-        var ref = FirebaseReference(.users).document(id.keys.first ?? "")
+    func addFriend(to user: [String:String], with friend: [String:String]) {
+        var ref = FirebaseReference(.users).document(user.values.first ?? "")
 //        gameRef.updateData(["totalScore": FieldValue.increment(totalScore)]) { error in
 //                if let err = error {
 //                    print(err)
@@ -275,10 +277,12 @@ class DataServiceImpl: ObservableObject, DataService {
 //            }
         //FieldValue.arrayUnion([gameId])]
         
-        ref.updateData(["friends": FieldValue.arrayUnion([user])])
+        //ref.updateData(["friends"])
         
-        var ref2 = FirebaseReference(.users).document(user.keys.first ?? "")
-        ref2.updateData(["friends": FieldValue.arrayUnion([id])])
+        ref.updateData(["friends": FieldValue.arrayUnion([friend])])
+        
+        var ref2 = FirebaseReference(.users).document(friend.values.first ?? "")
+        ref2.updateData(["friends": FieldValue.arrayUnion([user])])
     
         
 
