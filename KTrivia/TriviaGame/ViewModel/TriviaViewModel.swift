@@ -21,11 +21,11 @@ class TriviaViewModel: ObservableObject {
     @Published private(set) var answerSelected = false
     @Published private(set) var question: Trivia?
     @Published private(set) var answers: [Answer] = []
-   // @Published var score = 0
     @Published private(set) var totalScore = 0
     @Published private(set) var groupName: String
     @State var isActive = true
     @Published var currentUser: SessionUserDetails?
+    var friend: UserInfo
     @Published var game: Game? {
         didSet {
             //checkIfGameIsOver
@@ -44,18 +44,28 @@ class TriviaViewModel: ObservableObject {
     @Published var results: String?
 
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-   
+
     
-    init(groupName: String, sessionService: SessionService, dataService: DataService = DataServiceImpl(), gameId: String) {
+    init(groupName: String, sessionService: SessionService, dataService: DataService = DataServiceImpl(), gameId: String, user: UserInfo) {
         print("vieModel getting inilitized")
         self.groupName = groupName
         self.dataService = dataService
         self.sessionService = sessionService
         self.gameId = gameId
+        self.friend = user
         self.retrieveUser()
         self.checkIfUserIsPlayerOne()
         self.checkIfGameIsOver()
+        self.checkIfFriendMatch()
     }
+    
+    func checkIfFriendMatch() {
+        if friend.id != "" {
+            print(friend.id)
+            print("this is a friend match")
+        }
+    }
+
     
     func updateGameNotificationsFor(_ state: GameState) {
         switch state {
@@ -80,19 +90,33 @@ class TriviaViewModel: ObservableObject {
     
     //should check if game object if nil if it is start new game
     //if not current game should resume
-    func getTheGame() {
+    func startRandomGame() {
+        print("starting random game")
         guard let currentUser = currentUser else {
             return
         }
 
-        GameService.shared.startGame(with: currentUser, and: groupName)
+        GameService.shared.startRandomGame(with: currentUser, and: groupName)
         GameService.shared.$game
             .assign(to: \.game, on: self)
             .store(in: &cancellables)
         
     }
     
+    func startGameWithFriend() {
+        print("starting game with friend")
+        print(friend)
+        guard let currentUser = currentUser else {
+            return
+        }
+        GameService.shared.startGameWithFriend(with: currentUser, and: friend, and: groupName)
+        GameService.shared.$game
+            .assign(to: \.game, on: self)
+            .store(in: &cancellables)
+    }
+    
     func resumeGame(with id: String) {
+        print("resuming game!")
         GameService.shared.resumeGame(with: id)
         GameService.shared.$game
             .assign(to: \.game, on: self)
@@ -205,7 +229,7 @@ class TriviaViewModel: ObservableObject {
     }
     
     func checkIfGameIsOver() {
-        if gameId != nil || gameId != "" {
+        if game != nil || gameId != "" {
             self.resumeGame(with: gameId ?? "")
             print(game)
             self.endGame()

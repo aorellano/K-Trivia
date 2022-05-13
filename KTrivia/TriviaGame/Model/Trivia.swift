@@ -13,8 +13,8 @@ struct Trivia: Identifiable, Codable {
     var category: String
     var type: String
     var question: String
-    var correctAnswer: String
-    var incorrectAnswers: [String]
+    var correct_Answer: String
+    var incorrect_answers: [String]
     var file: String
     
     var formattedQuestion: AttributedString {
@@ -28,8 +28,8 @@ struct Trivia: Identifiable, Codable {
     
     var answers: [Answer] {
         do {
-            let correctAnswer = [Answer(text: try AttributedString(markdown: correctAnswer), isCorrect: true)]
-            let incorrects = try incorrectAnswers.map { answer in
+            let correctAnswer = [Answer(text: try AttributedString(markdown: correct_Answer), isCorrect: true)]
+            let incorrects = try incorrect_answers.map { answer in
                 Answer(text: try AttributedString(markdown: answer), isCorrect: false)
             }
             let allAnswers = correctAnswer + incorrects

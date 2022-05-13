@@ -13,4 +13,5 @@ struct SessionUserDetails {
     let profilePic: String
     let games: [String]
     let totalScore: Double
+    let friends: [[String:String]]
 }

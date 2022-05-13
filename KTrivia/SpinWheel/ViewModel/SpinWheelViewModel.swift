@@ -23,7 +23,7 @@ class SpinWheelViewModel: ObservableObject {
     }
     
     func createGame(with groupName: String) {
-        GameService.shared.startGame(with: currentUser!, and: groupName)
+        GameService.shared.startRandomGame(with: currentUser!, and: groupName)
     }
     
     func retrieveUser() {

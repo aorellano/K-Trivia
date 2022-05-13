@@ -29,7 +29,7 @@ struct CurrentGameView: View {
         ZStack {
         RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .foregroundColor(Color.secondaryColor)
-            .frame(width: 100, height: 150)
+            .frame(width: 125, height: 200)
             .shadow(radius: 4, x: 1, y: 1)
             .onTapGesture {
                 print(game)
@@ -38,12 +38,12 @@ struct CurrentGameView: View {
             }
             //spinWheel should be sent a gameObject and if it is nil then game should be created
             if game.player1TotalScore == "3" || game.player2TotalScore == "3" {
-                NavigationLink(destination: NavigationLazyView(ResultsView(viewModel: TriviaViewModel(groupName: game.groupName, sessionService: sessionService, gameId: game.id))), isActive: $isActive) {
+                NavigationLink(destination: NavigationLazyView(ResultsView(viewModel: TriviaViewModel(groupName: game.groupName, sessionService: sessionService, gameId: game.id, user: UserInfo(id: "", profile_pic: "", username: "")))), isActive: $isActive) {
                         
                         EmptyView()
                     }.isDetailLink(false)
             } else {
-                NavigationLink(destination: NavigationLazyView(SpinWheelView(groupName: game.groupName, viewModel: TriviaViewModel(groupName: game.groupName, sessionService: sessionService, gameId: game.id))), isActive: $isActive) {
+                NavigationLink(destination: NavigationLazyView(SpinWheelView(groupName: game.groupName, viewModel: TriviaViewModel(groupName: game.groupName, sessionService: sessionService, gameId: game.id, user: UserInfo(id: "", profile_pic: "", username: "")) )), isActive: $isActive) {
                         
                         EmptyView()
                     }.isDetailLink(false)

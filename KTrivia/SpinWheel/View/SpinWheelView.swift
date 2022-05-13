@@ -1,10 +1,3 @@
-//
-//  SpinWheel.swift
-//  KTrivia
-//
-//  Created by Alexis Orellano on 4/19/22.
-//
-
 import SwiftUI
 import FortuneWheel
 import FirebaseAuth
@@ -21,6 +14,7 @@ struct SpinWheelView: View {
     @State var showingAlert1 = false
     @State var buttonColor: Color = Color.gray
     @State var isBlocked = false
+    @State var spinEnded = false
     
     
     init(groupName: String, viewModel: TriviaViewModel) {
@@ -31,29 +25,40 @@ struct SpinWheelView: View {
     var body: some View {
         ZStack{
             VStack {
-                Title(text: "Spin the Wheel", size: 30)
-                    .padding(.top, -20)
+                HStack {
+                    Text("Spin the Wheel")
+                        .font(.system(size: 26))
+                        .fontWeight(.bold)
+                        .padding(.top, -45)
+                        .padding(.leading, 20)
+                        Spacer()
+                }
                 HStack(alignment: .center, spacing: 40) {
                     VStack {
                         ProfilePictureView(profilePic: viewModel.game?.player1["profile_pic"], size: 100, cornerRadius: 100)
                        
                         Text(viewModel.game?.player1["username"] ?? "")
-                            .foregroundColor(.white)
+                            .fontWeight(.medium)
                         QuestionBombs(totalScore: Int(viewModel.game?.player1TotalScore ?? "0") ?? 0)
+                            .padding(.top, -5)
 
                     }
-                    Title(text: "VS", size: 30)
+                    Text("VS")
+                        .fontWeight(.bold)
+                        .font(.system(size: 20))
                     VStack {
                         ProfilePictureView(profilePic: viewModel.game?.player2["profile_pic"], size: 100, cornerRadius: 100)
                         Text(viewModel.game?.player2["username"] ?? "")
-                            .foregroundColor(.white)
+                            .fontWeight(.medium)
                        QuestionBombs(totalScore: Int(viewModel.game?.player2TotalScore ?? "0") ?? 0)
+                            .padding(.top, -5)
                     }
                 }
-                .padding()
-              
-               
+                .foregroundColor(.black)
+                
+                .padding(.top, -15)
                 FortuneWheel(titles: players, size: 320, onSpinEnd: { index in
+                    spinEnded = true
                     selectedCategory = players[index]
                     
                     print("The Game is about to start for \(players[index])")
@@ -61,39 +66,37 @@ struct SpinWheelView: View {
                     viewModel.getQuestions(for: group, and: selectedCategory ?? "")
                     buttonColor = Color.secondaryColor
                     
-                })
+                }, colors: [.red, Color.secondaryColor, .teal, .green, .red, Color.secondaryColor, .teal])
+                
                 .disabled(viewModel.checkForGameStatus())
+                .disabled(spinEnded)
                             
                 Text(viewModel.gameNotification)
-                    .foregroundColor(.white)
             
                 .padding()
                 
                 if viewModel.currentUser?.id == viewModel.game?.player1["id"] {
                     if viewModel.game?.player1Score == "0" || viewModel.game?.player1Score == ""  {
-                        ScoreIndicatorView(colors: [.white, .white, .white])
+                        ScoreIndicatorView(colors: [.gray, .gray, .gray])
                     } else if viewModel.game?.player1Score == "1" {
-                        ScoreIndicatorView(colors: [Color.secondaryColor, .white, .white])
+                        ScoreIndicatorView(colors: [Color.secondaryColor, .gray, .gray])
                     } else if viewModel.game?.player1Score == "2"  {
-                        ScoreIndicatorView(colors: [Color.secondaryColor, Color.secondaryColor, .white])
+                        ScoreIndicatorView(colors: [Color.secondaryColor, Color.secondaryColor, .gray])
                     } else {
                         ScoreIndicatorView(colors: [Color.secondaryColor, Color.secondaryColor, Color.secondaryColor])
                     }
                 } else {
                     if viewModel.game?.player2Score == "0" || viewModel.game?.player2Score == "" {
-                        ScoreIndicatorView(colors: [.white, .white, .white])
+                        ScoreIndicatorView(colors: [.gray, .gray, .gray])
                     } else if viewModel.game?.player2Score == "1" {
-                        ScoreIndicatorView(colors: [Color.secondaryColor, .white, .white])
+                        ScoreIndicatorView(colors: [Color.secondaryColor, .gray, .gray])
                     } else if viewModel.game?.player2Score == "2"  {
-                        ScoreIndicatorView(colors: [Color.secondaryColor, Color.secondaryColor, .white])
+                        ScoreIndicatorView(colors: [Color.secondaryColor, Color.secondaryColor, .gray])
                     } else {
                         ScoreIndicatorView(colors: [Color.secondaryColor, Color.secondaryColor, Color.secondaryColor])
                     }
                 }
-                
-                   
-                
-                NavigationLink(destination: MultipleChoiceView(group: group ?? "", selectedCategory: selectedCategory ?? "", viewModel: viewModel), isActive: $isActive){
+                NavigationLink(destination: NavigationLazyView(MultipleChoiceView(group: group ?? "", selectedCategory: selectedCategory ?? "", viewModel: viewModel)), isActive: $isActive){
 //                    if selectedCategory != nil {
 //                        buttonColor = Color.secondaryColor
 //                    }
@@ -107,17 +110,28 @@ struct SpinWheelView: View {
                         Button("Recieve") { viewModel.updateTotalScore() }
                         Button("Challenge"){ print("Challenging for Question Bomb")}
                 }
-                
             }
+            .foregroundColor(.black)
             .onAppear {
-              
+               
                 selectedCategory = nil
                 buttonColor = Color.gray
                 
-                if viewHasAppeared == 0 && viewModel.gameId == "" {
-                    viewModel.getTheGame()
-                } else {
+                if viewHasAppeared == 0 && viewModel.gameId == "" && viewModel.friend.id == "" {
+                    viewModel.startRandomGame()
+                    print("starting random game")
+                    print(viewModel.friend.username)
+                } else if viewModel.gameId != "" {
                     viewModel.resumeGame(with: viewModel.gameId)
+                    print("resuming game")
+                } else if viewModel.friend.id != "" {
+                    viewModel.startGameWithFriend()
+                    print("friend game")
+                    
+                }
+                
+                if viewHasAppeared > 0 {
+                    spinEnded = false
                 }
                 viewHasAppeared += 1
                 
@@ -127,18 +141,21 @@ struct SpinWheelView: View {
 //                    showingAlert1.toggle()
 //                }
                 
-                    
-                UINavigationBar.appearance().tintColor = .white
+
             }
-            .padding(.top, -50)
-        
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.primaryColor)
+            //.padding(.top, -50)
+
         
 //        .environment(\.rootPresentationMode, self.$isActive)
 //        .navigationViewStyle(StackNavigationViewStyle())
     }
+
+    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    .background(Color(red:242/255, green: 242/255, blue: 247/255))
+    
+
     }
+       
         
 }
 

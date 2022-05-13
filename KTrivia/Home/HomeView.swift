@@ -22,34 +22,35 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack {
-                HeaderView(text: "Welcome!")
+                HStack {
+                    Spacer()
+                    HeaderView(text: "")
+                        .environmentObject(sessionService)
+                        .environmentObject(dataService)
+                }
+                HStack {
+                    WelcomeHeader()
                     .environmentObject(sessionService)
                     .environmentObject(dataService)
-                    .padding(.trailing, -10)
+                    Spacer()
+                }
+                .padding(.bottom, 50)
                 Spacer()
-                Image(uiImage: UIImage(named: "LaunchScreenIcon")!)
-                    .resizable()
-                .frame(width: 80, height: 120)
+                HomeLogo()
                 Spacer()
-                NavigationLink(destination: CategoryListView().environmentObject(sessionService), isActive: $isActive){
-//                    if selectedCategory != nil {
-//                        buttonColor = Color.secondaryColor
-//                    }
-                    ButtonView(title: "New Game", background: Color.secondaryColor) {
-                        isActive = true
-                    }
-                    .padding()
-                }.isDetailLink(false)
-                
-                if viewModel.games.count != 0 {
-                    HStack {
-                        Text("Current Games")
-                            .foregroundColor(.white)
-                            .fontWeight(.bold)
-                            .padding()
-                        Spacer()
-                    }
-
+                HStack {
+                    Text("Current Games:")
+                    .foregroundColor(.black)
+                        .fontWeight(.bold)
+                    Spacer()
+                    
+                }
+                if sessionService.userDetails?.games.count ?? 0 <= 1 {
+                    Text("You currently have no games")
+                        .font(.system(size:12))
+                        .foregroundColor(.gray)
+                        .padding()
+                } else {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(viewModel.games, id: \.id) { game in
@@ -62,13 +63,13 @@ struct HomeView: View {
                                                 Text("Waiting...")
                                                     .font(.system(size: 14))
                                                     .fontWeight(.bold)
-                                                ProfilePictureView(profilePic: game.player2["profile_pic"], size: 50, cornerRadius: 25)
+                                                ProfilePictureView(profilePic: game.player2["profile_pic"], size: 80, cornerRadius: 40)
                                                     
                                             } else {
                                                 Text(game.player2["username"] ?? "")
                                                     .font(.system(size: 14))
                                                     .fontWeight(.bold)
-                                                ProfilePictureView(profilePic: game.player2["profile_pic"], size: 50, cornerRadius: 25)
+                                                ProfilePictureView(profilePic: game.player2["profile_pic"], size: 80, cornerRadius: 40)
                                                 
                                           }
                                                 
@@ -76,7 +77,7 @@ struct HomeView: View {
                                             Text(game.player1["username"] ?? "")
                                                 .font(.system(size: 14))
                                                 .fontWeight(.bold)
-                                            ProfilePictureView(profilePic: game.player1["profile_pic"], size: 50, cornerRadius: 25)
+                                            ProfilePictureView(profilePic: game.player1["profile_pic"], size: 80, cornerRadius: 40)
                                             
                                         }
                                             
@@ -101,10 +102,11 @@ struct HomeView: View {
                                         }
                                        
                                         //if checkIfUserIsBlocked() {
-                                        if game.blockPlayerId == Auth.auth().currentUser?.uid {
-                                            Text("Waiting...")
-                                        } else if game.player1TotalScore == "3" || game.player2TotalScore == "3" {
+                                        
+                                        if game.winnerId != ""  {
                                             Text("View Results")
+                                        } else if game.blockPlayerId == Auth.auth().currentUser?.uid {
+                                            Text("Waiting...")
                                         } else {
                                             Text("Your Turn!")
                                         }
@@ -116,6 +118,28 @@ struct HomeView: View {
                         }
                     }
                 }
+                Spacer()
+                NavigationLink(destination: NavigationLazyView(GameOption()).environmentObject(sessionService), isActive: $isActive){
+//                    if selectedCategory != nil {
+//                        buttonColor = Color.secondaryColor
+//                    }
+                   // Spacer()
+                    ButtonView(title: "New Game", background: Color.secondaryColor) {
+                        isActive = true
+                    }
+                }.isDetailLink(false)
+                
+//                if viewModel.games.count != 0 {
+//                    HStack {
+//                        Text("Current Games")
+//                            .foregroundColor(.white)
+//                            .fontWeight(.bold)
+//                            .padding()
+//                        Spacer()
+//                    }
+//
+//
+//                }
             }
                 .onAppear {
                     print(user!)
@@ -125,9 +149,8 @@ struct HomeView: View {
             
                 .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.primaryColor)
             .navigationBarHidden(true)
-            
+            .background(Color(red:242/255, green: 242/255, blue: 247/255))
         }
         
         .environment(\.rootPresentationMode, self.$isActive)

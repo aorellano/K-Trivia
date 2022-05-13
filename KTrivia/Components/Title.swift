@@ -12,8 +12,7 @@ struct Title: View {
     var size: Int
     var body: some View {
         Text(text)
-            .font(.system(size: 30, weight: .bold, design: .rounded))
-            .foregroundColor(.white)
+            .font(.system(size: 30, weight: .bold))
     }
 }
 

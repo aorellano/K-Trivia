@@ -15,69 +15,129 @@ struct ProfileView: View {
         VStack(spacing: 20) {
                 VStack {
                 ProfilePictureView(profilePic: sessionService.userDetails?.profilePic, size: 100, cornerRadius: 50)
-                        .padding(.top, -40)
+
                     Text(sessionService.userDetails?.username ?? "")
-                        .foregroundColor(.white)
                         .fontWeight(.bold)
-                        .padding(.bottom, 60)
-                    VStack(spacing: 15){
+                        .padding(.bottom, 20)
+                    
+                    List {
+                       // first section
+                       Section(header: Text("Account")) {
+                           NavigationLink(destination: NavigationLazyView(FriendsView()).environmentObject(dataService), label: {
+                              Text("Friends")
+                           })
+                        NavigationLink(destination: NavigationLazyView(LeaderboardView()), label: {
+                              Text("Leaderboard")
+                           })
+                       }
+
+                       // second section
+                       Section(header: Text("Question Factory")) {
+                           NavigationLink(destination: NavigationLazyView(QuestionFactoryView()), label: {
+                               Text("Submit Questions")
+                            })
+                                  
+//                           NavigationLink(destination: EmptyView(), label: {
+//                                Text("Review Questions")
+//                            })
+        
+                       }
+                        
+                        
+       
+                    }
+                    .cornerRadius(20)
+                    
+                    
+                    ButtonView(title: "Sign Out", background: Color.secondaryColor) {
+                            sessionService.logout()
+                    }
+                    .padding([.top, .bottom], 20)
+                    .navigationTitle(Text("Profile"))
+                }
+            
+                   
+                    
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//                    VStack(spacing: 15){
+//
+//
+//
+//
+////                    SGNavigationLink(destination: LeaderboardView()) {
+////                        ZStack {
+////                            RoundedRectangle(cornerRadius: 10)
+////                                .foregroundColor(.white)
+////                                .frame(height: 70)
+////                            Text("Past Games")
+////                        }
+////                    }
+//                    SGNavigationLink(destination: FriendsView().environmentObject(sessionService)) {
+//                        ZStack {
+//                            RoundedRectangle(cornerRadius: 10)
+//                                .foregroundColor(.white)
+//                                .frame(height: 70)
+//                            Text("Friends")
+//                        }
+//                    }
 //                    SGNavigationLink(destination: LeaderboardView()) {
 //                        ZStack {
 //                            RoundedRectangle(cornerRadius: 10)
 //                                .foregroundColor(.white)
 //                                .frame(height: 70)
-//                            Text("Past Games")
+//                            Text("Leaderboard")
 //                        }
 //                    }
-                    SGNavigationLink(destination: FriendsView().environmentObject(sessionService)) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(.white)
-                                .frame(height: 70)
-                            Text("Friends")
-                        }
-                    }
-                    SGNavigationLink(destination: LeaderboardView()) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(.white)
-                                .frame(height: 70)
-                            Text("Leaderboard")
-                        }
-                    }
-                    SGNavigationLink(destination: SubmitQuestionView().environmentObject(dataService)) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(.white)
-                                .frame(height: 70)
-                            Text("Question Factory")
-                        }
-                    }
-                    }
-                    .padding()
-                    
-                }
-                Spacer()
-                    ButtonView(title: "Sign Out", background: Color.secondaryColor) {
-                        sessionService.logout()
-                    }
-                    
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+//                    SGNavigationLink(destination: SubmitQuestionView().environmentObject(dataService)) {
+//                        ZStack {
+//                            RoundedRectangle(cornerRadius: 10)
+//                                .foregroundColor(.white)
+//                                .frame(height: 70)
+//                            Text("Question Factory")
+//                        }
+//                    }
+//                    }
+//                    .padding()
+//
+//                }
+//                Spacer()
+
+//
+                
                 .padding()
                 .tint(.black)
+                .foregroundColor(.black)
+                .background(Color(red:242/255, green: 242/255, blue: 247/255))
             
             
         }
-        .background(Color.primaryColor)
         .onAppear {
-            UITableView.appearance().backgroundColor = UIColor(red: 132/255, green: 52/255, blue: 245/255, alpha: 1)
-            UINavigationBar.appearance().tintColor = .white
+       
         }
         .preferredColorScheme(.light)
     }
-    func navigate(to view: String) {
-        
-    }
+//    func navigate(to view: String) {
+//
+//    }
         
 }
 
