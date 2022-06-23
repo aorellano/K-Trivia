@@ -11,8 +11,7 @@ import FirebaseAuth
 struct ResultsView: View {
     @StateObject var viewModel: TriviaViewModel
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-    @Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
-  
+    @Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>  
     
     init(viewModel: TriviaViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -72,7 +71,6 @@ struct ResultsView: View {
         
         .navigationBarHidden(true)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(red:242/255, green: 242/255, blue: 247/255))
         .ignoresSafeArea()
     }
 }

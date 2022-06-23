@@ -18,7 +18,6 @@ class HomeListViewModel: ObservableObject {
     
     func getGames(for user: String) {
         dataService.getUsersGameIds(for: user) { games in
-            
             self.games = games.filter({$0.id != ""})
             print("Hello \(self.games)")
         }

@@ -16,13 +16,15 @@ struct CurrentGameView: View {
     @State var backgroundColor = Color.white
     @State var currentStatus: String?
     @State var blockedId: String?
+    @State var winnerId: String
    
-    init(viewModel: HomeListViewModel, game: Game, blockedId: String, sessionService: SessionServiceImpl) {
+    init(viewModel: HomeListViewModel, game: Game, blockedId: String, sessionService: SessionServiceImpl, winnerId: String) {
         _viewModel = StateObject(wrappedValue: viewModel)
         self.game = game
         self.blockedId = blockedId
         print(blockedId)
         self.sessionService = sessionService
+        self.winnerId = winnerId
     }
     
     var body: some View {
@@ -37,13 +39,13 @@ struct CurrentGameView: View {
                 isActive = true
             }
             //spinWheel should be sent a gameObject and if it is nil then game should be created
-            if game.player1TotalScore == "3" || game.player2TotalScore == "3" {
-                NavigationLink(destination: NavigationLazyView(ResultsView(viewModel: TriviaViewModel(groupName: game.groupName, sessionService: sessionService, gameId: game.id, user: UserInfo(id: "", profile_pic: "", username: "")))), isActive: $isActive) {
+            if winnerId != "" {
+                NavigationLink(destination: ResultsView(viewModel: TriviaViewModel(groupName: game.groupName, sessionService: sessionService, gameId: game.id, user: UserInfo(id: "", profile_pic: "", username: ""))), isActive: $isActive) {
                         
                         EmptyView()
                     }.isDetailLink(false)
             } else {
-                NavigationLink(destination: NavigationLazyView(SpinWheelView(groupName: game.groupName, viewModel: TriviaViewModel(groupName: game.groupName, sessionService: sessionService, gameId: game.id, user: UserInfo(id: "", profile_pic: "", username: "")) )), isActive: $isActive) {
+                NavigationLink(destination: SpinWheelView(groupName: game.groupName, viewModel: TriviaViewModel(groupName: game.groupName, sessionService: sessionService, gameId: game.id, user: UserInfo(id: "", profile_pic: "", username: ""))), isActive: $isActive) {
                         
                         EmptyView()
                     }.isDetailLink(false)
@@ -54,6 +56,7 @@ struct CurrentGameView: View {
             
             //checkIfUserIsBlocked()
             print("GAME \(game)")
+        
         }
         
         

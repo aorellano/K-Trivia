@@ -222,8 +222,8 @@
             filePath = "KTrivia/Services/LoginService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
             landmarkName = "login(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -238,8 +238,8 @@
             filePath = "KTrivia/Services/LoginService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
             landmarkName = "login(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -254,8 +254,8 @@
             filePath = "KTrivia/Services/LoginService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
             landmarkName = "login(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -270,8 +270,8 @@
             filePath = "KTrivia/Services/LoginService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
             landmarkName = "login(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -366,8 +366,8 @@
             filePath = "KTrivia/Results/View/ResultsView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -382,8 +382,8 @@
             filePath = "KTrivia/Categories/View/CategoryListView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "hapticFeedbackResponse()"
             landmarkType = "7">
          </BreakpointContent>
@@ -398,8 +398,8 @@
             filePath = "KTrivia/Categories/View/CategoryListView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
             landmarkName = "hapticFeedbackResponse()"
             landmarkType = "7">
          </BreakpointContent>
@@ -430,8 +430,8 @@
             filePath = "KTrivia/TriviaGame/ViewModel/TriviaViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "289"
-            endingLineNumber = "289"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
             landmarkName = "checkIfUserIsPlayerOne()"
             landmarkType = "7">
          </BreakpointContent>
@@ -462,8 +462,8 @@
             filePath = "KTrivia/Resources/KTriviaApp.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
             landmarkName = "init()"
             landmarkType = "7">
          </BreakpointContent>
@@ -494,8 +494,8 @@
             filePath = "KTrivia/Home/HomeView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -526,8 +526,8 @@
             filePath = "KTrivia/SpinWheel/View/SpinWheelView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -542,8 +542,8 @@
             filePath = "KTrivia/TriviaGame/ViewModel/TriviaViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
             landmarkName = "updatePlayersScore(answer:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -558,8 +558,8 @@
             filePath = "KTrivia/TriviaGame/ViewModel/TriviaViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "updatePlayersScore(answer:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -574,8 +574,8 @@
             filePath = "KTrivia/TriviaGame/ViewModel/TriviaViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "updateTotalScore()"
             landmarkType = "7">
          </BreakpointContent>
@@ -636,8 +636,8 @@
             filePath = "KTrivia/TriviaGame/ViewModel/TriviaViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "updatePlayersScore(answer:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -652,8 +652,8 @@
             filePath = "KTrivia/TriviaGame/ViewModel/TriviaViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "updatePlayersScore(answer:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -696,9 +696,9 @@
             filePath = "KTrivia/Components/CurrentGameView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "init(viewModel:game:blockedId:sessionService:)"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "init(viewModel:game:blockedId:sessionService:winnerId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -712,9 +712,9 @@
             filePath = "KTrivia/Components/CurrentGameView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "init(viewModel:game:blockedId:sessionService:)"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "init(viewModel:game:blockedId:sessionService:winnerId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -728,9 +728,9 @@
             filePath = "KTrivia/Components/CurrentGameView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "init(viewModel:game:blockedId:sessionService:)"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "init(viewModel:game:blockedId:sessionService:winnerId:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -744,8 +744,8 @@
             filePath = "KTrivia/TriviaGame/ViewModel/TriviaViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "init(groupName:sessionService:dataService:gameId:user:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -760,8 +760,8 @@
             filePath = "KTrivia/TriviaGame/ViewModel/TriviaViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "init(groupName:sessionService:dataService:gameId:user:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -776,9 +776,9 @@
             filePath = "KTrivia/Services/DataService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "262"
-            endingLineNumber = "262"
-            landmarkName = "getFriends(for:completion:)"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
+            landmarkName = "addFriend(to:with:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -808,8 +808,8 @@
             filePath = "KTrivia/SpinWheel/View/SpinWheelView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -824,8 +824,8 @@
             filePath = "KTrivia/SpinWheel/View/SpinWheelView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -840,8 +840,8 @@
             filePath = "KTrivia/Authentication/View/RegisterView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -872,26 +872,10 @@
             filePath = "KTrivia/Home/HomeView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
             landmarkName = "body"
             landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "57F35EFE-8F5D-418E-B1AE-70D5D27C9796"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "KTrivia/Home/HomeListViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "getGames(for:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -904,8 +888,24 @@
             filePath = "KTrivia/Authentication/View/RegisterView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FE68213F-B754-4F24-B69F-C99C270FF254"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KTrivia/Components/CurrentGameView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>

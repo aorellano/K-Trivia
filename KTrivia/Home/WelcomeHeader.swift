@@ -19,7 +19,6 @@ struct WelcomeHeader: View {
         }
         .padding(.top, -10)
         .padding(.bottom, 10)
-        .foregroundColor(.black)
     }
 }
 

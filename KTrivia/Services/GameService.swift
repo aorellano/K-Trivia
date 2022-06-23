@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 import Combine
+import UserNotifications
 
 class GameService: ObservableObject {
     static let shared = GameService()
@@ -42,7 +43,7 @@ class GameService: ObservableObject {
         let player1Info = ["id": currentUser.id, "profile_pic": currentUser.profilePic, "username": currentUser.username]
         let player2Info = ["id": friend.id, "profile_pic": friend.profile_pic, "username": friend.username]
         print("GROUPNAME \(groupName)")
-        self.game = Game(id: UUID().uuidString, groupName: groupName, player1: player1Info, player2: player2Info, player1Score: "0", player2Score: "0", player1TotalScore: "0", player2TotalScore: "0", blockPlayerId: player2Info["id"] ?? "", winnerId:"")
+        self.game = Game(id: UUID().uuidString, groupName: groupName, player1: player1Info, player2: player2Info, player1Score: "0", player2Score: "0", player1TotalScore: "0", player2TotalScore: "0", blockPlayerId: player1Info["id"] ?? "", winnerId:"")
         self.updateGame(self.game)
         self.updateUser(id: currentUser.id, with: self.game.id)
         self.updateUser(id: friend.id, with: self.game.id)
@@ -88,8 +89,11 @@ class GameService: ObservableObject {
 
     func updateGame(_ game: Game) {
         print("... updating game")
+        var ctr = 0
         do {
             try FirebaseReference(.game).document(game.id).setData(from: game)
+            ctr += 1
+            print(ctr)
         } catch {
             print("Error creating online game \(error.localizedDescription)")
         }

@@ -1,7 +1,6 @@
 import SwiftUI
 import FortuneWheel
 import FirebaseAuth
-import Combine
 
 struct SpinWheelView: View {
     @StateObject var viewModel: TriviaViewModel
@@ -104,7 +103,7 @@ struct SpinWheelView: View {
                         isActive = true
                     }
                     .padding()
-                }
+                }.isDetailLink(false)
                     .disabled(selectedCategory == nil)
                 .alert("Would you like to recieve a question bomb or challenge your opponent for their question bomb?", isPresented: $showingAlert1) {
                         Button("Recieve") { viewModel.updateTotalScore() }
@@ -151,12 +150,8 @@ struct SpinWheelView: View {
     }
 
     .frame(maxWidth: .infinity, maxHeight: .infinity)
-    .background(Color(red:242/255, green: 242/255, blue: 247/255))
-    
-
     }
-       
-        
+     
 }
 
 //struct SpinWheel_Previews: PreviewProvider {
