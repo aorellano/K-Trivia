@@ -39,7 +39,7 @@ struct CategoryListView: View {
 //                                }.isDetailLink(false)
                                 NavigationLink(destination: NavigationLazyView(SpinWheelView(groupName: selectedCategory ?? "", viewModel: TriviaViewModel(groupName: selectedCategory ?? "", sessionService: sessionService, gameId: "", user: user))), isActive: $isActive) {
                                                                         EmptyView()
-                                                                }
+                                }.isDetailLink(false)
                             }
                             ForEach(viewModel.groups, id: \.self) { group in
                                 Button(action: {
@@ -75,7 +75,6 @@ struct CategoryListView: View {
                 
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(red:242/255, green: 242/255, blue: 247/255))
     
         
 //        .environment(\.rootPresentationMode, self.$isActive)

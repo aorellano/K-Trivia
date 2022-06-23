@@ -14,6 +14,7 @@ struct RegisterView: View {
     @State var shouldShowImagePicker = false
     @State var image: UIImage?
     @State var showAlert = false
+    @State var showingAlert2 = false
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     
     var body: some View {
@@ -58,6 +59,8 @@ struct RegisterView: View {
                     ButtonView(title: "Sign Up", background: Color.secondaryColor) {
                         if image == UIImage(named: "") {
                             showAlert = true
+                        } else if vm.userDetails.username == "" || vm.userDetails.email == "" || vm.userDetails.password == "" {
+                            showingAlert2 = true
                         } else {
                             vm.profilePicture = image
                             vm.register()
@@ -69,17 +72,20 @@ struct RegisterView: View {
                     }
                     .alert("Please Choose Profile Picture", isPresented: $showAlert) {
                                 Button("OK", role: .cancel) { }
-                            }
+                    }
+                    .alert("Please fill out all text fields", isPresented: $showingAlert2) {
+                        Button("OK", role: .cancel) { }
+                    }
                 }
                 .padding(.horizontal, 15)
             }
             .navigationTitle("Register")
-           
             .applyClose().foregroundColor(.white)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(red:242/255, green: 242/255, blue: 247/255))
+            //.background(Color.background)
         }.fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
             ImagePicker(image: $image)
+                .ignoresSafeArea(.keyboard)
         }
     }
 }

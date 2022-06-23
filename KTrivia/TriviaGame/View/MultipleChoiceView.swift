@@ -101,8 +101,7 @@ struct MultipleChoiceView: View {
             
             
         }
-        
-        .background(Color(red:242/255, green: 242/255, blue: 247/255))
+
         //.environment(\.presentationMode, self.$isActive)
 //        .navigationViewStyle(StackNavigationViewStyle())
     }

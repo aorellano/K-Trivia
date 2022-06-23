@@ -101,7 +101,6 @@ struct FriendsView: View {
         .navigationBarTitle("Friends")
         
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(red:242/255, green: 242/255, blue: 247/255))
         }
     }
     

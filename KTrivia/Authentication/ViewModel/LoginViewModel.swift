@@ -15,7 +15,7 @@ enum LoginState {
 }
 
 protocol LoginViewModel {
-    func login()
+    func login() -> Bool
     var service: LoginService { get }
     var state: LoginState { get }
     var credentials: LoginCredentials { get }
@@ -32,7 +32,7 @@ final class LoginViewModelImpl: ObservableObject, LoginViewModel {
         self.service = service
     }
     
-    func login() {
-        service.login(with: credentials)
+    func login() -> Bool {
+        return service.login(with: credentials)
     }
 }

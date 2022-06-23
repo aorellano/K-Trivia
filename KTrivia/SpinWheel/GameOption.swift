@@ -10,6 +10,7 @@ import SwiftUI
 struct GameOption: View {
     @EnvironmentObject var sessionService: SessionServiceImpl
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
+    @Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
    
     @StateObject var viewModel: UsersViewModel
     @State var isActive = false
@@ -29,7 +30,7 @@ struct GameOption: View {
             NavigationLink(destination: NavigationLazyView(CategoryListView(user:user ?? UserInfo(id: "", profile_pic: "", username: ""))).environmentObject(sessionService), isActive: $isActive) {
                                                     EmptyView()
             }.isDetailLink(false)
-       }
+        }
         VStack {
             HStack {
                 Title(text: "Game Options", size: 30)
@@ -50,18 +51,19 @@ struct GameOption: View {
                             .foregroundColor(Color.secondaryColor)
                             .frame(width: 125, height: 180)
                             .shadow(radius: 4, x: 1, y: 1)
-                            .onTapGesture {
                             
-                                self.user = UserInfo(id: info.id, profile_pic: info.profilePic, username: info.username)
-                                
-                                isActive = true
-                               
-                            }
                         VStack {
                             Text(info.username)
                                 .fontWeight(.bold)
                             ProfilePictureView(profilePic: info.profilePic, size: 80, cornerRadius: 40)
                         }
+                    }
+                    .onTapGesture {
+                    
+                        self.user = UserInfo(id: info.id, profile_pic: info.profilePic, username: info.username)
+                        
+                        isActive = true
+                       
                     }
                     .foregroundColor(.white)
                 }
@@ -83,7 +85,6 @@ struct GameOption: View {
         }
         .foregroundColor(.black)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(red:242/255, green: 242/255, blue: 247/255))
     }
 }
 

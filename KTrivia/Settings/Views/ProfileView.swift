@@ -126,14 +126,10 @@ struct ProfileView: View {
                 .padding()
                 .tint(.black)
                 .foregroundColor(.black)
-                .background(Color(red:242/255, green: 242/255, blue: 247/255))
-            
-            
         }
         .onAppear {
        
         }
-        .preferredColorScheme(.light)
     }
 //    func navigate(to view: String) {
 //

@@ -7,17 +7,15 @@
 
 import SwiftUI
 import FirebaseAuth
+import UserNotifications
 
 struct HomeView: View {
     @EnvironmentObject var sessionService: SessionServiceImpl
     @EnvironmentObject var dataService: DataServiceImpl
-    @StateObject var viewModel: HomeListViewModel
+    @EnvironmentObject var viewModel: HomeListViewModel
+
     @State var isActive: Bool = false
     var user = Auth.auth().currentUser?.uid
-    
-    init(viewModel:HomeListViewModel = .init()) {
-        _viewModel = StateObject(wrappedValue: viewModel)
-    }
     
     var body: some View {
         NavigationView {
@@ -56,7 +54,7 @@ struct HomeView: View {
                             ForEach(viewModel.games, id: \.id) { game in
                                 //Text(game.blockPlayerId)
                                 ZStack {
-                                CurrentGameView(viewModel: viewModel, game: game, blockedId: game.blockPlayerId, sessionService: sessionService)
+                                    CurrentGameView(viewModel: viewModel, game: game, blockedId: game.blockPlayerId, sessionService: sessionService, winnerId: game.winnerId)
                                     VStack {
                                         if game.player1["id"] == Auth.auth().currentUser?.uid {
                                             if game.player2["username"] == "" {
@@ -81,7 +79,9 @@ struct HomeView: View {
                                             
                                         }
                                             
-                                            
+                                        Text(game.groupName)
+                                            .font(.system(size: 13))
+                                            .fontWeight(.bold)
                                         HStack {
                                             if game.player1Score == "" && game.player2Score == "" {
                                                 Text("0")
@@ -105,10 +105,17 @@ struct HomeView: View {
                                         
                                         if game.winnerId != ""  {
                                             Text("View Results")
+                                                .font(.system(size: 14))
+                                                .fontWeight(.bold)
                                         } else if game.blockPlayerId == Auth.auth().currentUser?.uid {
                                             Text("Waiting...")
+                                                .font(.system(size: 14))
+                                                .fontWeight(.bold)
                                         } else {
                                             Text("Your Turn!")
+                                                .font(.system(size: 14))
+                                                .fontWeight(.bold)
+                                           
                                         }
                                     }
                                     .foregroundColor(.white)
@@ -150,7 +157,7 @@ struct HomeView: View {
                 .padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationBarHidden(true)
-            .background(Color(red:242/255, green: 242/255, blue: 247/255))
+            
         }
         
         .environment(\.rootPresentationMode, self.$isActive)

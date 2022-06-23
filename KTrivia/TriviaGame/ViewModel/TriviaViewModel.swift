@@ -8,6 +8,7 @@
 import FirebaseFirestore
 import SwiftUI
 import Combine
+import UserNotifications
 
 class TriviaViewModel: ObservableObject {
     var questions = [Trivia]()
@@ -77,6 +78,7 @@ class TriviaViewModel: ObservableObject {
             gameNotification = GameNotfication.opponentsTurn
         case .yourTurn:
             gameNotification = GameNotfication.yourTurn
+
         }
     }
     
@@ -92,6 +94,7 @@ class TriviaViewModel: ObservableObject {
     //if not current game should resume
     func startRandomGame() {
         print("starting random game")
+        gameId = ""
         guard let currentUser = currentUser else {
             return
         }
@@ -100,12 +103,12 @@ class TriviaViewModel: ObservableObject {
         GameService.shared.$game
             .assign(to: \.game, on: self)
             .store(in: &cancellables)
-        
     }
     
     func startGameWithFriend() {
         print("starting game with friend")
         print(friend)
+        gameId = ""
         guard let currentUser = currentUser else {
             return
         }
@@ -291,6 +294,10 @@ class TriviaViewModel: ObservableObject {
             isPlayerOne = false
         }
         
+    }
+    
+    func addNotificationForUser() {
+        let center = UNUserNotificationCenter.current()
     }
 }
 
