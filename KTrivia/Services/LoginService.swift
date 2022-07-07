@@ -10,20 +10,23 @@ import Foundation
 import FirebaseAuth
 
 protocol LoginService {
-    func login(with credentials: LoginCredentials) -> Bool
+    func login(with credentials: LoginCredentials) -> AnyPublisher<Void, Error>
 }
 
 final class LoginServiceImpl: LoginService {
-    func login(with credentials: LoginCredentials) -> Bool {
-        var isSuccessful = false
-        Auth.auth().signIn(withEmail: credentials.email, password: credentials.password) { results, error in
-            if let err = error {
-                print(err)
-            } else {
-                print("successfully logged in")
-                isSuccessful = true
+    func login(with credentials: LoginCredentials) -> AnyPublisher<Void, Error> {
+        Deferred {
+            Future { promise in
+                Auth.auth().signIn(withEmail: credentials.email, password: credentials.password) { result, error in
+                    if let err = error {
+                        promise(.failure(err))
+                    } else {
+                        promise(.success(()))
+                    }
+                }
             }
         }
-        return isSuccessful
+        .receive(on: RunLoop.main)
+        .eraseToAnyPublisher()
     }
 }

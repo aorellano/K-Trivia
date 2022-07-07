@@ -161,7 +161,7 @@ class DataServiceImpl: ObservableObject, DataService {
                 let totalScore = data["totalScore"] as? Double ?? 0.0
                 print(totalScore)
             
-                return SessionUserDetails(id: id, username: username, profilePic: profilePic, games: [""], totalScore: totalScore, friends: [["":""]])
+                return SessionUserDetails(id: id, username: username, profilePic: profilePic, totalScore: totalScore, games: [""], friends: [["":""]])
                
                 }
               

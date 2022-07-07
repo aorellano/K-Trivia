@@ -11,29 +11,62 @@ import FirebaseFirestore
 import FirebaseAuth
 import FirebaseStorage
 import SwiftUI
+import Combine
+
+enum RegistrationKeys: String {
+    case username
+    case email
+    case profilePicUrl
+    case totalScore
+    case games
+    case friends
+}
 
 protocol RegistrationService {
-    func register(with details: RegistrationDetails, and profilePicture: UIImage)
+    func register(with details: RegistrationDetails, and profilePicture: UIImage) -> AnyPublisher<Void, Error>
 }
 
 final class RegistrationServiceImpl: ObservableObject, RegistrationService {
-    func register(with details: RegistrationDetails, and profilePicure: UIImage) {
-        Auth.auth().createUser(withEmail: details.email, password: details.password) { [weak self] results, error in
-            if let err = error {
-                print(err)
-            } else {
-                if let uid = results?.user.uid {
-                    print("Successfully created user: \(uid)")
-                    self?.storeProfilePic(of: uid, details, with: profilePicure)
-                } else {
-                    print("Invalis User ID")
+    func register(with details: RegistrationDetails, and profilePicure: UIImage) -> AnyPublisher<Void, Error> {
+        Deferred {
+            Future { promise in
+                Auth.auth().createUser(withEmail: details.email, password: details.password) { result, error in
+                    if let err = error {
+                        promise(.failure(err))
+                    } else {
+                        if let uid = result?.user.uid {
+                            self.storeProfilePic(of: uid, details, with: profilePicure)
+                        } else {
+                            promise(.failure(NSError(domain: "Invalid User Id", code: 0, userInfo: nil)))
+                        }
+                    }
                 }
             }
         }
+        .receive(on: RunLoop.main)
+        .eraseToAnyPublisher()
+//        Auth.auth().createUser(withEmail: details.email, password: details.password) { [weak self] results, error in
+//            if let err = error {
+//                print(err)
+//            } else {
+//                if let uid = results?.user.uid {
+//                    print("Successfully created user: \(uid)")
+//                    self?.storeProfilePic(of: uid, details, with: profilePicure)
+//                } else {
+//                    print("Invalis User ID")
+//                }
+//            }
+//        }
     }
     
     func storeUsers(_ uid: String, _ details: RegistrationDetails, _ profilePic: String) {
-        let userData = ["uid": uid, "username": details.username, "email": details.email, "profilePicUrl": profilePic, "games": [""], "totalScore": 0, "friends": [["id":"", "username":""], ["id":"", "username":""]]] as [String : Any]
+        let userData = ["uid": uid,
+                        RegistrationKeys.username.rawValue: details.username,
+                        RegistrationKeys.email.rawValue: details.email,
+                        RegistrationKeys.profilePicUrl.rawValue: profilePic,
+                        RegistrationKeys.totalScore.rawValue: 0
+                        ] as [String : Any]
+        //"friends": [["id":"", "username":""], ["id":"", "username":""]]
         FirebaseReference(.users).document(uid).setData(userData) { error in
                 if let err = error {
                     print(err)

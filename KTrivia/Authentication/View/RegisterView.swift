@@ -77,6 +77,13 @@ struct RegisterView: View {
                     .alert("Please fill out all text fields", isPresented: $showingAlert2) {
                         Button("OK", role: .cancel) { }
                     }
+                    .alert(isPresented: $vm.hasError, content: {
+                        if case .failed(let error) = vm.state {
+                            return Alert(title: Text(error.localizedDescription))
+                        } else {
+                            return Alert(title: Text("Something went wrong"))
+                        }
+                    })
                 }
                 .padding(.horizontal, 15)
                 

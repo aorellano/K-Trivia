@@ -43,7 +43,7 @@ struct HomeView: View {
                     Spacer()
                     
                 }
-                if sessionService.userDetails?.games.count ?? 0 <= 1 {
+                if sessionService.userDetails?.games?.count ?? 0 <= 1 {
                     Text("You currently have no games")
                         .font(.system(size:12))
                         .foregroundColor(.gray)
