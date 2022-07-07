@@ -55,10 +55,15 @@ struct LoginView: View {
                 }
                 .padding(.horizontal, 15)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .navigationTitle("Login")
-                //.background(Color.background)
+                .background(Color.background)
+                .navigationBarTitle("Login")
+                
             }
         }
+    }
+    
+    init() {
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.black]
     }
 }
 

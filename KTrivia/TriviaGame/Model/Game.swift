@@ -21,3 +21,4 @@ struct Game: Codable {
 }
 
 //add groupname to game model
+

@@ -20,7 +20,7 @@ struct RegisterView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                VStack(spacing: 30) {
+                VStack(spacing: 20) {
                     Button {
                         shouldShowImagePicker.toggle()
                     } label: {
@@ -29,15 +29,15 @@ struct RegisterView: View {
                                 Image(uiImage: image)
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: 150, height: 150)
+                                    .frame(width: 125, height: 125)
                                     .cornerRadius(75)
                                     .overlay(RoundedRectangle(cornerRadius: 75)
                                                 .stroke(Color.gray, lineWidth: 1.5))
                             } else {
                                 Image(systemName: "person.crop.circle.badge.plus")
-                                    .font(.system(size: 150, weight: .light))
-                                    .padding(.top, -20)
-                                    .padding(.bottom, 25)
+                                    .font(.system(size: 125, weight: .light))
+                                    .padding(.top, 25)
+                                    .padding(.bottom, 20)
                                     .foregroundColor(.black)
                             }
                         }
@@ -70,6 +70,7 @@ struct RegisterView: View {
                         }
                         
                     }
+                    Spacer()
                     .alert("Please Choose Profile Picture", isPresented: $showAlert) {
                                 Button("OK", role: .cancel) { }
                     }
@@ -78,15 +79,21 @@ struct RegisterView: View {
                     }
                 }
                 .padding(.horizontal, 15)
+                
             }
             .navigationTitle("Register")
             .applyClose().foregroundColor(.white)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            //.background(Color.background)
+            .background(Color.background)
+            //.foregroundColor(Color.textColor)
         }.fullScreenCover(isPresented: $shouldShowImagePicker, onDismiss: nil) {
             ImagePicker(image: $image)
                 .ignoresSafeArea(.keyboard)
         }
+    }
+    
+    init() {
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.black]
     }
 }
 
