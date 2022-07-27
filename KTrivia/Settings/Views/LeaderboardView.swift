@@ -40,7 +40,7 @@ struct LeaderboardView: View {
                 .padding(.top, 60)
             }
         }.onAppear {
-            viewModel.getUsers()
+            //viewModel.getUsers()
         }
         .navigationTitle("Leaderboard")
         .frame(maxWidth: .infinity, maxHeight: .infinity)

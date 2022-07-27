@@ -29,10 +29,7 @@ struct AnswerRow: View {
     
     var body: some View {
         ZStack {
-            NavigationLink(destination: NavigationLazyView(ResultsView(viewModel: viewModel)), isActive: $isActive)
-             {
-                 EmptyView()
-             }.isDetailLink(false)
+
             HStack(spacing: 20) {
                 Text(answer.text)
                     .fontWeight(.semibold)
@@ -68,7 +65,9 @@ struct AnswerRow: View {
                 
                 if viewModel.game?.player1TotalScore == "3" || viewModel.game?.player2TotalScore == "3" {
                     viewModel.endGame()
-                    isActive = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.10) {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
                 } else {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
                         self.presentationMode.wrappedValue.dismiss()

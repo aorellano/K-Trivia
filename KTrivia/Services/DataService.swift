@@ -14,21 +14,20 @@ import UIKit
 protocol DataService {
     func getGroups(completion: @escaping ([String]) -> Void)
     func getQuestions(for group: String, and type: String, completion: @escaping ([Trivia]) -> Void)
-    func getUsersGameIds(for user: String, completion: @escaping ([Game]) -> Void)
     func updateUsers(score: Int, with id: String)
-    func getUsers(completion: @escaping ([SessionUserDetails]) -> Void)
     func createQuestion(with category: String, type: String, question: String, correctAnswer: String, incorrectAnswers: [String], screenshot: UIImage, audio: String)
     func createChoiceQuestion(with category: String, type: String, question: String, correctAnswer: String, incorrectAnswers: [String])
     func getFriends(for user: String, completion: @escaping ([[String:String]]) -> Void)
-    func addFriend(to user: [String:String], with friend: [String:String])
+    func addFriend(to user: SessionUserDetails, with friend: SessionUserDetails)
+    func getUsers(with username: String, completion: @escaping ([SessionUserDetails]) -> Void)
 }
 
 class DataServiceImpl: ObservableObject, DataService {
     @Published var groups = [String]()
     @Published var questions = [Trivia]()
     @Published var games = [Game]()
-    @Published var users = [SessionUserDetails]()
     @Published var friends = [[String:String]]()
+    @Published var users = [SessionUserDetails]()
     
     func getGroups(completion: @escaping ([String]) -> Void) {
         FirebaseReference(.questions).addSnapshotListener { (querySnapshot, error) in
@@ -73,65 +72,6 @@ class DataServiceImpl: ObservableObject, DataService {
         }
     }
     
-    
-    
-    func getUsersGameIds(for user: String, completion: @escaping ([Game]) -> Void) {
-        
-        let docRef = FirebaseReference(.users).document(user)
-        docRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let data = document.data()
-                let games = data?["games"] as? [String] ?? [""]
-                print("hi \(games)")
-                self.getGameInformation(with: games) { games in
-                    completion(
-                        self.games
-                    )
-                }
-            } else {
-                print("Document does not exist")
-            }
-        }
-    }
-    
-    func getGameInformation(with gameIds: [String], completion: @escaping ([Game]) -> Void) {
-        if gameIds.count == 1 && gameIds.first == "" {
-            return
-        }
-        FirebaseReference(.game).addSnapshotListener { (querySnapshot, error) in
-            guard let documents = querySnapshot?.documents else {
-                return
-            }
-            
-            self.games = documents.map { (queryDocumentSnapshot) -> Game in
-                let data = queryDocumentSnapshot.data()
-                let id = data["id"] as? String ?? ""
-                let player1 = data["player1"] as? [String: String] ?? ["":""]
-                let player2 = data["player2"] as? [String: String] ?? ["":""]
-                let groupName = data["groupName"] as? String ?? ""
-                let player1Score = data["player1Score"] as? String ?? ""
-                let player2Score = data["player2Score"] as? String ?? ""
-                let blockPlayerId = data["blockPlayerId"] as? String ?? ""
-                let player1TotalScore = data["player1TotalScore"] as? String ?? ""
-                let player2TotalScore = data["player2TotalScore"] as? String ?? ""
-                let winnerId = data["winnerId"] as? String ?? ""
-                
-                if gameIds.contains(id) {
-                    let game = Game(id: id, groupName: groupName, player1: player1, player2: player2, player1Score: player1Score, player2Score: player2Score, player1TotalScore: player1TotalScore, player2TotalScore: player2TotalScore, blockPlayerId: blockPlayerId, winnerId:winnerId)
-                    return game
-            
-                }
-                
-                return Game(id: "", groupName: "", player1: ["":""], player2: ["":""], player1Score: "", player2Score: "", player1TotalScore: "", player2TotalScore: "", blockPlayerId: "", winnerId:"")
-            }
-            
-            completion(
-                self.games
-            )
-        }
-    }
-    
-    
     func updateUsers(score: Int, with id: String) {
         let totalScore = Double(score)
         let gameRef = FirebaseReference(.users).document(id)
@@ -144,12 +84,12 @@ class DataServiceImpl: ObservableObject, DataService {
         print("User updated!")
     }
     
-    func getUsers(completion: @escaping ([SessionUserDetails]) -> Void) {
-        FirebaseReference(.users).addSnapshotListener { (querySnapshot, error) in
+    func getUsers(with username: String, completion: @escaping ([SessionUserDetails]) -> Void) {
+        FirebaseReference(.users).whereField("username", isEqualTo: username).addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 return
             }
-            
+
             self.users = documents.map { (queryDocumentSnapshot) -> SessionUserDetails in
                 let data = queryDocumentSnapshot.data()
                 let id = data["uid"] as? String ?? ""
@@ -160,17 +100,19 @@ class DataServiceImpl: ObservableObject, DataService {
                 print(profilePic)
                 let totalScore = data["totalScore"] as? Double ?? 0.0
                 print(totalScore)
-            
+
                 return SessionUserDetails(id: id, username: username, profilePic: profilePic, totalScore: totalScore, games: [""], friends: [["":""]])
-               
+
                 }
-              
-            
+
+
             completion(
                 self.users
             )
         }
     }
+    
+
     func createQuestion(with category: String, type: String, question: String, correctAnswer: String, incorrectAnswers: [String], screenshot: UIImage, audio: String) {
         
         let uuid = UUID().uuidString
@@ -256,8 +198,12 @@ class DataServiceImpl: ObservableObject, DataService {
                 if let document = document, document.exists {
                     let data = document.data()
                     print("TRYING")
-                    self.friends = data?["friends"] as? [[String:String]] ?? [["":""]]
-                    print(self.friends)
+                    print(data)
+                    self.friends = data?["friends"] as? [[String: String]] ?? [["":""]]
+                    
+                   
+//                    self.friends = SessionUserDetails(id: people["id"], username: people["id"], profilePic: people["profilePic"], totalScore: people["totalScore"], games: nil, friends: nil)
+                    print("HELLO\(self.friends)")
                     completion(
                         self.friends
                     )
@@ -267,26 +213,48 @@ class DataServiceImpl: ObservableObject, DataService {
         }
     }
     
-    func addFriend(to user: [String:String], with friend: [String:String]) {
-        var ref = FirebaseReference(.users).document(user.values.first ?? "")
-//        gameRef.updateData(["totalScore": FieldValue.increment(totalScore)]) { error in
-//                if let err = error {
-//                    print(err)
-//                    return
-//                }
-//            }
-        //FieldValue.arrayUnion([gameId])]
-        
-        //ref.updateData(["friends"])
-        
-        ref.updateData(["friends": FieldValue.arrayUnion([friend])])
-        
-        var ref2 = FirebaseReference(.users).document(friend.values.first ?? "")
-        ref2.updateData(["friends": FieldValue.arrayUnion([user])])
     
+//    func resumeGame(with id: String) {
+//        print("... resuming game")
+//        print(id)
+//        FirebaseReference(.game)
+//            .whereField("id", isEqualTo: id).getDocuments { querySnapshot, error in
+//            if error != nil {
+//                print("Error starting game: \(String(describing: error?.localizedDescription))")
+//
+//                return
+//            }
+//
+//            if let gameData = querySnapshot?.documents.first {
+//                self.game = try? gameData.data(as: Game.self)
+//                print(self.game)
+////                self.game.player2 = player1
+////                self.game.blockPlayerId = player1["id"] ?? ""
+//                self.updateGame(self.game)
+////                self.updateUser(id: user.id, with: self.game.id)
+//                self.listenForGameChanges(self.game)
+//            }
+//        }
+//
+//    }
+    
+    func addFriend(to user: SessionUserDetails, with friend: SessionUserDetails) {
+        let ref = FirebaseReference(.users).document(user.id)
         
-
-                
+        ref.updateData(["friends": FieldValue.arrayUnion([["id":friend.id, "username":friend.username, "profile_pic":friend.profilePic]])]) { error in
+            if let err = error {
+                print(err)
+                return
+            }
+        }
+        
+        let ref2 = FirebaseReference(.users).document(friend.id)
+        ref2.updateData(["friends": FieldValue.arrayUnion([["id":user.id, "username":user.username, "profile_pic": user.profilePic]])]) { error in
+            if let err = error {
+                print(err)
+                return
+            }
+        }
     }
 }
         

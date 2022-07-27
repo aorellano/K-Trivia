@@ -27,14 +27,8 @@ struct HomeLogo: View {
                         .frame(width: 80, height: 80)
                         .padding(.trailing, 5)
                 }
-                
-            
             }
-
-           
-            
         }
-        
 }
 
 struct HomeLogo_Previews: PreviewProvider {

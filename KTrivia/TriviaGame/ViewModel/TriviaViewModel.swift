@@ -13,9 +13,8 @@ import UserNotifications
 class TriviaViewModel: ObservableObject {
     var questions = [Trivia]()
     var dataService: DataService
-    var sessionService: SessionService
+    var sessionService: SessionServiceImpl
     var categoryType: String?
-    @Published var gameId: String
     private var cancellables: Set<AnyCancellable> = []
     @Published var gameNotification = GameNotfication.waitingForPlayer
     @Published private(set) var reachedEnd = false
@@ -23,22 +22,11 @@ class TriviaViewModel: ObservableObject {
     @Published private(set) var question: Trivia?
     @Published private(set) var answers: [Answer] = []
     @Published private(set) var totalScore = 0
-    @Published private(set) var groupName: String
     @State var isActive = true
-    @Published var currentUser: SessionUserDetails?
-    var friend: UserInfo
+//    @Published var currentUser: SessionUserDetails?
     @Published var game: Game? {
         didSet {
-            //checkIfGameIsOver
-            if game == nil {
-                updateGameNotificationsFor(.finished)
-            } else if game?.player2["id"] == "" {
-                updateGameNotificationsFor(.waitingForPlayer)
-            } else if game?.blockPlayerId == currentUser!.id {
-                updateGameNotificationsFor(.opponentsTurn)
-            } else {
-                updateGameNotificationsFor(.yourTurn)
-            }
+            updateGameNotificationsFor(game)
         }
     }
     @Published var isPlayerOne = false
@@ -47,38 +35,64 @@ class TriviaViewModel: ObservableObject {
     var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     
-    init(groupName: String, sessionService: SessionService, dataService: DataService = DataServiceImpl(), gameId: String, user: UserInfo) {
-        print("vieModel getting inilitized")
-        self.groupName = groupName
-        self.dataService = dataService
+//    init(groupName: String, sessionService: SessionService, dataService: DataService = DataServiceImpl(), gameId: String, user: UserInfo) {
+//        print("vieModel getting inilitized")
+//        self.groupName = groupName
+//        self.dataService = dataService
+//        self.sessionService = sessionService
+//        self.gameId = gameId
+//        self.friend = user
+//        self.retrieveUser()
+//        self.checkIfUserIsPlayerOne()
+//        self.checkIfGameIsOver()
+//        self.checkIfFriendMatch()
+//    }
+    
+    init(game: Game, sessionService: SessionServiceImpl, dataService: DataServiceImpl = .init()) {
+        self.game = game
+        print(game)
         self.sessionService = sessionService
-        self.gameId = gameId
-        self.friend = user
-        self.retrieveUser()
-        self.checkIfUserIsPlayerOne()
-        self.checkIfGameIsOver()
-        self.checkIfFriendMatch()
+        self.dataService = dataService
+        self.updateGameNotificationsFor(self.game)
+        //GameService.shared.listenForGameChanges(self.game!)
     }
     
-    func checkIfFriendMatch() {
-        if friend.id != "" {
-            print(friend.id)
-            print("this is a friend match")
+    func checkGameState() {
+        if game?.player1["id"] == "" && game?.player2["id"] != "" {
+            startGameWithFriend()
+            gameNotification = GameNotfication.waitingForPlayer
+        } else if game?.winnerId != ""  {
+            print(game?.winnerId)
+            gameNotification = GameNotfication.gameHasFinished
+        } else if game?.player2["id"] == "" && game?.player1["id"] == "" {
+            startNewGame()
+        } else if game?.player1["id"] == "" && game?.player2["id"] != ""{
+            
+        } else if game?.blockPlayerId == sessionService.userDetails?.id {
+            resumeGame(with: game!.id)
+            gameNotification = GameNotfication.opponentsTurn
+        } else {
+            resumeGame(with: game!.id)
+            gameNotification = GameNotfication.yourTurn
         }
     }
-
     
-    func updateGameNotificationsFor(_ state: GameState) {
-        switch state {
-        case .waitingForPlayer:
+    func updateGameNotificationsFor(_ state: Game?) {
+        print("checking")
+        if game?.player1["id"] == "" && game?.player2["id"] != "" {
             gameNotification = GameNotfication.waitingForPlayer
-        case .finished:
+        } else if game?.winnerId != ""  {
+            print("HI \(game?.winnerId)")
             gameNotification = GameNotfication.gameHasFinished
-        case .opponentsTurn:
+        } else if game?.player2["id"] == "" {
+            gameNotification = GameNotfication.waitingForPlayer
+           // GameService.shared.listenForGameChanges()
+        } else if game?.blockPlayerId == sessionService.userDetails?.id {
             gameNotification = GameNotfication.opponentsTurn
-        case .yourTurn:
+           // GameService.shared.listenForGameChanges()
+        } else if game?.blockPlayerId != sessionService.userDetails?.id {
             gameNotification = GameNotfication.yourTurn
-
+           // GameService.shared.listenForGameChanges()
         }
     }
     
@@ -92,14 +106,8 @@ class TriviaViewModel: ObservableObject {
     
     //should check if game object if nil if it is start new game
     //if not current game should resume
-    func startRandomGame() {
-        print("starting random game")
-        gameId = ""
-        guard let currentUser = currentUser else {
-            return
-        }
-
-        GameService.shared.startRandomGame(with: currentUser, and: groupName)
+    func startNewGame() {
+        GameService.shared.startRandomGame(with: sessionService.userDetails!, and: game!.groupName)
         GameService.shared.$game
             .assign(to: \.game, on: self)
             .store(in: &cancellables)
@@ -107,12 +115,12 @@ class TriviaViewModel: ObservableObject {
     
     func startGameWithFriend() {
         print("starting game with friend")
-        print(friend)
-        gameId = ""
-        guard let currentUser = currentUser else {
-            return
-        }
-        GameService.shared.startGameWithFriend(with: currentUser, and: friend, and: groupName)
+     //   print(friend)
+//        gameId = ""
+//        guard let currentUser = currentUser else {
+//            return
+//        }
+        GameService.shared.startGameWithFriend(with: sessionService.userDetails!, and: game!.player2, and: game!.groupName)
         GameService.shared.$game
             .assign(to: \.game, on: self)
             .store(in: &cancellables)
@@ -140,7 +148,6 @@ class TriviaViewModel: ObservableObject {
     }
     
     func updatePlayersScore(answer: Answer) {
-        
         if answer.isCorrect && isPlayerOne {
             var score = Int(game?.player1Score ?? "") ?? 0
             score += 1
@@ -162,13 +169,14 @@ class TriviaViewModel: ObservableObject {
             GameService.shared.updateGame(game!)
         } else if !answer.isCorrect && isPlayerOne {
             game?.player1Score = "0"
-            game?.blockPlayerId = currentUser?.id ?? ""
+            game?.blockPlayerId = sessionService.userDetails?.id ?? ""
             GameService.shared.updateGame(game!)
         } else {
             game?.player2Score = "0"
-            game?.blockPlayerId = currentUser?.id ?? ""
+            game?.blockPlayerId = sessionService.userDetails?.id ?? ""
             GameService.shared.updateGame(game!)
         }
+        GameService.shared.listenForGameChanges(self.game!)
     }
     
     func updateTotalScore() {
@@ -183,14 +191,14 @@ class TriviaViewModel: ObservableObject {
             totalScore += 1
             game?.player1TotalScore = String(totalScore)
             //game?.player1Score = "0"
-            dataService.updateUsers(score: Int(game?.player1TotalScore ?? "1") ?? 1, with: game?.player1["id"] ?? "")
+//            dataService.updateUsers(score: Int(game?.player1TotalScore ?? "1") ?? 1, with: game?.player1["id"] ?? "")
             GameService.shared.updateGame(game!)
         } else {
             var totalScore = Int(game?.player2TotalScore ?? "") ?? 0
             totalScore += 1
             game?.player2TotalScore = String(totalScore)
             game?.player2Score = "0"
-            dataService.updateUsers(score: Int(game?.player2TotalScore ?? "1") ?? 1, with: game?.player2["id"] ?? "")
+//            dataService.updateUsers(score: Int(game?.player2TotalScore ?? "1") ?? 1, with: game?.player2["id"] ?? "")
             //GameService.shared.updateGame(game!)
         }
     }
@@ -226,17 +234,15 @@ class TriviaViewModel: ObservableObject {
     
     
     func checkForGameStatus() -> Bool {
-        
-        return game != nil ? game?.blockPlayerId == currentUser?.id : false
-           
+        return game != nil ? game?.blockPlayerId == sessionService.userDetails?.id : false
     }
     
     func checkIfGameIsOver() {
-        if game != nil || gameId != "" {
-            self.resumeGame(with: gameId ?? "")
-            print(game)
-            self.endGame()
-        }
+//        if game != nil || gameId != "" {
+////            self.resumeGame(with: gameId ?? "")
+//            print(game)
+//            self.endGame()
+//        }
     }
     
 //    func updatePlayerScore(with totalScore: Int) {
@@ -283,21 +289,24 @@ class TriviaViewModel: ObservableObject {
     }
     
     func retrieveUser() {
-        currentUser = sessionService.userDetails
-        print("Current User: \(String(describing: currentUser))")
+//        currentUser = sessionService.userDetails
+        //print("Current User: \(String(describing: currentUser))")
     }
     
     func checkIfUserIsPlayerOne() {
-        if game?.player1["id"] == currentUser?.id {
+        if game?.player1["id"] == sessionService.userDetails?.id {
             isPlayerOne = true
         } else {
             isPlayerOne = false
         }
-        
     }
     
     func addNotificationForUser() {
         let center = UNUserNotificationCenter.current()
+    }
+    
+    func deleteGame() {
+        GameService.shared.deleteGame(with: game?.id ?? "", for: sessionService.userDetails!.id)
     }
 }
 

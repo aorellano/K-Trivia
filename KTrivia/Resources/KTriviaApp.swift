@@ -15,20 +15,36 @@ import UserNotifications
 struct KTriviaApp: App {
     @StateObject var sessionService = SessionServiceImpl()
     @StateObject var dataService = DataServiceImpl()
-    @StateObject var viewModel = HomeListViewModel()
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    
-    init() {
-    }
     
     var body: some Scene {
         WindowGroup {
             switch sessionService.state {
             case .loggedIn:
-                HomeView()
-                    .environmentObject(sessionService)
-                    .environmentObject(dataService)
-                    .environmentObject(viewModel)
+                TabView {
+                    HomeView()
+                        .environmentObject(sessionService)
+                        .environmentObject(dataService)
+                        .tabItem{
+                            Label("Home", systemImage: "house")
+                        }
+                    GamesView()
+                        .environmentObject(sessionService)
+                        .tabItem {
+                            Label("Games", systemImage: "line.3.horizontal.circle")
+                        }
+                    FriendsView()
+                        .environmentObject(sessionService)
+                        .tabItem {
+                            Label("Play Friends", systemImage: "person.3.sequence")
+                        }
+                    ProfileView()
+                        .environmentObject(sessionService)
+                        .tabItem{
+                            Label("Settings", systemImage: "gear")
+                        }
+                }
+                
                 //print(sessionService.userDetails)
             case .loggedOut:
                 LoginView()

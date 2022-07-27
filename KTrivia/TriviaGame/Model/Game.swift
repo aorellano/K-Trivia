@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Game: Codable {
+struct Game: Codable, Identifiable {
     let id: String
     var groupName: String
     var player1: [String: String]
@@ -18,6 +18,16 @@ struct Game: Codable {
     var player2TotalScore: String
     var blockPlayerId: String
     var winnerId: String
+}
+
+
+
+var newPlayer: [String: String] {
+    ["id": "", "profile_pic": "", "username": ""]
+}
+
+func player(with info: SessionUserDetails) -> [String: String] {
+    return ["id": info.id, "profile_pic": info.profilePic, "username": info.username]
 }
 
 //add groupname to game model

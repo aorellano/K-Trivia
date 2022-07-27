@@ -19,39 +19,45 @@ class UsersViewModel: ObservableObject {
         self.dataService = dataService
     }
     
-    func getUsers() {
-        dataService.getUsers() { users in
-            let sortedUsers = users.sorted(by: {$0.totalScore > $1.totalScore})
-            self.users = sortedUsers
-        }
-    }
+//    func getUsers() {
+//        dataService.getUsers() { users in
+//            let sortedUsers = users.sorted(by: {$0.totalScore > $1.totalScore})
+//            self.users = sortedUsers
+//        }
+//    }
     
-    func getFriends()  {
-        let user = Auth.auth().currentUser?.uid
-        dataService.getFriends(for: user ?? "") { friends in
-            var filtered = [[String:String]]()
-            for i in friends.indices {
-                let friend = friends[i]
-                if friend["id"] != "" {
-                    filtered.append(friend)
-                }
-            }
-
+    func getFriends(for user: SessionUserDetails)  {
+        dataService.getFriends(for: user.id ) { friends in
+            print(friends)
+            self.friends = friends
+            //self.friends = friends
             
-            print(filtered)
-         
-            //let sortedUsers = users.sorted(by: {$0.totalScore > $1.totalScore})
-            print("hiii\(friends)")
-            self.friends = filtered
+//            var filtered = [[String:String]]()
+//            for i in friends.indices {
+//                let friend = friends[i]
+//                if friend["id"] != "" {
+//                    filtered.append(friend)
+//                }
+//            }
+//
+//
+//            print(filtered)
+//
+//            //let sortedUsers = users.sorted(by: {$0.totalScore > $1.totalScore})
+//            print("hiii\(friends)")
+//            self.friends = filtered
         }
     }
     
-    func search(with query: String) {
-        self.getUsers()
-        filteredUsers = users.filter { $0.username.contains(query) }
+    func search(for query: String) {
+        dataService.getUsers(with: query) { users in
+            self.users = users
+            print(users)
+        }
+        //filteredUsers = users.filter { $0.username.contains(query) }
     }
     
-    func addFriend(to user: [String:String], with friend: [String:String]) {
+    func addFriend(to user: SessionUserDetails, with friend: SessionUserDetails) {
         dataService.addFriend(to: user, with: friend)
     }
 }

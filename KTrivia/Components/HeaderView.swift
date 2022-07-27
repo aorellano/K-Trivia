@@ -22,9 +22,9 @@ struct HeaderView: View {
             HStack {
                 Spacer()
                 ZStack {
-                    NavigationLink(destination: NavigationLazyView(ProfileView()).environmentObject(sessionService).environmentObject(dataService), isActive: $isActive) {
-                         EmptyView()
-                     }.isDetailLink(false)
+//                    NavigationLink(destination: NavigationLazyView(ProfileView()).environmentObject(sessionService).environmentObject(dataService), isActive: $isActive) {
+//                         EmptyView()
+//                     }.isDetailLink(false)
                     ProfilePictureView(profilePic: sessionService.userDetails?.profilePic, size: 50, cornerRadius: 50)
                         .environmentObject(sessionService)
                

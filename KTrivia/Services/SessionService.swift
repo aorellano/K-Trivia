@@ -66,7 +66,7 @@ private extension SessionServiceImpl {
                 return
             }
                 
-            guard let games = data[RegistrationKeys.games.rawValue] as? [String] else {
+            guard let games = data[RegistrationKeys.games.rawValue] as? [String]? else {
                 return
             }
                 
@@ -74,7 +74,7 @@ private extension SessionServiceImpl {
                 return
             }
                 
-            guard let friends = data[RegistrationKeys.friends.rawValue] as? [[String: String]] else {
+            guard let friends = data[RegistrationKeys.friends.rawValue] as? [[String: String]]? else {
                 return
             }
                 

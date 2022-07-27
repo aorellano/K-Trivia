@@ -1,10 +1,11 @@
 import SwiftUI
 import FortuneWheel
 import FirebaseAuth
+import Introspect
 
 struct SpinWheelView: View {
     @StateObject var viewModel: TriviaViewModel
-    @State var group: String
+   // @State var group: String
     @State private var didFinishChooshingCategory: Bool = false
     @State var isActive: Bool = false
     @State var selectedCategory: String? = nil
@@ -14,10 +15,16 @@ struct SpinWheelView: View {
     @State var buttonColor: Color = Color.gray
     @State var isBlocked = false
     @State var spinEnded = false
+    @State var tabBarController: UITabBarController?
+    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
     
     
-    init(groupName: String, viewModel: TriviaViewModel) {
-        self.group = groupName
+//    init(groupName: String, viewModel: TriviaViewModel) {
+//        self.group = groupName
+//        _viewModel = StateObject(wrappedValue: viewModel)
+//    }
+    
+    init(viewModel: TriviaViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
     
@@ -28,7 +35,7 @@ struct SpinWheelView: View {
                     Text("Spin the Wheel")
                         .font(.system(size: 26))
                         .fontWeight(.bold)
-                        .padding(.top, -45)
+                        .padding(.top, -30)
                         .padding(.leading, 20)
                         Spacer()
                 }
@@ -44,7 +51,8 @@ struct SpinWheelView: View {
                     }
                     Text("VS")
                         .fontWeight(.bold)
-                        .font(.system(size: 20))
+                        .font(.system(size: 16))
+                        .foregroundColor(.black)
                     VStack {
                         ProfilePictureView(profilePic: viewModel.game?.player2["profile_pic"], size: 100, cornerRadius: 100)
                         Text(viewModel.game?.player2["username"] ?? "")
@@ -62,7 +70,7 @@ struct SpinWheelView: View {
                     
                     print("The Game is about to start for \(players[index])")
                 
-                    viewModel.getQuestions(for: group, and: selectedCategory ?? "")
+                    viewModel.getQuestions(for: viewModel.game?.groupName ?? "", and: selectedCategory ?? "")
                     buttonColor = Color.secondaryColor
                     
                 }, colors: [.red, Color.secondaryColor, .teal, .green, .red, Color.secondaryColor, .teal])
@@ -74,7 +82,7 @@ struct SpinWheelView: View {
             
                 .padding()
                 
-                if viewModel.currentUser?.id == viewModel.game?.player1["id"] {
+                if viewModel.sessionService.userDetails?.id == viewModel.game?.player1["id"] {
                     if viewModel.game?.player1Score == "0" || viewModel.game?.player1Score == ""  {
                         ScoreIndicatorView(colors: [.gray, .gray, .gray])
                     } else if viewModel.game?.player1Score == "1" {
@@ -95,7 +103,7 @@ struct SpinWheelView: View {
                         ScoreIndicatorView(colors: [Color.secondaryColor, Color.secondaryColor, Color.secondaryColor])
                     }
                 }
-                NavigationLink(destination: NavigationLazyView(MultipleChoiceView(group: group ?? "", selectedCategory: selectedCategory ?? "", viewModel: viewModel)), isActive: $isActive){
+                NavigationLink(destination: NavigationLazyView(MultipleChoiceView( selectedCategory: selectedCategory ?? "", viewModel: viewModel)), isActive: $isActive){
 //                    if selectedCategory != nil {
 //                        buttonColor = Color.secondaryColor
 //                    }
@@ -109,26 +117,34 @@ struct SpinWheelView: View {
                         Button("Recieve") { viewModel.updateTotalScore() }
                         Button("Challenge"){ print("Challenging for Question Bomb")}
                 }
+                
+                
             }
             .foregroundColor(.black)
+            .introspectTabBarController { (UITabBarController) in
+                UITabBarController.tabBar.isHidden = true
+                tabBarController = UITabBarController
+            }
             .onAppear {
                
                 selectedCategory = nil
                 buttonColor = Color.gray
+                viewModel.checkGameState()
+                //UITabBar.appearance().isHidden = true
                 
-                if viewHasAppeared == 0 && viewModel.gameId == "" && viewModel.friend.id == "" {
-                    viewModel.startRandomGame()
-                    print("starting random game")
-                    print(viewModel.friend.username)
-                } else if viewModel.gameId != "" {
-                    viewModel.resumeGame(with: viewModel.gameId)
-                    print("resuming game")
-                } else if viewModel.friend.id != "" {
-                    viewModel.startGameWithFriend()
-                    print("friend game")
-                    
-                }
-                
+//                if viewHasAppeared == 0 && viewModel.gameId == "" && viewModel.friend.id == "" {
+//                    viewModel.startRandomGame()
+//                    print("starting random game")
+//                    print(viewModel.friend.username)
+//                } else if viewModel.gameId != "" {
+//                    viewModel.resumeGame(with: viewModel.gameId)
+//                    print("resuming game")
+//                } else if viewModel.friend.id != "" {
+//                    viewModel.startGameWithFriend()
+//                    print("friend game")
+//
+//                }
+//
                 if viewHasAppeared > 0 {
                     spinEnded = false
                 }
@@ -142,6 +158,31 @@ struct SpinWheelView: View {
                 
 
             }
+            if viewModel.gameNotification == GameNotfication.gameHasFinished {
+                VisualEffectView(effect: UIBlurEffect(style: .light))
+                    .ignoresSafeArea()
+                ResultsView(viewModel: viewModel)
+                    .cornerRadius(30)
+                    .frame(width: 350, height: 550)
+                   
+                Text("X")
+                    .fontWeight(.bold)
+                    .font(.system(size: 20))
+                    .foregroundColor(.black)
+                    .padding(.leading, 280)
+                    .padding(.bottom, 475)
+                    
+                    .onTapGesture {
+                        viewModel.deleteGame()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
+                        
+                    }
+            }
+            
+            
+
             //.padding(.top, -50)
 
         
@@ -149,7 +190,10 @@ struct SpinWheelView: View {
 //        .navigationViewStyle(StackNavigationViewStyle())
     }
 
-    .frame(maxWidth: .infinity, maxHeight: .infinity)
+    //.frame(maxWidth: .infinity, maxHeight: .infinity)
+    .background(Color.white)
+        
+
     }
      
 }
@@ -159,3 +203,9 @@ struct SpinWheelView: View {
 //        SpinWheelView(groupName: "Twice", viewModel: SpinWheelViewModel(groupName: "Twice", sessionService: SessionServiceImpl()))
 //    }
 //}
+
+struct VisualEffectView: UIViewRepresentable {
+    var effect: UIVisualEffect?
+    func makeUIView(context: UIViewRepresentableContext<Self>) -> UIVisualEffectView { UIVisualEffectView() }
+    func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) { uiView.effect = effect }
+}

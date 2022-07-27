@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct CategoryListView: View {
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
@@ -14,11 +15,12 @@ struct CategoryListView: View {
     @State var selectedCategory: String? = nil
     @State var isActive: Bool = false
     @EnvironmentObject var sessionService: SessionServiceImpl
-    var user: UserInfo
-    init(viewModel: CategoryListViewModel = .init(), user: UserInfo) {
+    @State var tabBarController: UITabBarController?
+    var opponent: [String:String]?
+    
+    init(viewModel: CategoryListViewModel = .init(), opponent: [String: String]?) {
         _viewModel = StateObject(wrappedValue: viewModel)
-        self.user = user
-        print(self.user)
+        self.opponent = opponent
     }
     
     var body: some View {
@@ -37,7 +39,7 @@ struct CategoryListView: View {
 //                                NavigationLink(destination: TriviaView(groupName: selectedCategory ?? "", viewModel: TriviaViewModel(groupName: selectedCategory ?? "", session: sessionService)), isActive: $isActive) {
 //                                        EmptyView()
 //                                }.isDetailLink(false)
-                                NavigationLink(destination: NavigationLazyView(SpinWheelView(groupName: selectedCategory ?? "", viewModel: TriviaViewModel(groupName: selectedCategory ?? "", sessionService: sessionService, gameId: "", user: user))), isActive: $isActive) {
+                                NavigationLink(destination: NavigationLazyView(SpinWheelView(viewModel: TriviaViewModel(game: Game(id: "", groupName: selectedCategory!, player1: newPlayer, player2: opponent ?? newPlayer, player1Score: "", player2Score: "", player1TotalScore: "", player2TotalScore: "", blockPlayerId: "", winnerId: ""), sessionService: sessionService))), isActive: $isActive) {
                                                                         EmptyView()
                                 }.isDetailLink(false)
                             }
@@ -63,7 +65,7 @@ struct CategoryListView: View {
                                 .padding([.leading, .trailing], 20)
                             }
                         }
-                        .padding(.top, 60)
+                        .padding(.top, 20)
                     }.onAppear {
                         viewModel.getGroups()
 //                        UITableView.appearance().backgroundColor = .clear
@@ -73,8 +75,12 @@ struct CategoryListView: View {
                     
                 }
                 
-            }
+            } .introspectTabBarController { (UITabBarController) in
+                    UITabBarController.tabBar.isHidden = false
+                    tabBarController = UITabBarController
+                }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.white)
     
         
 //        .environment(\.rootPresentationMode, self.$isActive)

@@ -6,15 +6,18 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct MultipleChoiceView: View {
 //    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-    //@Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
+//    @Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
     @StateObject var viewModel: TriviaViewModel
     @State var showingAlert = false
     
     @State private var shouldNavigate = false
     @State private var timeRemaining = 15
+    @State var tabBarController: UITabBarController?
+    
     var answers = [
         Answer(text: "Answer1", isCorrect: true),
         Answer(text: "Answer2", isCorrect: false),
@@ -24,10 +27,8 @@ struct MultipleChoiceView: View {
     
     @State private var isActive: Bool = false
     @State private var selectedCategory: String
-    @State private var group: String
 
-    init(group: String, selectedCategory: String, viewModel: TriviaViewModel) {
-        self.group = group
+    init(selectedCategory: String, viewModel: TriviaViewModel) {
         self.selectedCategory = selectedCategory
         _viewModel = StateObject(wrappedValue: viewModel)
     }
@@ -37,7 +38,7 @@ struct MultipleChoiceView: View {
         ZStack {
                 VStack(spacing: 40) {
                     HStack {
-                        Text(group)
+                        Text(viewModel.game!.groupName)
                             .font(.system(size: 30))
                             .fontWeight(.bold)
                             .foregroundColor(Color.secondaryColor)
@@ -78,6 +79,7 @@ struct MultipleChoiceView: View {
                     
                 }
                 .foregroundColor(.black)
+                .background(Color.white)
                 //.padding([.leading, .trailing], 25)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .navigationBarHidden(true)
@@ -96,13 +98,18 @@ struct MultipleChoiceView: View {
                 timeRemaining -= 1
             }
         }
+        .introspectTabBarController { (UITabBarController) in
+            UITabBarController.tabBar.isHidden = true
+            tabBarController = UITabBarController
+        }
         .onAppear {
+            
             //viewModel.getTheGame()
             
             
         }
 
-        //.environment(\.presentationMode, self.$isActive)
+//        .environment(\.presentationMode, self.$isActive)
 //        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
