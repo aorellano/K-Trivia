@@ -30,5 +30,4 @@ func player(with info: SessionUserDetails) -> [String: String] {
     return ["id": info.id, "profile_pic": info.profilePic, "username": info.username]
 }
 
-//add groupname to game model
 

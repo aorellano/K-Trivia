@@ -20,11 +20,4 @@ class GamesServiceImpl: GamesService {
             try? document.data(as: Game.self)
         }
     }
-//    func getGames(with gameIds: [String], completion: @escaping([Game]) -> Void) {
-//        FirebaseReference(.game).whereField("id", in: gameIds).getDocuments{ snapshot, _ in
-//            guard let documents = snapshot?.documents else { return }
-//            let games = documents.compactMap({ try? $0.data(as: Game.self)})
-//            completion(games)
-//        }
-//    }
 }

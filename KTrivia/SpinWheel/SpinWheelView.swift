@@ -5,24 +5,16 @@ import Introspect
 
 struct SpinWheelView: View {
     @StateObject var viewModel: TriviaViewModel
-   // @State var group: String
-    @State private var didFinishChooshingCategory: Bool = false
     @State var isActive: Bool = false
     @State var selectedCategory: String? = nil
     var players  = ["Choice", "Lyrics", "Choice", "MV", "Choice", "Song", "Performance"]
     @State var viewHasAppeared = 0
-    @State var showingAlert1 = false
+    @State var showAlert = false
     @State var buttonColor: Color = Color.gray
     @State var isBlocked = false
     @State var spinEnded = false
     @State var tabBarController: UITabBarController?
     @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-    
-    
-//    init(groupName: String, viewModel: TriviaViewModel) {
-//        self.group = groupName
-//        _viewModel = StateObject(wrappedValue: viewModel)
-//    }
     
     init(viewModel: TriviaViewModel) {
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -35,7 +27,7 @@ struct SpinWheelView: View {
                     Text("Spin the Wheel")
                         .font(.system(size: 26))
                         .fontWeight(.bold)
-                        .padding(.top, -30)
+                        .padding(.top, -20)
                         .padding(.leading, 20)
                         Spacer()
                 }
@@ -62,19 +54,15 @@ struct SpinWheelView: View {
                     }
                 }
                 .foregroundColor(.black)
-                
                 .padding(.top, -15)
-                FortuneWheel(titles: players, size: 320, onSpinEnd: { index in
+                FortuneWheel(titles: players, size: 310, onSpinEnd: { index in
                     spinEnded = true
                     selectedCategory = players[index]
-                    
-                    print("The Game is about to start for \(players[index])")
-                
                     viewModel.getQuestions(for: viewModel.game?.groupName ?? "", and: selectedCategory ?? "")
                     buttonColor = Color.secondaryColor
-                    
-                }, colors: [.red, Color.secondaryColor, .teal, .green, .red, Color.secondaryColor, .teal])
                 
+                }, colors: [.red, Color.secondaryColor, .teal, .green, .red, Color.secondaryColor, .teal], animDuration: 2.5)
+            
                 .disabled(viewModel.checkForGameStatus())
                 .disabled(spinEnded)
                             
@@ -108,56 +96,30 @@ struct SpinWheelView: View {
 //                        buttonColor = Color.secondaryColor
 //                    }
                     ButtonView(title: "Play", background: buttonColor) {
-                        isActive = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
+                            isActive = true
+                        }
                     }
                     .padding()
                 }.isDetailLink(false)
                     .disabled(selectedCategory == nil)
-                .alert("Would you like to recieve a question bomb or challenge your opponent for their question bomb?", isPresented: $showingAlert1) {
-                        Button("Recieve") { viewModel.updateTotalScore() }
-                        Button("Challenge"){ print("Challenging for Question Bomb")}
-                }
-                
-                
             }
             .foregroundColor(.black)
             .introspectTabBarController { (UITabBarController) in
                 UITabBarController.tabBar.isHidden = true
                 tabBarController = UITabBarController
             }
+           
             .onAppear {
-               
                 selectedCategory = nil
                 buttonColor = Color.gray
                 viewModel.checkGameState()
-                //UITabBar.appearance().isHidden = true
-                
-//                if viewHasAppeared == 0 && viewModel.gameId == "" && viewModel.friend.id == "" {
-//                    viewModel.startRandomGame()
-//                    print("starting random game")
-//                    print(viewModel.friend.username)
-//                } else if viewModel.gameId != "" {
-//                    viewModel.resumeGame(with: viewModel.gameId)
-//                    print("resuming game")
-//                } else if viewModel.friend.id != "" {
-//                    viewModel.startGameWithFriend()
-//                    print("friend game")
-//
-//                }
-//
                 if viewHasAppeared > 0 {
                     spinEnded = false
                 }
                 viewHasAppeared += 1
-                
-                
-//                if viewModel.game?.player1Score == "3" || viewModel.game?.player2Score == "3" && viewModel.reachedEnd != true {
-//                    print("gonna show this")
-//                    showingAlert1.toggle()
-//                }
-                
-
             }
+            
             if viewModel.gameNotification == GameNotfication.gameHasFinished {
                 VisualEffectView(effect: UIBlurEffect(style: .light))
                     .ignoresSafeArea()
@@ -174,38 +136,41 @@ struct SpinWheelView: View {
                     
                     .onTapGesture {
                         viewModel.deleteGame()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                             self.presentationMode.wrappedValue.dismiss()
                         }
+                            
                         
+                        
+                        
+                            
                     }
             }
-            
-            
-
-            //.padding(.top, -50)
-
-        
-//        .environment(\.rootPresentationMode, self.$isActive)
-//        .navigationViewStyle(StackNavigationViewStyle())
     }
-
-    //.frame(maxWidth: .infinity, maxHeight: .infinity)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(leading: Button(action : {
+            if viewModel.game?.blockPlayerId != Auth.auth().currentUser?.uid {
+                showAlert = true
+                
+            } else {
+                self.presentationMode.wrappedValue.dismiss()
+            }
+            
+        }){
+            Image(systemName: "arrow.left")
+        })
+        .alert("You will lose your turn if you leave", isPresented: $showAlert) {
+                            Button("Stay", role: .cancel) { }
+                            Button("Leave") {
+                                viewModel.game?.blockPlayerId = Auth.auth().currentUser!.uid
+                                TriviaService.shared.updateGame(viewModel.game!)
+                                self.presentationMode.wrappedValue.dismiss()
+                                
+                            }
+                        }
     .background(Color.white)
-        
-
     }
-     
 }
 
-//struct SpinWheel_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SpinWheelView(groupName: "Twice", viewModel: SpinWheelViewModel(groupName: "Twice", sessionService: SessionServiceImpl()))
-//    }
-//}
 
-struct VisualEffectView: UIViewRepresentable {
-    var effect: UIVisualEffect?
-    func makeUIView(context: UIViewRepresentableContext<Self>) -> UIVisualEffectView { UIVisualEffectView() }
-    func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) { uiView.effect = effect }
-}

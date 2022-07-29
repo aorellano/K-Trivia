@@ -18,13 +18,9 @@ class GamesViewModel: ObservableObject {
     }
     
     @MainActor
-    func fetchGames(with gameIds: [String]) {
+    func fetchGames(with gameIds: [String]) async {
         Task.init {
             games = try await service.getGames(with: gameIds)
         }
-//        service.getGames(with: gameIds) { games in
-//            self.games = games
-//            //self.pastGames = games.filter({$0.winnerId != ""})
-//        }
     }
 }

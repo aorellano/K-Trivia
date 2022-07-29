@@ -44,14 +44,22 @@ struct GamesView: View {
                 UITabBarController.tabBar.isHidden = false
                 tabBarController = UITabBarController
             }
-            .onAppear {
-                print("Your games are loading")
+            .task {
                 let games = sessionService.userDetails?.games ?? [""]
                 if games.count != 0 {
-                
-                    viewModel.fetchGames(with: sessionService.userDetails?.games ?? [""])
-               }
+                    print("gamesView")
+                    await viewModel.fetchGames(with: sessionService.userDetails?.games ?? [""])
+                }
             }
+//            .onAppear {
+//                print("Your games are loading")
+//                let games = sessionService.userDetails?.games ?? [""]
+//                if games.count != 0 {
+//
+//                    viewModel.fetchGames(with: sessionService.userDetails?.games ?? [""])
+//               }
+//
+//            }
             .padding(.top, 30)
             .navigationBarHidden(true)
             .foregroundColor(Color.black)

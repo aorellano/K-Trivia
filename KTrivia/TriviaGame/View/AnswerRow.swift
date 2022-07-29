@@ -15,21 +15,15 @@ struct AnswerRow: View {
     @State private var isSelected = false
     @State private var isActive: Bool = false
     @State private var timeRemaining = 15
-    //@State private var newInt: Int
-
-    
-
     var answer: Answer
     
     init(answer: Answer, timeRemaining: Int, viewModel: TriviaViewModel ) {
         self.answer = answer
-        //self.timeRemaining = timeRemaining
         _viewModel = StateObject(wrappedValue: viewModel)
     }
     
     var body: some View {
         ZStack {
-
             HStack(spacing: 20) {
                 Text(answer.text)
                     .fontWeight(.semibold)
@@ -44,11 +38,6 @@ struct AnswerRow: View {
             .scaleEffect(isSelected ? 0.96 : 1)
             .animation(.spring(response: 0.9, dampingFraction: 0.8), value: 0.6)
             .onTapGesture {
-//                if viewModel.reachedEnd {
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//                        isActive = true
-//                    }
-//                }
                 if !viewModel.answerSelected {
                     isSelected = true
                     viewModel.selectAnswer(answer: answer)
@@ -82,9 +71,6 @@ struct AnswerRow: View {
                         viewModel.setQuestion()
                     }
                 }
-    
-
-                
             }
         }.onReceive(viewModel.timer) { time in
             if timeRemaining > 0 {
@@ -98,15 +84,12 @@ struct AnswerRow: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.10) {
                     self.presentationMode.wrappedValue.dismiss()
                 }
-                
                 viewModel.timer.upstream.connect().cancel()
- 
             }
         }
         .onDisappear {
             viewModel.timer.upstream.connect().cancel()
         }
-
     }
     func hapticFeedbackResponse(style: UIImpactFeedbackGenerator.FeedbackStyle) {
         let impactMed = UIImpactFeedbackGenerator(style: style)

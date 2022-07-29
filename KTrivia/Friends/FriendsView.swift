@@ -9,7 +9,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct FriendsView: View {
-    @StateObject var viewModel = UsersViewModel()
+    @StateObject var viewModel = FriendsViewModel()
     @State private var query = ""
     @EnvironmentObject var sessionService: SessionServiceImpl
     @EnvironmentObject var dataService: DataServiceImpl

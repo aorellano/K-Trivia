@@ -9,11 +9,8 @@ import SwiftUI
 import Introspect
 
 struct MultipleChoiceView: View {
-//    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-//    @Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
     @StateObject var viewModel: TriviaViewModel
     @State var showingAlert = false
-    
     @State private var shouldNavigate = false
     @State private var timeRemaining = 15
     @State var tabBarController: UITabBarController?
@@ -33,7 +30,6 @@ struct MultipleChoiceView: View {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
-    
     var body: some View {
         ZStack {
                 VStack(spacing: 40) {
@@ -41,7 +37,7 @@ struct MultipleChoiceView: View {
                         Text(viewModel.game!.groupName)
                             .font(.system(size: 30))
                             .fontWeight(.bold)
-                            .foregroundColor(Color.secondaryColor)
+                            .foregroundColor(Color.black)
                         Spacer()
                         Text("\(timeRemaining)")
                             .font(.system(size: 30))
@@ -58,6 +54,7 @@ struct MultipleChoiceView: View {
                         Text(viewModel.question?.question ?? "")
                             .font(.system(size: 22))
                             .fontWeight(.bold)
+                            .fixedSize(horizontal: false, vertical: true)
                             .padding()
                         if selectedCategory == "Song" {
                             PlayButtonView(file: viewModel.question?.file)
@@ -73,24 +70,13 @@ struct MultipleChoiceView: View {
                             
                         }
                         .padding([.leading, .trailing], 15)
-                        
                     }
-                    
-                    
                 }
                 .foregroundColor(.black)
                 .background(Color.white)
                 //.padding([.leading, .trailing], 25)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .navigationBarHidden(true)
-//                .background(
-//                    NavigationLink(destination: ResultsView(viewModel: viewModel),
-//                                   isActive: $shouldNavigate) { EmptyView() }.isDetailLink(false)
-//                )
-                //.padding([.leading, .trailing, .bottom], 30)
-                
-            
-                
         }
         
         .onReceive(viewModel.timer) { time in
@@ -102,15 +88,6 @@ struct MultipleChoiceView: View {
             UITabBarController.tabBar.isHidden = true
             tabBarController = UITabBarController
         }
-        .onAppear {
-            
-            //viewModel.getTheGame()
-            
-            
-        }
-
-//        .environment(\.presentationMode, self.$isActive)
-//        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

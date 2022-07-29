@@ -43,7 +43,7 @@ struct CategoryListView: View {
                                                                         EmptyView()
                                 }.isDetailLink(false)
                             }
-                            ForEach(viewModel.groups, id: \.self) { group in
+                            ForEach(viewModel.categories, id: \.self) { group in
                                 Button(action: {
                                     hapticFeedbackResponse()
                                     self.selectedCategory = group

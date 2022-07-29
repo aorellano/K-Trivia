@@ -9,10 +9,10 @@ import SwiftUI
 
 struct UserView: View {
     @EnvironmentObject var sessionService: SessionServiceImpl
-    var viewModel: UsersViewModel
+    var viewModel: FriendsViewModel
     var isFriend: Bool
     
-    init(viewModel: UsersViewModel, isFriend: Bool) {
+    init(viewModel: FriendsViewModel, isFriend: Bool) {
         self.viewModel = viewModel
         self.isFriend = isFriend
     }
