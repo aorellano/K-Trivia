@@ -17,6 +17,7 @@ struct WelcomeHeader: View {
                 .font(.system(size: 26))
                 .fontWeight(.bold)
         }
+        .foregroundColor(Color.black)
         .padding(.top, -10)
         .padding(.bottom, 10)
     }

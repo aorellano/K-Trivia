@@ -9,79 +9,73 @@ import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var sessionService: SessionServiceImpl
-    @EnvironmentObject var dataService: DataServiceImpl
+//    @EnvironmentObject var dataService: DataServiceImpl
     @State var isActive: Bool = false
     var body: some View {
-        VStack(spacing: 20) {
-                VStack {
-                ProfilePictureView(profilePic: sessionService.userDetails?.profilePic, size: 100, cornerRadius: 50)
+ //       VStack(spacing: 20) {
+//                VStack {
+//                ProfilePictureView(profilePic: sessionService.userDetails?.profilePic, size: 100, cornerRadius: 50)
+//
+//                    Text(sessionService.userDetails?.username ?? "")
+//                        .fontWeight(.bold)
+//                        .padding(.bottom, 20)
+//
+//                    List {
+//                       // first section
+//                       Section(header: Text("Account")) {
+//                        NavigationLink(destination: NavigationLazyView(LeaderboardView()), label: {
+//                              Text("Leaderboard")
+//                           })
+//                       }
+//
+//                       // second section
+////                       Section(header: Text("Question Factory")) {
+////                           NavigationLink(destination: NavigationLazyView(QuestionFactoryView()), label: {
+////                               Text("Submit Questions")
+////                            })
+//
+////                           NavigationLink(destination: EmptyView(), label: {
+////                                Text("Review Questions")
+////                            })
+//
+//                       }
+//
+//
+//
+//                    }
+//                    .cornerRadius(20)
+//
+//
+//                    ButtonView(title: "Sign Out", background: Color.secondaryColor) {
+//                            sessionService.logout()
+//                    }
+//                    .padding([.top, .bottom], 20)
+//                    .navigationTitle(Text("Profile"))
+//                }
 
-                    Text(sessionService.userDetails?.username ?? "")
-                        .fontWeight(.bold)
-                        .padding(.bottom, 20)
-                    
-                    List {
-                       // first section
-                       Section(header: Text("Account")) {
-                           NavigationLink(destination: NavigationLazyView(FriendsView()).environmentObject(dataService), label: {
-                              Text("Friends")
-                           })
-                        NavigationLink(destination: NavigationLazyView(LeaderboardView()), label: {
-                              Text("Leaderboard")
-                           })
-                       }
-
-                       // second section
-                       Section(header: Text("Question Factory")) {
-                           NavigationLink(destination: NavigationLazyView(QuestionFactoryView()), label: {
-                               Text("Submit Questions")
-                            })
-                                  
-//                           NavigationLink(destination: EmptyView(), label: {
-//                                Text("Review Questions")
-//                            })
-        
-                       }
-                        
-                        
-       
-                    }
-                    .cornerRadius(20)
-                    
-                    
-                    ButtonView(title: "Sign Out", background: Color.secondaryColor) {
-                            sessionService.logout()
-                    }
-                    .padding([.top, .bottom], 20)
-                    .navigationTitle(Text("Profile"))
-                }
-            
                    
                     
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //                    VStack(spacing: 15){
-//
-//
-//
 //
 ////                    SGNavigationLink(destination: LeaderboardView()) {
 ////                        ZStack {
@@ -107,43 +101,52 @@ struct ProfileView: View {
 //                            Text("Leaderboard")
 //                        }
 //                    }
-//                    SGNavigationLink(destination: SubmitQuestionView().environmentObject(dataService)) {
-//                        ZStack {
-//                            RoundedRectangle(cornerRadius: 10)
-//                                .foregroundColor(.white)
-//                                .frame(height: 70)
-//                            Text("Question Factory")
-//                        }
-//                    }
+////                    SGNavigationLink(destination: SubmitQuestionView().environmentObject(dataService)) {
+////                        ZStack {
+////                            RoundedRectangle(cornerRadius: 10)
+////                                .foregroundColor(.white)
+////                                .frame(height: 70)
+////                            Text("Question Factory")
+////                        }
+////                    }
 //                    }
 //                    .padding()
-//
-//                }
-//                Spacer()
+        VStack {
+            Spacer()
+                                ButtonView(title: "Sign Out", background: Color.secondaryColor) {
+                                        sessionService.logout()
+                                }
+                                .padding()
+        }
+        
+                            .background(Color.white)
 
-//
-                
-                .padding()
-                .tint(.black)
-                .foregroundColor(.black)
-        }
-        .onAppear {
-       
-        }
-    }
-//    func navigate(to view: String) {
-//
-//    }
+                }
         
 }
+//                Spacer()
+//
+//
+//
+//                .padding()
+//                .tint(.black)
+//                .foregroundColor(.black)
+      //  }
 
-struct SignoutScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileView()
-            .environmentObject(SessionServiceImpl())
-    }
-}
+    
+////    func navigate(to view: String) {
+////
+////    }
+//        
 
+//
+//struct SignoutScreen_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProfileView()
+//            .environmentObject(SessionServiceImpl())
+    
+//}
+//
 struct SGNavigationLink<Content, Destination>: View where Destination: View, Content: View {
     let destination:Destination?
     let content: () -> Content
@@ -172,4 +175,4 @@ struct SGNavigationLink<Content, Destination>: View where Destination: View, Con
         self.isLinkActive = true
     }
 }
-
+//

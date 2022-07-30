@@ -15,11 +15,11 @@ struct QuestionFactoryView: View {
     @State var isActive = false
     var body: some View {
         VStack {
-            if selectedGroup != "" && selectedOption != "" {
-                NavigationLink(destination: NavigationLazyView(SubmitQuestionView(selectedGroup: selectedGroup, selectedOption: selectedOption)), isActive: $isActive) {
-                    EmptyView()
-                }.isDetailLink(false)
-            }
+//            if selectedGroup != "" && selectedOption != "" {
+//                NavigationLink(destination: NavigationLazyView(SubmitQuestionView(selectedGroup: selectedGroup, selectedOption: selectedOption)), isActive: $isActive) {
+//                    EmptyView()
+//                }.isDetailLink(false)
+            //}
             
             VStack {
                 Text("Select Group")

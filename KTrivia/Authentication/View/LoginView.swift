@@ -9,8 +9,6 @@ import SwiftUI
 
 struct LoginView: View {
     @State private var showRegistration = false
-    @State private var emptyTextFieldAlert = false
-    @State private var incorrectInputAlert = false
     @StateObject private var vm = LoginViewModelImpl(
         service: LoginServiceImpl()
     )
@@ -26,27 +24,13 @@ struct LoginView: View {
      
                     VStack(spacing: 16) {
                         ButtonView(title: "Login", background: Color.secondaryColor) {
-                            if vm.credentials.email == "" || vm.credentials.password == "" {
-                                emptyTextFieldAlert = true
-                            }
-                            if !vm.login() {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-                                    incorrectInputAlert = true
-                                }
-                            }
+                            vm.login()
                         }
                         ButtonView(title: "Register",
                                    background: .white,
                                    foreground: Color.secondaryColor,
                                    border: .white) {
                             showRegistration.toggle()
-                        }
-                        
-                        .alert("Please fill out all text fields", isPresented: $emptyTextFieldAlert) {
-                                Button("OK", role: .cancel) { }
-                        }
-                        .alert("Incorrect Email or Password", isPresented: $incorrectInputAlert) {
-                                Button("Try Again", role: .cancel) { }
                         }
                         .sheet(isPresented: $showRegistration, content: {
                             RegisterView()
@@ -55,10 +39,18 @@ struct LoginView: View {
                 }
                 .padding(.horizontal, 15)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .navigationTitle("Login")
-                //.background(Color.background)
+                .background(Color.background)
+                .navigationBarTitle("Login")
+                .alert(isPresented: $vm.hasError, content: {
+                    return Alert(title: Text("Email or Password was incorrect"))
+                })
+
             }
         }
+    }
+    
+    init() {
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.black]
     }
 }
 

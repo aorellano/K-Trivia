@@ -6,15 +6,15 @@
 //
 
 import SwiftUI
+import Introspect
 
 struct MultipleChoiceView: View {
-//    @Environment(\.presentationMode) private var presentationMode: Binding<PresentationMode>
-    //@Environment(\.rootPresentationMode) private var rootPresentationMode: Binding<RootPresentationMode>
     @StateObject var viewModel: TriviaViewModel
     @State var showingAlert = false
-    
     @State private var shouldNavigate = false
     @State private var timeRemaining = 15
+    @State var tabBarController: UITabBarController?
+    
     var answers = [
         Answer(text: "Answer1", isCorrect: true),
         Answer(text: "Answer2", isCorrect: false),
@@ -24,23 +24,20 @@ struct MultipleChoiceView: View {
     
     @State private var isActive: Bool = false
     @State private var selectedCategory: String
-    @State private var group: String
 
-    init(group: String, selectedCategory: String, viewModel: TriviaViewModel) {
-        self.group = group
+    init(selectedCategory: String, viewModel: TriviaViewModel) {
         self.selectedCategory = selectedCategory
         _viewModel = StateObject(wrappedValue: viewModel)
     }
 
-    
     var body: some View {
         ZStack {
                 VStack(spacing: 40) {
                     HStack {
-                        Text(group)
+                        Text(viewModel.game!.groupName)
                             .font(.system(size: 30))
                             .fontWeight(.bold)
-                            .foregroundColor(Color.secondaryColor)
+                            .foregroundColor(Color.black)
                         Spacer()
                         Text("\(timeRemaining)")
                             .font(.system(size: 30))
@@ -57,14 +54,17 @@ struct MultipleChoiceView: View {
                         Text(viewModel.question?.question ?? "")
                             .font(.system(size: 22))
                             .fontWeight(.bold)
-                            .padding()
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding(.bottom, 20)
                         if selectedCategory == "Song" {
                             PlayButtonView(file: viewModel.question?.file)
-                        } else {
+                        } else if selectedCategory == "Performance" || selectedCategory == "MV" {
                             ScreenshotView(screenshotImage: viewModel.question?.file)
+                            
+                                
                         }
                         
-                        Spacer()
+                       Spacer()
                     
                         ForEach(viewModel.answers, id: \.id) { answer in
                             AnswerRow(answer: answer, timeRemaining: timeRemaining, viewModel: viewModel)
@@ -72,23 +72,13 @@ struct MultipleChoiceView: View {
                             
                         }
                         .padding([.leading, .trailing], 15)
-                        
                     }
-                    
-                    
                 }
                 .foregroundColor(.black)
+                .background(Color.white)
                 //.padding([.leading, .trailing], 25)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .navigationBarHidden(true)
-//                .background(
-//                    NavigationLink(destination: ResultsView(viewModel: viewModel),
-//                                   isActive: $shouldNavigate) { EmptyView() }.isDetailLink(false)
-//                )
-                //.padding([.leading, .trailing, .bottom], 30)
-                
-            
-                
         }
         
         .onReceive(viewModel.timer) { time in
@@ -96,14 +86,10 @@ struct MultipleChoiceView: View {
                 timeRemaining -= 1
             }
         }
-        .onAppear {
-            //viewModel.getTheGame()
-            
-            
+        .introspectTabBarController { (UITabBarController) in
+            UITabBarController.tabBar.isHidden = true
+            tabBarController = UITabBarController
         }
-
-        //.environment(\.presentationMode, self.$isActive)
-//        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
