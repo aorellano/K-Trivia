@@ -42,7 +42,7 @@
 		D0539E182890CD4500CAB4BF /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0539E172890CD4500CAB4BF /* CategoryService.swift */; };
 		D0539E1A2890D8FD00CAB4BF /* UsersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0539E192890D8FD00CAB4BF /* UsersService.swift */; };
 		D0539E1D2893272C00CAB4BF /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0539E1C2893272C00CAB4BF /* VisualEffectView.swift */; };
-		D0539E202895E08500CAB4BF /* FortuneWheel in Resources */ = {isa = PBXBuildFile; fileRef = D0539E1F2895E08500CAB4BF /* FortuneWheel */; };
+		D0539E2A2895E74600CAB4BF /* FortuneWheel in Frameworks */ = {isa = PBXBuildFile; productRef = D0539E292895E74600CAB4BF /* FortuneWheel */; };
 		D05F36EE287D37690048861C /* IncrementError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05F36ED287D37690048861C /* IncrementError.swift */; };
 		D05F36F5287F90E70048861C /* GamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05F36F4287F90E70048861C /* GamesView.swift */; };
 		D05F36F7287F98930048861C /* GamesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05F36F6287F98930048861C /* GamesViewModel.swift */; };
@@ -51,7 +51,6 @@
 		D09762E9280B84DF00426F75 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D09762E8280B84DF00426F75 /* SDWebImageSwiftUI */; };
 		D09762EC280D13E400426F75 /* ProfilePictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09762EB280D13E400426F75 /* ProfilePictureView.swift */; };
 		D09762EE280DF1A900426F75 /* TriviaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09762ED280DF1A900426F75 /* TriviaService.swift */; };
-		D09762F2280F770A00426F75 /* FortuneWheel in Frameworks */ = {isa = PBXBuildFile; productRef = D09762F1280F770A00426F75 /* FortuneWheel */; };
 		D09762F7280F78A000426F75 /* SpinWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09762F6280F78A000426F75 /* SpinWheelView.swift */; };
 		D09763012810983400426F75 /* ScreenshotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09763002810983400426F75 /* ScreenshotView.swift */; };
 		D09763062812208800426F75 /* ScoreIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09763052812208800426F75 /* ScoreIndicatorView.swift */; };
@@ -136,7 +135,7 @@
 		D0539E172890CD4500CAB4BF /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
 		D0539E192890D8FD00CAB4BF /* UsersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersService.swift; sourceTree = "<group>"; };
 		D0539E1C2893272C00CAB4BF /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
-		D0539E1F2895E08500CAB4BF /* FortuneWheel */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FortuneWheel; path = ../../Desktop/FortuneWheel/Sources/FortuneWheel; sourceTree = "<group>"; };
+		D0539E282895E71D00CAB4BF /* FortuneWheel-master */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "FortuneWheel-master"; path = "../../../Downloads/FortuneWheel-master"; sourceTree = "<group>"; };
 		D05F36ED287D37690048861C /* IncrementError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementError.swift; sourceTree = "<group>"; };
 		D05F36F4287F90E70048861C /* GamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesView.swift; sourceTree = "<group>"; };
 		D05F36F6287F98930048861C /* GamesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesViewModel.swift; sourceTree = "<group>"; };
@@ -201,7 +200,7 @@
 				D0C62231280B691200976CAF /* FirebaseStorage in Frameworks */,
 				D0A883B427D8318200A18714 /* FirebaseFirestore in Frameworks */,
 				D0539E10288B3BD300CAB4BF /* Introspect in Frameworks */,
-				D09762F2280F770A00426F75 /* FortuneWheel in Frameworks */,
+				D0539E2A2895E74600CAB4BF /* FortuneWheel in Frameworks */,
 				D0F726E02834ABE900566215 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -423,7 +422,6 @@
 		D0A8838727D8176200A18714 = {
 			isa = PBXGroup;
 			children = (
-				D0539E1F2895E08500CAB4BF /* FortuneWheel */,
 				D0A8839227D8176200A18714 /* KTrivia */,
 				D02473F527DABD8F00D663A4 /* KTriviaTests */,
 				D0A8839127D8176200A18714 /* Products */,
@@ -443,6 +441,7 @@
 		D0A8839227D8176200A18714 /* KTrivia */ = {
 			isa = PBXGroup;
 			children = (
+				D0539E282895E71D00CAB4BF /* FortuneWheel-master */,
 				D0F726E12834B11800566215 /* KTrivia.entitlements */,
 				D09763022811D48100426F75 /* Info.plist */,
 				D05F36F3287F90AB0048861C /* Games */,
@@ -573,10 +572,10 @@
 				D03D6A7527E278A00076C2A2 /* FirebaseDatabase */,
 				D0C62230280B691200976CAF /* FirebaseStorage */,
 				D09762E8280B84DF00426F75 /* SDWebImageSwiftUI */,
-				D09762F1280F770A00426F75 /* FortuneWheel */,
 				D0F726DD2834AA3700566215 /* FirebaseMessaging */,
 				D0F726DF2834ABE900566215 /* FirebaseAnalytics */,
 				D0539E0F288B3BD300CAB4BF /* Introspect */,
+				D0539E292895E74600CAB4BF /* FortuneWheel */,
 			);
 			productName = KTrivia;
 			productReference = D0A8839027D8176200A18714 /* KTrivia.app */;
@@ -614,7 +613,6 @@
 			packageReferences = (
 				D0A883AE27D8318200A18714 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				D09762E7280B84DF00426F75 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
-				D09762F0280F770A00426F75 /* XCRemoteSwiftPackageReference "FortuneWheel" */,
 				D0539E0E288B3BD300CAB4BF /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = D0A8839127D8176200A18714 /* Products */;
@@ -642,7 +640,6 @@
 				D0A8839B27D8176300A18714 /* Preview Assets.xcassets in Resources */,
 				D0A3C1C1280A63680067A4D0 /* LaunchScreen.storyboard in Resources */,
 				D0A8839827D8176300A18714 /* Assets.xcassets in Resources */,
-				D0539E202895E08500CAB4BF /* FortuneWheel in Resources */,
 				D0A883AD27D8304E00A18714 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1031,14 +1028,6 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		D09762F0280F770A00426F75 /* XCRemoteSwiftPackageReference "FortuneWheel" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sameersyd/FortuneWheel.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.4;
-			};
-		};
 		D0A883AE27D8318200A18714 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -1060,15 +1049,14 @@
 			package = D0539E0E288B3BD300CAB4BF /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
 		};
+		D0539E292895E74600CAB4BF /* FortuneWheel */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FortuneWheel;
+		};
 		D09762E8280B84DF00426F75 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D09762E7280B84DF00426F75 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
-		};
-		D09762F1280F770A00426F75 /* FortuneWheel */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D09762F0280F770A00426F75 /* XCRemoteSwiftPackageReference "FortuneWheel" */;
-			productName = FortuneWheel;
 		};
 		D0A883B127D8318200A18714 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
