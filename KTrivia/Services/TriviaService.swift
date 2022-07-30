@@ -125,16 +125,7 @@ class TriviaService: ObservableObject {
 //        }
  
         
-        FirebaseReference(.users).document(user).updateData(["games": FieldValue.arrayRemove([id])]) { error in
-    
-            if let err = error {
-                print("error trying to delete document")
-            } else {
-                print("document deleted!")
-            }
-            
-
-        }
+        FirebaseReference(.users).document(user).updateData(["games": FieldValue.arrayRemove([id])])
         
   
     }

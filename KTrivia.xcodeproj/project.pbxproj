@@ -42,6 +42,7 @@
 		D0539E182890CD4500CAB4BF /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0539E172890CD4500CAB4BF /* CategoryService.swift */; };
 		D0539E1A2890D8FD00CAB4BF /* UsersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0539E192890D8FD00CAB4BF /* UsersService.swift */; };
 		D0539E1D2893272C00CAB4BF /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0539E1C2893272C00CAB4BF /* VisualEffectView.swift */; };
+		D0539E202895E08500CAB4BF /* FortuneWheel in Resources */ = {isa = PBXBuildFile; fileRef = D0539E1F2895E08500CAB4BF /* FortuneWheel */; };
 		D05F36EE287D37690048861C /* IncrementError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05F36ED287D37690048861C /* IncrementError.swift */; };
 		D05F36F5287F90E70048861C /* GamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05F36F4287F90E70048861C /* GamesView.swift */; };
 		D05F36F7287F98930048861C /* GamesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05F36F6287F98930048861C /* GamesViewModel.swift */; };
@@ -135,6 +136,7 @@
 		D0539E172890CD4500CAB4BF /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
 		D0539E192890D8FD00CAB4BF /* UsersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersService.swift; sourceTree = "<group>"; };
 		D0539E1C2893272C00CAB4BF /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
+		D0539E1F2895E08500CAB4BF /* FortuneWheel */ = {isa = PBXFileReference; lastKnownFileType = folder; name = FortuneWheel; path = ../../Desktop/FortuneWheel/Sources/FortuneWheel; sourceTree = "<group>"; };
 		D05F36ED287D37690048861C /* IncrementError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncrementError.swift; sourceTree = "<group>"; };
 		D05F36F4287F90E70048861C /* GamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesView.swift; sourceTree = "<group>"; };
 		D05F36F6287F98930048861C /* GamesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesViewModel.swift; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 		D0A8838727D8176200A18714 = {
 			isa = PBXGroup;
 			children = (
+				D0539E1F2895E08500CAB4BF /* FortuneWheel */,
 				D0A8839227D8176200A18714 /* KTrivia */,
 				D02473F527DABD8F00D663A4 /* KTriviaTests */,
 				D0A8839127D8176200A18714 /* Products */,
@@ -639,6 +642,7 @@
 				D0A8839B27D8176300A18714 /* Preview Assets.xcassets in Resources */,
 				D0A3C1C1280A63680067A4D0 /* LaunchScreen.storyboard in Resources */,
 				D0A8839827D8176300A18714 /* Assets.xcassets in Resources */,
+				D0539E202895E08500CAB4BF /* FortuneWheel in Resources */,
 				D0A883AD27D8304E00A18714 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

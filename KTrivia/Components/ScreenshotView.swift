@@ -13,10 +13,18 @@ struct ScreenshotView: View {
 
     var body: some View {
         if let image = screenshotImage {
-            WebImage(url: URL(string: image))
-                .resizable()
-                .scaledToFill()
-                .frame(width: 400, height: 200)
+            AsyncImage(url: URL(string: image)) { img in
+                img.resizable()
+                  
+            } placeholder: {
+                ProgressView()
+            }
+            .scaledToFill()
+           
+       
+           
+                //.resizable()
+                
                 //.cornerRadius(20)
                 //.overlay(RoundedRectangle(cornerRadius: cornerRadius)
                 //.stroke(Color.gray, lineWidth: 1.5)
@@ -24,6 +32,7 @@ struct ScreenshotView: View {
             Image(systemName: "photo")
                 .font(.system(size: 300, weight: .light))
                 .foregroundColor(.white)
+                
         }
     }
 }

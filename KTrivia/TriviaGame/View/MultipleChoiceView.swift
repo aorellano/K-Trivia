@@ -55,14 +55,16 @@ struct MultipleChoiceView: View {
                             .font(.system(size: 22))
                             .fontWeight(.bold)
                             .fixedSize(horizontal: false, vertical: true)
-                            .padding()
+                            .padding(.bottom, 20)
                         if selectedCategory == "Song" {
                             PlayButtonView(file: viewModel.question?.file)
-                        } else {
+                        } else if selectedCategory == "Performance" || selectedCategory == "MV" {
                             ScreenshotView(screenshotImage: viewModel.question?.file)
+                            
+                                
                         }
                         
-                        Spacer()
+                       Spacer()
                     
                         ForEach(viewModel.answers, id: \.id) { answer in
                             AnswerRow(answer: answer, timeRemaining: timeRemaining, viewModel: viewModel)

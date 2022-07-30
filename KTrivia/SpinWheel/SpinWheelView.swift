@@ -29,6 +29,7 @@ struct SpinWheelView: View {
                         .fontWeight(.bold)
                         .padding(.top, -20)
                         .padding(.leading, 20)
+                        .padding(.bottom, 10)
                         Spacer()
                 }
                 HStack(alignment: .center, spacing: 40) {
@@ -56,6 +57,7 @@ struct SpinWheelView: View {
                 .foregroundColor(.black)
                 .padding(.top, -15)
                 FortuneWheel(titles: players, size: 310, onSpinEnd: { index in
+                    print("Wheel finished spinning")
                     spinEnded = true
                     selectedCategory = players[index]
                     viewModel.getQuestions(for: viewModel.game?.groupName ?? "", and: selectedCategory ?? "")
@@ -65,6 +67,8 @@ struct SpinWheelView: View {
             
                 .disabled(viewModel.checkForGameStatus())
                 .disabled(spinEnded)
+    
+               
                             
                 Text(viewModel.gameNotification)
             
@@ -96,7 +100,7 @@ struct SpinWheelView: View {
 //                        buttonColor = Color.secondaryColor
 //                    }
                     ButtonView(title: "Play", background: buttonColor) {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.95) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
                             isActive = true
                         }
                     }
@@ -169,7 +173,8 @@ struct SpinWheelView: View {
                                 
                             }
                         }
-    .background(Color.white)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.white)
     }
 }
 

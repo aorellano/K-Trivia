@@ -13,6 +13,7 @@ struct GamesView: View {
     @EnvironmentObject var sessionService: SessionServiceImpl
     @State var isActive: Bool = false
     @State var tabBarController: UITabBarController?
+    @State var isLoading: Bool = true
     
     init(viewModel: GamesViewModel = .init()){
         _viewModel = StateObject(wrappedValue: viewModel)
@@ -30,16 +31,19 @@ struct GamesView: View {
                     Spacer()
                 }
                 .padding(.bottom, 20)
-                if sessionService.userDetails?.games?.count == 0 {
-                    Text("You currently have no games...")
-                        .foregroundColor(.gray)
-                    Spacer()
-                } else {
-                    GameListView(viewModel.games, sessionService.userDetails?.id ?? "")
-                        .environmentObject(sessionService)
-                       
-                }
                 
+                if viewModel.isRefreshing {
+                    ProgressView()
+                } else {
+                    if viewModel.games.count == 0 {
+                        Text("You currently have no games...")
+                            .foregroundColor(.gray)
+                        Spacer()
+                    } else {
+                        GameListView(viewModel.games, sessionService.userDetails?.id ?? "")
+                            .environmentObject(sessionService)
+                    }
+                }
             }.introspectTabBarController { (UITabBarController) in
                 UITabBarController.tabBar.isHidden = false
                 tabBarController = UITabBarController
