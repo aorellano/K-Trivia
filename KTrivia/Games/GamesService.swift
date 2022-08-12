@@ -9,14 +9,14 @@ import Foundation
 
 
 protocol GamesService {
-    func getGames(with gameIds: [String]) async throws -> [Game]
+    func getGames(with gameIds: [String]?) async throws -> [Game]?
 }
 
 class GamesServiceImpl: GamesService {
     @Published var isRefreshing = false
     
-    func getGames(with gameIds: [String]) async throws -> [Game] {
-        let snapshot = try await FirebaseReference(.game).whereField("id", in: gameIds).getDocuments()
+    func getGames(with gameIds: [String]?) async throws -> [Game]? {
+        let snapshot = try await FirebaseReference(.game).whereField("id", in: gameIds ?? [""]).getDocuments()
         isRefreshing = true
         defer {
             isRefreshing = false

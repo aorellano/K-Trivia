@@ -37,6 +37,8 @@ class TriviaService: ObservableObject {
     
     func startGameWithFriend(with currentUser: SessionUserDetails, and friend: [String:String], and groupName: String) {
         let player1Info = ["id": currentUser.id, "profile_pic": currentUser.profilePic, "username": currentUser.username]
+        print(player1Info)
+        print(friend)
         self.game = Game(id: UUID().uuidString, groupName: groupName, player1: player1Info, player2: friend, player1Score: "0", player2Score: "0", player1TotalScore: "0", player2TotalScore: "0", blockPlayerId: player1Info["id"] ?? "", winnerId:"")
         self.updateGame(self.game)
         self.updateUser(id: currentUser.id, with: self.game.id)
@@ -108,6 +110,16 @@ class TriviaService: ObservableObject {
     func updateUser(id: String, with gameId: String) {
         let gameRef = FirebaseReference(.users).document(id)
         gameRef.updateData(["games": FieldValue.arrayUnion([gameId])]) { error in
+            if let err = error {
+                print(err)
+                return
+            }
+        }
+    }
+    
+    func updateUserScore(id: String) {
+        let userRef = FirebaseReference(.users).document(id)
+        userRef.updateData(["totalScore": FieldValue.increment(Int64(3))]) { error in
             if let err = error {
                 print(err)
                 return

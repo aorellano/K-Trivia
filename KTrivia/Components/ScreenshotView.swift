@@ -20,6 +20,7 @@ struct ScreenshotView: View {
                 ProgressView()
             }
             .scaledToFill()
+    
            
        
            
@@ -31,7 +32,7 @@ struct ScreenshotView: View {
         } else {
             Image(systemName: "photo")
                 .font(.system(size: 300, weight: .light))
-                .foregroundColor(.white)
+                .foregroundColor(.black)
                 
         }
     }

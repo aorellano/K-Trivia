@@ -12,46 +12,52 @@ struct ProfileView: View {
 //    @EnvironmentObject var dataService: DataServiceImpl
     @State var isActive: Bool = false
     var body: some View {
- //       VStack(spacing: 20) {
-//                VStack {
-//                ProfilePictureView(profilePic: sessionService.userDetails?.profilePic, size: 100, cornerRadius: 50)
-//
-//                    Text(sessionService.userDetails?.username ?? "")
-//                        .fontWeight(.bold)
-//                        .padding(.bottom, 20)
-//
-//                    List {
-//                       // first section
-//                       Section(header: Text("Account")) {
-//                        NavigationLink(destination: NavigationLazyView(LeaderboardView()), label: {
-//                              Text("Leaderboard")
-//                           })
-//                       }
-//
-//                       // second section
-////                       Section(header: Text("Question Factory")) {
-////                           NavigationLink(destination: NavigationLazyView(QuestionFactoryView()), label: {
-////                               Text("Submit Questions")
-////                            })
-//
-////                           NavigationLink(destination: EmptyView(), label: {
-////                                Text("Review Questions")
-////                            })
-//
-//                       }
-//
-//
-//
-//                    }
-//                    .cornerRadius(20)
-//
-//
-//                    ButtonView(title: "Sign Out", background: Color.secondaryColor) {
-//                            sessionService.logout()
-//                    }
-//                    .padding([.top, .bottom], 20)
-//                    .navigationTitle(Text("Profile"))
-//                }
+        NavigationView {
+        VStack(spacing: 20) {
+                VStack {
+                ProfilePictureView(profilePic: sessionService.userDetails?.profilePic, size: 100, cornerRadius: 50)
+
+                    Text(sessionService.userDetails?.username ?? "")
+                        .fontWeight(.bold)
+                        .padding(.bottom, 20)
+
+                    List {
+                       // first section
+                       Section(header: Text("Account")) {
+                        NavigationLink(destination: NavigationLazyView(LeaderboardView()), label: {
+                              Text("Leaderboard")
+                           })
+                       }
+
+    
+                       Section(header: Text("Question Factory")) {
+                           NavigationLink(destination: NavigationLazyView(QuestionFactoryView()), label: {
+                               Text("Submit Questions")
+                            })
+
+                           NavigationLink(destination: EmptyView(), label: {
+                                Text("Review Questions")
+                            })
+
+                       }
+
+
+                       .preferredColorScheme(.light)
+                    }
+                    .cornerRadius(20)
+                    .padding()
+                    
+
+
+                    ButtonView(title: "Sign Out", background: Color.secondaryColor) {
+                            sessionService.logout()
+                    }
+                    .padding([.top, .bottom], 20)
+                    .padding()
+                    .navigationTitle(Text("Profile"))
+                }
+        }
+        }
 
                    
                     
@@ -111,13 +117,13 @@ struct ProfileView: View {
 ////                    }
 //                    }
 //                    .padding()
-        VStack {
-            Spacer()
-                                ButtonView(title: "Sign Out", background: Color.secondaryColor) {
-                                        sessionService.logout()
-                                }
-                                .padding()
-        }
+//        VStack {
+//            Spacer()
+//                                ButtonView(title: "Sign Out", background: Color.secondaryColor) {
+//                                        sessionService.logout()
+//                                }
+//                                .padding()
+//        }
         
                             .background(Color.white)
 

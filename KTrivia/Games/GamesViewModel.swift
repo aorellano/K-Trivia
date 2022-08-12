@@ -8,7 +8,7 @@
 import Foundation
 
 class GamesViewModel: ObservableObject {
-    @Published var games = [Game]()
+    @Published var games: [Game]?
     @Published private(set) var isRefreshing = true
     
     var service: GamesService
@@ -26,6 +26,7 @@ class GamesViewModel: ObservableObject {
         }
         Task.init {
             games = try await service.getGames(with: gameIds)
+            print(games)
         }
     }
 }

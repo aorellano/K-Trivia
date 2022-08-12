@@ -32,15 +32,15 @@ struct GamesView: View {
                 }
                 .padding(.bottom, 20)
                 
-                if viewModel.isRefreshing {
-                    ProgressView()
+                if viewModel.games?.count == 0 || sessionService.userDetails?.games == [] {
+                    Text("You currently have no games...")
+                        .foregroundColor(.gray)
+                    Spacer()
                 } else {
-                    if viewModel.games.count == 0 {
-                        Text("You currently have no games...")
-                            .foregroundColor(.gray)
-                        Spacer()
+                    if viewModel.isRefreshing {
+                        ProgressView()
                     } else {
-                        GameListView(viewModel.games, sessionService.userDetails?.id ?? "")
+                        GameListView(viewModel.games ?? [] , sessionService.userDetails?.id ?? "")
                             .environmentObject(sessionService)
                     }
                 }
@@ -49,9 +49,9 @@ struct GamesView: View {
                 tabBarController = UITabBarController
             }
             .task {
-                let games = sessionService.userDetails?.games ?? [""]
-                if games.count != 0 {
-                    print("gamesView")
+                if sessionService.userDetails?.games == [] {
+                    await viewModel.fetchGames(with: ["ghj"])
+                } else {
                     await viewModel.fetchGames(with: sessionService.userDetails?.games ?? [""])
                 }
             }

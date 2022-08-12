@@ -18,10 +18,15 @@ struct FriendsView: View {
     @State var showAlert = false
     @State var isActive = false
     var arr = ["Mina", "Momo", "Sana"]
-    @State var opponent: [String: String]? = nil
+    @State var opponent: [String:String]? = nil
     
     var body: some View {
         NavigationView {
+            if opponent != nil {
+                 NavigationLink(destination: NavigationLazyView(CategoryListView(opponent: opponent)), isActive: $isActive) {
+                                                         EmptyView()
+                 }.isDetailLink(false)
+            }
             ScrollView {
                 if query == "" {
                     if viewModel.friends.first == ["":""] || viewModel.friends.isEmpty {
@@ -31,11 +36,7 @@ struct FriendsView: View {
                     ForEach(viewModel.friends.indices, id: \.self) { index in
                         let friend = viewModel.friends[index]
                         ZStack {
-                            if opponent != nil {
-                                NavigationLink(destination: NavigationLazyView(CategoryListView(opponent: friend)), isActive: $isActive) {
-                                                                        EmptyView()
-                                }.isDetailLink(false)
-                            }
+                           
                             RoundedRectangle(cornerRadius: 12, style: .continuous)
                                 .foregroundColor(Color.secondaryColor)
                                 .frame(height: 80)
@@ -55,6 +56,7 @@ struct FriendsView: View {
                                     .onTapGesture {
                                         print("Starting game with \(friend["username"])")
                                         opponent = friend
+                                        print(opponent)
                                         isActive = true
                                     }
                                 
@@ -68,6 +70,7 @@ struct FriendsView: View {
                 } else {
                     ForEach(viewModel.users, id: \.id) { user in
                         ZStack {
+
                             RoundedRectangle(cornerRadius: 10, style: .continuous)
                                 .foregroundColor(Color.secondaryColor)
                                 .frame(height: 80)

@@ -60,7 +60,7 @@ struct MultipleChoiceView: View {
                             PlayButtonView(file: viewModel.question?.file)
                         } else if selectedCategory == "Performance" || selectedCategory == "MV" {
                             ScreenshotView(screenshotImage: viewModel.question?.file)
-                            
+                                .frame(maxWidth: 400)
                                 
                         }
                         
