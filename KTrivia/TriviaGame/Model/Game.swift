@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Game: Codable, Identifiable {
+struct Game: Codable, Identifiable, Hashable {
     let id: String
     var groupName: String
     var player1: [String: String]

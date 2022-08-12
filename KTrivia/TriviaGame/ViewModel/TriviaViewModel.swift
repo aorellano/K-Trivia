@@ -54,7 +54,7 @@ class TriviaViewModel: ObservableObject {
         } else if game?.blockPlayerId == sessionService.userDetails?.id {
             resumeGame(with: game!.id)
             gameNotification = GameNotfication.opponentsTurn
-        } else {
+        } else if game?.blockPlayerId != sessionService.userDetails?.id {
             resumeGame(with: game!.id)
             gameNotification = GameNotfication.yourTurn
         }
@@ -161,12 +161,18 @@ class TriviaViewModel: ObservableObject {
             var totalScore = Int(game?.player1TotalScore ?? "") ?? 0
             totalScore += 1
             game?.player1TotalScore = String(totalScore)
+            if totalScore == 3 {
+                TriviaService.shared.updateUserScore(id: (game?.player1["id"])!)
+            }
             TriviaService.shared.updateGame(game!)
         } else {
             var totalScore = Int(game?.player2TotalScore ?? "") ?? 0
             totalScore += 1
             game?.player2TotalScore = String(totalScore)
-            game?.player2Score = "0"
+            if totalScore == 3 {
+                TriviaService.shared.updateUserScore(id: (game?.player2["id"])!)
+            }
+            TriviaService.shared.updateGame(game!)
         }
     }
     

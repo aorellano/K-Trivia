@@ -9,12 +9,25 @@ import Foundation
 import Firebase
 
 protocol UsersService {
+    func getUsers() async throws -> [SessionUserDetails]
     func getUsers(with username: String) async throws -> [SessionUserDetails]
     func getFriends(for user: String) async throws -> [[String:String]]
     func addFriend(to user: SessionUserDetails, with friend: SessionUserDetails)
 }
 
 class UsersServiceImpl: ObservableObject, UsersService {
+    func getUsers() async throws -> [SessionUserDetails] {
+        let snapshot = try await FirebaseReference(.users).getDocuments()
+        
+        return snapshot.documents.compactMap { document in
+            let data = document.data()
+            let id = data["uid"] as? String ?? ""
+            let username = data["username"] as? String ?? ""
+            let profilePic = data["profilePicUrl"] as? String ?? ""
+            let totalScore = data["totalScore"] as? Double ?? 0.0
+            return SessionUserDetails(id: id, username: username, profilePic: profilePic, totalScore: totalScore, games: [""], friends: [["":""]])
+        }.sorted(by: ({$0.totalScore > $1.totalScore}))
+    }
     func getUsers(with username: String) async throws -> [SessionUserDetails] {
         let snapshot = try await FirebaseReference(.users).whereField("username", isEqualTo: username).getDocuments()
         

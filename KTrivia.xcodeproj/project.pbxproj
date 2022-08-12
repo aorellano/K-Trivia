@@ -48,6 +48,9 @@
 		D05F36F7287F98930048861C /* GamesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05F36F6287F98930048861C /* GamesViewModel.swift */; };
 		D05F36F9287F98BB0048861C /* GamesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05F36F8287F98BB0048861C /* GamesService.swift */; };
 		D05F36FD287FA9480048861C /* GameListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05F36FC287FA9480048861C /* GameListView.swift */; };
+		D091EF2228A5C2A4001208CA /* LeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D091EF2128A5C2A4001208CA /* LeaderViewModel.swift */; };
+		D091EF2428A5C561001208CA /* ReviewQuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D091EF2328A5C561001208CA /* ReviewQuestionView.swift */; };
+		D091EF2728A5C82E001208CA /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D091EF2628A5C82E001208CA /* ConfettiSwiftUI */; };
 		D09762E9280B84DF00426F75 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = D09762E8280B84DF00426F75 /* SDWebImageSwiftUI */; };
 		D09762EC280D13E400426F75 /* ProfilePictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09762EB280D13E400426F75 /* ProfilePictureView.swift */; };
 		D09762EE280DF1A900426F75 /* TriviaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09762ED280DF1A900426F75 /* TriviaService.swift */; };
@@ -141,6 +144,8 @@
 		D05F36F6287F98930048861C /* GamesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesViewModel.swift; sourceTree = "<group>"; };
 		D05F36F8287F98BB0048861C /* GamesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesService.swift; sourceTree = "<group>"; };
 		D05F36FC287FA9480048861C /* GameListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameListView.swift; sourceTree = "<group>"; };
+		D091EF2128A5C2A4001208CA /* LeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderViewModel.swift; sourceTree = "<group>"; };
+		D091EF2328A5C561001208CA /* ReviewQuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewQuestionView.swift; sourceTree = "<group>"; };
 		D09762EB280D13E400426F75 /* ProfilePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureView.swift; sourceTree = "<group>"; };
 		D09762ED280DF1A900426F75 /* TriviaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaService.swift; sourceTree = "<group>"; };
 		D09762F6280F78A000426F75 /* SpinWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinWheelView.swift; sourceTree = "<group>"; };
@@ -202,6 +207,7 @@
 				D0539E10288B3BD300CAB4BF /* Introspect in Frameworks */,
 				D0539E2A2895E74600CAB4BF /* FortuneWheel in Frameworks */,
 				D0F726E02834ABE900566215 /* FirebaseAnalytics in Frameworks */,
+				D091EF2728A5C82E001208CA /* ConfettiSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +383,7 @@
 			children = (
 				D0DF4A702827232500E0AA22 /* ViewModels */,
 				D0DF4A6F2827230900E0AA22 /* Views */,
+				D091EF2128A5C2A4001208CA /* LeaderViewModel.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -520,6 +527,7 @@
 				D03D6A9E2801E4450076C2A2 /* ProfileView.swift */,
 				D0DF4A712827236B00E0AA22 /* QuestionFactoryView.swift */,
 				D0FEA9742829B74D003C1AD6 /* SubmitQuestionView.swift */,
+				D091EF2328A5C561001208CA /* ReviewQuestionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -576,6 +584,7 @@
 				D0F726DF2834ABE900566215 /* FirebaseAnalytics */,
 				D0539E0F288B3BD300CAB4BF /* Introspect */,
 				D0539E292895E74600CAB4BF /* FortuneWheel */,
+				D091EF2628A5C82E001208CA /* ConfettiSwiftUI */,
 			);
 			productName = KTrivia;
 			productReference = D0A8839027D8176200A18714 /* KTrivia.app */;
@@ -614,6 +623,7 @@
 				D0A883AE27D8318200A18714 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				D09762E7280B84DF00426F75 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				D0539E0E288B3BD300CAB4BF /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				D091EF2528A5C82D001208CA /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 			);
 			productRefGroup = D0A8839127D8176200A18714 /* Products */;
 			projectDirPath = "";
@@ -668,9 +678,11 @@
 				D024740127DAC4E500D663A4 /* KTriviaApp.swift in Sources */,
 				D0A883A627D817C700A18714 /* CategoryListViewModel.swift in Sources */,
 				D097630C28125D5300426F75 /* MultipleChoiceView.swift in Sources */,
+				D091EF2428A5C561001208CA /* ReviewQuestionView.swift in Sources */,
 				D03D6A7427E1911A0076C2A2 /* RootPresentationMode.swift in Sources */,
 				D03D6A8B27E2B6160076C2A2 /* RegisterView.swift in Sources */,
 				D0539E182890CD4500CAB4BF /* CategoryService.swift in Sources */,
+				D091EF2228A5C2A4001208CA /* LeaderViewModel.swift in Sources */,
 				D05F36F5287F90E70048861C /* GamesView.swift in Sources */,
 				D03D6AA12801E9260076C2A2 /* LoginCredentials.swift in Sources */,
 				D0DF4A6C282623EB00E0AA22 /* LeaderboardView.swift in Sources */,
@@ -1020,6 +1032,14 @@
 				minimumVersion = 0.1.4;
 			};
 		};
+		D091EF2528A5C82D001208CA /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		D09762E7280B84DF00426F75 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
@@ -1052,6 +1072,11 @@
 		D0539E292895E74600CAB4BF /* FortuneWheel */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FortuneWheel;
+		};
+		D091EF2628A5C82E001208CA /* ConfettiSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D091EF2528A5C82D001208CA /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
+			productName = ConfettiSwiftUI;
 		};
 		D09762E8280B84DF00426F75 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;

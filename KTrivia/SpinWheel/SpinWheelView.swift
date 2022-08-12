@@ -125,11 +125,15 @@ struct SpinWheelView: View {
             }
             
             if viewModel.gameNotification == GameNotfication.gameHasFinished {
+               
                 VisualEffectView(effect: UIBlurEffect(style: .light))
                     .ignoresSafeArea()
+                    
                 ResultsView(viewModel: viewModel)
                     .cornerRadius(30)
                     .frame(width: 350, height: 550)
+                    
+                    
                    
                 Text("X")
                     .fontWeight(.bold)
@@ -150,6 +154,7 @@ struct SpinWheelView: View {
                         
                             
                     }
+                    
             }
     }
         .navigationBarBackButtonHidden(true)

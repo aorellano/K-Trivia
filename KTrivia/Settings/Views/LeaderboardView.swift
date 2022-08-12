@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct LeaderboardView: View {
-   @StateObject var viewModel: FriendsViewModel
+   @StateObject var viewModel: LeaderViewModel
     var arr = ["first", "second", "third", "fourth", "fifth"]
     
-    init(viewModel: FriendsViewModel = .init()) {
+    init(viewModel: LeaderViewModel = .init()) {
         _viewModel = StateObject(wrappedValue: viewModel)
     }
     var body: some View {
@@ -37,10 +37,10 @@ struct LeaderboardView: View {
                     .shadow(radius: 5, x: 2, y: 2)
                     .padding([.leading, .trailing], 20)
                 }
-                .padding(.top, 60)
+                .padding(.top, 30)
             }
-        }.onAppear {
-            //viewModel.getUsers()
+        }.task {
+            viewModel.getUsers()
         }
         .navigationTitle("Leaderboard")
         .frame(maxWidth: .infinity, maxHeight: .infinity)
